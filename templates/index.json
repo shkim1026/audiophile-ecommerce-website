@@ -3,10 +3,10 @@
     "1636270921b7e6848f": {
       "type": "image-banner",
       "blocks": {
-        "1636270921b7e6848f-0": {
+        "a3933f7a-a38b-4d34-8e1a-5200e4cd0136": {
           "type": "heading",
           "settings": {
-            "heading": "Image banner",
+            "heading": "XX99 MARK II HEADPHONES",
             "heading_size": "medium"
           }
         },
@@ -19,17 +19,17 @@
         "1636270921b7e6848f-2": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Button label",
+            "button_label_1": "SEE PRODUCT",
             "button_link_1": "",
             "button_style_secondary_1": false,
-            "button_label_2": "Button label",
+            "button_label_2": "",
             "button_link_2": "",
             "button_style_secondary_2": false
           }
         }
       },
       "block_order": [
-        "1636270921b7e6848f-0",
+        "a3933f7a-a38b-4d34-8e1a-5200e4cd0136",
         "1636270921b7e6848f-1",
         "1636270921b7e6848f-2"
       ],
