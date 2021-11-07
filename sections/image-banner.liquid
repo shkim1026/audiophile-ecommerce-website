@@ -1,4 +1,5 @@
 {{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
+{{ 'custom.css' | asset_url | stylesheet_tag }}
 
 {%- if section.settings.adapt_height_first_image and section.settings.image != blank -%}
   {%- style -%}
@@ -148,6 +149,11 @@
       "default": false,
       "label": "t:sections.image-banner.settings.adapt_height_first_image.label",
       "info": "t:sections.image-banner.settings.adapt_height_first_image.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "new_product",
+      "default": true
     },
     {
       "type": "select",
