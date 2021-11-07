@@ -34,7 +34,8 @@
         "1636270921b7e6848f-2"
       ],
       "settings": {
-        "image_height": "medium",
+        "image": "shopify:\/\/shop_images\/image-hero.jpg",
+        "image_height": "large",
         "adapt_height_first_image": false,
         "desktop_text_box_position": "center",
         "show_text_box": true,
