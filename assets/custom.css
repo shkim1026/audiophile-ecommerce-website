@@ -81,7 +81,7 @@ header.site-header.border-bottom.logo--left {
     .banner__box {
         display: table-cell;
         vertical-align: middle;
-        padding: 0 25vw;
+        padding: 0 24vw;
     }
     .banner {
         height: 71vh;
@@ -95,9 +95,9 @@ header.site-header.border-bottom.logo--left {
     .banner__box {
         padding: 0;
     }
-    .banner__content {
+    /* .banner__content {
         height: 100vh;
-    }
+    } */
     .button--primary {
         color: white;
     }
@@ -107,6 +107,17 @@ header.site-header.border-bottom.logo--left {
     }
     .banner,
     .banner--large {
-        height: 100vh;
+        height: 65rem;
+    }
+    .banner__media {
+        left: unset;
+        top: unset;
+    }
+    .banner__text {
+        letter-spacing: normal;
+    }
+    .banner__buttons > .button {
+        border: none;
+        box-shadow: none;
     }
 }
