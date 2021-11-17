@@ -1,8 +1,0 @@
-development:
-  password: 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
-  theme_id: "127433638048"
-  store: shketchbook.myshopify.com
-  ignore_files:
-    - "*.gif"
-    - "*.jpg"
-    - config/settings_data.json
