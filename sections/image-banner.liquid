@@ -3,7 +3,7 @@
 
 {%- if section.settings.adapt_height_first_image and section.settings.image != blank -%}
   {%- style -%}
-  @media screen and (max-width: 749px) {
+  @media screen and (max-width: 767.98px) {
     #Banner-{{ section.id }}::before,
     #Banner-{{ section.id }} .banner__media::before,
     #Banner-{{ section.id }}:not(.banner--mobile-bottom) .banner__content::before {
@@ -30,55 +30,18 @@
   }
 {%- endstyle -%}
 
-<div id="Banner-{{ section.id }}" class="banner banner--{{ section.settings.image_height }}{% if section.settings.stack_images_on_mobile and section.settings.image != blank and section.settings.image_2 != blank %} banner--stacked{% endif %}{% if section.settings.adapt_height_first_image and section.settings.image != blank %} banner--adapt{% endif %}{% if section.settings.show_text_below %} banner--mobile-bottom{%- endif -%}{% if section.settings.show_text_box == false %} banner--desktop-transparent{% endif %}">
+<div id="Banner-{{ section.id }}" class="banner banner--{{ section.settings.image_height }}{% if section.settings.adapt_height_first_image and section.settings.image != blank %} banner--adapt{% endif %}{% if section.settings.show_text_below %} banner--mobile-bottom{%- endif -%}{% if section.settings.show_text_box == false %} banner--desktop-transparent{% endif %}">
   {%- if section.settings.image != blank -%}
-    <div class="banner__media media{% if section.settings.image == blank and section.settings.image_2 == blank %} placeholder{% endif %}{% if section.settings.image_2 != blank %} banner__media-half{% endif %}">
-      <img
-        srcset="{%- if section.settings.image.width >= 375 -%}{{ section.settings.image | img_url: '375x' }} 375w,{%- endif -%}
-          {%- if section.settings.image.width >= 750 -%}{{ section.settings.image | img_url: '750x' }} 750w,{%- endif -%}
-          {%- if section.settings.image.width >= 1100 -%}{{ section.settings.image | img_url: '1100x' }} 1100w,{%- endif -%}
-          {%- if section.settings.image.width >= 1500 -%}{{ section.settings.image | img_url: '1500x' }} 1500w,{%- endif -%}
-          {%- if section.settings.image.width >= 1780 -%}{{ section.settings.image | img_url: '1780x' }} 1780w,{%- endif -%}
-          {%- if section.settings.image.width >= 2000 -%}{{ section.settings.image | img_url: '2000x' }} 2000w,{%- endif -%}
-          {%- if section.settings.image.width >= 3000 -%}{{ section.settings.image | img_url: '3000x' }} 3000w,{%- endif -%}
-          {%- if section.settings.image.width >= 3840 -%}{{ section.settings.image | img_url: '3840x' }} 3840w,{%- endif -%}
-          {{ section.settings.image | img_url: 'master' }} {{ section.settings.image.width }}w"
-        sizes="{% if section.settings.image_2 != blank and section.settings.stack_images_on_mobile %}(min-width: 750px) 50vw, 100vw{% elsif section.settings.image_2 != blank %}50vw{% else %}100vw{% endif %}"
-        src="{{ section.settings.image | img_url: '1500x' }}"
-        loading="lazy"
-        alt="{{ section.settings.image.alt | escape }}"
-        width="{{ section.settings.image.width }}"
-        height="{{ section.settings.image.width | divided_by: section.settings.image.aspect_ratio }}"
-        {% if section.settings.image_2 != blank %}class="banner__media-image-half"{% endif %}
-      >
-    </div>
-  {%- elsif section.settings.image_2 == blank -%}
-    <div class="banner__media media{% if section.settings.image == blank and section.settings.image_2 == blank %} placeholder{% endif %}{% if section.settings.image_2 != blank %} banner__media-half{% endif %}">
-      {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+    <div class="banner__media media{% if section.settings.image == blank and section.settings.image_2 == blank %} placeholder{% endif %}">
+      <picture class="banner__image">
+        <source media="(min-width: 992px)" srcset="{{ section.settings.image | img_url: 'master' }}">
+        <source media="(min-width: 768px)" srcset="{{ section.settings.image_2 | img_url: 'master' }}">
+        <source media="(max-width: 767.87px)" srcset="{{ section.settings.image_3 | img_url: 'master' }}">
+        <img class="banner__image-img" src="{{ section.settings.image_3 | img_url: 'master' }}" alt="{{section.settings.image.alt | escape}}">
+      </picture>
     </div>
   {%- endif -%}
-  {%- if section.settings.image_2 != blank -%}
-    <div class="banner__media media{% if section.settings.image != blank %} banner__media-half{% endif %}">
-      <img
-        srcset="{%- if section.settings.image_2.width >= 375 -%}{{ section.settings.image_2 | img_url: '375x' }} 375w,{%- endif -%}
-          {%- if section.settings.image_2.width >= 750 -%}{{ section.settings.image_2 | img_url: '750x' }} 750w,{%- endif -%}
-          {%- if section.settings.image_2.width >= 1100 -%}{{ section.settings.image_2 | img_url: '1100x' }} 1100w,{%- endif -%}
-          {%- if section.settings.image_2.width >= 1500 -%}{{ section.settings.image_2 | img_url: '1500x' }} 1500w,{%- endif -%}
-          {%- if section.settings.image_2.width >= 1780 -%}{{ section.settings.image_2 | img_url: '1780x' }} 1780w,{%- endif -%}
-          {%- if section.settings.image_2.width >= 2000 -%}{{ section.settings.image_2 | img_url: '2000x' }} 2000w,{%- endif -%}
-          {%- if section.settings.image_2.width >= 3000 -%}{{ section.settings.image_2 | img_url: '3000x' }} 3000w,{%- endif -%}
-          {%- if section.settings.image_2.width >= 3840 -%}{{ section.settings.image_2 | img_url: '3840x' }} 3840w,{%- endif -%}
-          {{ section.settings.image_2 | img_url: 'master' }} {{ section.settings.image_2.width }}w"
-        sizes="{% if section.settings.image != blank and section.settings.stack_images_on_mobile %}(min-width: 750px) 50vw, 100vw{% elsif section.settings.image != blank %}50vw{% else %}100vw{% endif %}"
-        src="{{ section.settings.image_2 | img_url: '1500x' }}"
-        loading="lazy"
-        alt="{{ section.settings.image_2.alt | escape }}"
-        width="{{ section.settings.image_2.width }}"
-        height="{{ section.settings.image_2.width | divided_by: section.settings.image_2.aspect_ratio }}"
-        {% if section.settings.image != blank %}class="banner__media-image-half"{% endif %}
-      >
-    </div>
-  {%- endif -%}
+
   <div class="banner__content banner__content--{{ section.settings.desktop_text_box_position }} page-width">
     <div class="banner__box color-{{ section.settings.color_scheme }}">
       {%- for block in section.blocks -%}
@@ -96,9 +59,12 @@
               {%- if block.settings.button_label_1 != blank -%}
                 <a{% if block.settings.button_link_1 != blank %} href="{{ block.settings.button_link_1 }}"{% endif %} class="button{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %}"{% if block.settings.button_link_1 == blank %} aria-disabled="true"{% endif %}>{{ block.settings.button_label_1 | escape }}</a>
               {%- endif -%}
-              {%- if block.settings.button_label_2 != blank -%}
-                <a{% if block.settings.button_link_2 != blank %} href="{{ block.settings.button_link_2 }}"{% endif %} class="button{% if block.settings.button_style_secondary_2 %} button--secondary{% else %} button--primary{% endif %}"{% if block.settings.button_link_2 == blank %} aria-disabled="true"{% endif %}>{{ block.settings.button_label_2 | escape }}</a>
-              {%- endif -%}
+            </div>
+          {%- when 'checkbox'-%}
+            <div class="banner__featured">
+              {% if block.settings.checkbox_new_product == true %}
+                <h3 class="banner__featured-text">NEW PRODUCT</h3>
+              {% endif %}
             </div>
         {%- endcase -%}
       {%- endfor -%}
@@ -121,6 +87,11 @@
       "type": "image_picker",
       "id": "image_2",
       "label": "t:sections.image-banner.settings.image_2.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "t:sections.image-banner.settings.image_3.label"
     },
     {
       "type": "select",
@@ -297,32 +268,21 @@
           "id": "button_style_secondary_1",
           "default": false,
           "label": "t:sections.image-banner.blocks.buttons.settings.button_style_secondary_1.label"
-        },
-        {
-          "type": "text",
-          "id": "button_label_2",
-          "default": "Button label",
-          "label": "t:sections.image-banner.blocks.buttons.settings.button_label_2.label",
-          "info": "t:sections.image-banner.blocks.buttons.settings.button_label_2.info"
-        },
-        {
-          "type": "url",
-          "id": "button_link_2",
-          "label": "t:sections.image-banner.blocks.buttons.settings.button_link_2.label"
-        },
-        {
-          "type": "checkbox",
-          "id": "button_style_secondary_2",
-          "default": false,
-          "label": "t:sections.image-banner.blocks.buttons.settings.button_style_secondary_2.label"
         }
       ]
     },
     {
       "type": "checkbox",
-      "id": "new_product",
-      "default": true,
-      "label": 
+      "name": "New Product or Featured",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "checkbox_new_product",
+          "default": true,
+          "label": "New product"
+        }
+      ]
     }
   ],
   "presets": [
@@ -337,6 +297,9 @@
         },
         {
           "type": "buttons"
+        },
+        {
+          "type": "checkbox"
         }
       ]
     }

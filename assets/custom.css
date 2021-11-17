@@ -1,0 +1,123 @@
+body {
+    font-family: 'Manrope', sans-serif;
+}
+
+header.site-header.border-bottom.logo--left {
+    background-color: gray;
+}
+
+.banner__content {
+    display: grid;
+    grid-template-columns: 33% 67%;
+    padding-bottom: 0;
+    padding-top: 0;
+}
+.banner__box {
+    text-align: initial;
+}
+.color-background-1 {
+    background-color: unset;
+}
+.color-background-1,
+.banner__heading,
+.banner__buttons {
+    color: white;
+}
+.banner__heading {
+    font-size: 56px;
+    letter-spacing: 2px;
+    line-height: 58px;
+}
+.banner__box >
+.banner__text {
+    margin-bottom: 5rem;
+    opacity: .75;
+}
+.banner__box > 
+.banner__buttons {
+    justify-content: initial;
+}
+.banner__image {
+    text-align: center;
+}
+.banner__image-img {
+    width: inherit;
+    height: auto;
+}
+.button--primary {
+    opacity: 1 !important;
+    background-color: #D87D4A;
+    padding: 1rem 3rem;
+}
+.button--primary:active {
+    background-color: #FBAF85;
+}
+.banner__featured-text {
+    font-size: 14px;
+    letter-spacing: 10px;
+    line-height: 19px;
+    color: white;
+    margin-bottom: 3rem;
+    opacity: .5;
+}
+
+@media only screen and (max-width: 991px) {
+    .banner__content {
+        display: block;
+    }
+    .banner__content,
+    .banner__heading,
+    .banner__featured-text {
+        text-align: center;
+        text-align-last: center;
+    }
+    .banner__box>
+    .banner__buttons {
+        justify-content: center;
+    }
+    .banner__content {
+        display: table;
+    }
+    .banner__box {
+        display: table-cell;
+        vertical-align: middle;
+        padding: 0 24vw;
+    }
+    .banner {
+        height: 71vh;
+    }
+    .banner__text {
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .banner__box {
+        padding: 0;
+    }
+    /* .banner__content {
+        height: 100vh;
+    } */
+    .button--primary {
+        color: white;
+    }
+
+    .banner__heading {
+        letter-spacing: 0px;
+    }
+    .banner,
+    .banner--large {
+        height: 65rem;
+    }
+    .banner__media {
+        left: unset;
+        top: unset;
+    }
+    .banner__text {
+        letter-spacing: normal;
+    }
+    .banner__buttons > .button {
+        border: none;
+        box-shadow: none;
+    }
+}
