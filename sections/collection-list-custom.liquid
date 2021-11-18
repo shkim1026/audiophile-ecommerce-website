@@ -1,19 +1,39 @@
 {{ 'custom.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom.js' | asset_url }}" defer></script>
+
 
 <div class="grid collection-container">
     {%-for block in section.blocks-%}
         <div class="collection-container__inner">
-            <img class="collection__image" src="{{ block.settings.image | collection_img_url: 'medium' }}">
+            <a href="{{block.settings.collection.url}}">
+                <img class="collection__image" src="{{ block.settings.image | collection_img_url: 'medium' }}">
+                <div class="inner">
+                    <h4 class="inner__title">{{ block.settings.collection_title }}</h4>
+                    <div class="inner__link-container">
+                        <p class="inner__link-text" href="{{block.settings.collection.url}}">{{ block.settings.link_text }}</p>
+                        <span><img src="{{ 'icon-arrow-right.png' | asset_url }}"></span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    {%- endfor -%}
+</div>
+
+<!-- (Collection image does not display correctly) -->
+<!-- <div class="grid collection-container">
+    {%-for block in section.blocks-%}
+        <div class="collection-container__inner">
+            <img class="collection__image" src="{{block.settings.collection.featured_image | img_url: 'medium'}}">
             <div class="inner">
-                <h4 class="inner__title">{{ block.settings.collection_title }}</h4>
+                <h4 class="inner__title">{{block.settings.collection.title}}</h4>
                 <div class="inner__link-container">
-                    <a class="inner__link-text">{{ block.settings.link_text }}</a>
-                    <span><img src="{{ block.settings.arrow | img_url: 'compact' }}"></span>
+                    <p class="inner__link-text">{{ block.settings.link_text }}</p>
+                    <span><img src="{{ 'icon-arrow-right.png' | asset_url }}"></span>
                 </div>
             </div>
         </div>
     {%- endfor -%}
-</div>
+</div> -->
 
 
 {% schema %}
@@ -31,7 +51,7 @@
     "blocks": [
       {
             "type": "collections",
-            "name": "Collection",
+            "name": "t:sections.collection-list-custom.blocks.collection_title.name",
             "limit": 3,
             "settings": [
                 {
@@ -50,9 +70,9 @@
                     "label": "Link Text"
                 },
                 {
-                    "type": "image_picker",
-                    "id": "arrow",
-                    "label": "Arrow Image"
+                    "type": "collection",
+                    "id": "collection",
+                    "label": "Collection"
                 }
             ]
         }
