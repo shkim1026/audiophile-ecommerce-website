@@ -1,0 +1,71 @@
+{{ 'custom.css' | asset_url | stylesheet_tag }}
+
+<div class="grid collection-container">
+    {%-for block in section.blocks-%}
+        <div class="collection-container__inner">
+            <img class="collection__image" src="{{ block.settings.image | collection_img_url: 'medium' }}">
+            <div class="inner">
+                <h4 class="inner__title">{{ block.settings.collection_title }}</h4>
+                <div class="inner__link-container">
+                    <a class="inner__link-text">{{ block.settings.link_text }}</a>
+                    <span><img src="{{ block.settings.arrow | img_url: 'compact' }}"></span>
+                </div>
+            </div>
+        </div>
+    {%- endfor -%}
+</div>
+
+
+{% schema %}
+{
+    "name": "Collection List (Custom)",
+    "tag": "section",
+    "class": "collection_custom_list",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "grid",
+            "label": "Grid"
+        }
+    ],
+    "blocks": [
+      {
+            "type": "collections",
+            "name": "Collection",
+            "limit": 3,
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Collection Image"
+                },
+                {
+                    "type": "text",
+                    "id": "collection_title",
+                    "label": "Collection Label"
+                },
+                {
+                    "type": "text",
+                    "id": "link_text",
+                    "label": "Link Text"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "arrow",
+                    "label": "Arrow Image"
+                }
+            ]
+        }
+    ],
+    "presets": [
+      {
+          "name": "Collections List (Custom)",
+          "blocks": [
+          {
+            "type": "collections"
+          }
+        ]
+      }
+      ]
+  }
+{% endschema %}
