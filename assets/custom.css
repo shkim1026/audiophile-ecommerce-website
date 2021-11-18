@@ -47,9 +47,9 @@ header.site-header.border-bottom.logo--left {
     color: white;
 }
 .banner__heading {
-    font-size: 56px;
-    letter-spacing: 2px;
-    line-height: 58px;
+    font-size: 5rem;
+    letter-spacing: 0.2rem;
+    line-height: 6rem;
 }
 .banner__box >
 .banner__text {
@@ -76,9 +76,9 @@ header.site-header.border-bottom.logo--left {
     background-color: #FBAF85;
 }
 .banner__featured-text {
-    font-size: 14px;
-    letter-spacing: 10px;
-    line-height: 19px;
+    font-size: 1.25rem;
+    letter-spacing: 1rem;
+    line-height: 2rem;
     color: white;
     margin-bottom: 3rem;
     opacity: .5;
@@ -137,7 +137,7 @@ header.site-header.border-bottom.logo--left {
     text-transform: uppercase;
 }
 .inner__link-text {
-    font-size: 13px;
+    font-size: 1.25rem;
     padding-right: 1rem;
     color: #000000;
     opacity: 0.5;
