@@ -123,6 +123,9 @@ header.site-header.border-bottom.logo--left {
     padding-top: 10rem;
     padding-bottom: 1rem;
 }
+.inner__title {
+    margin: 0;
+}
 .inner__title,
 .inner__link-container {
     text-align: center;

@@ -6,7 +6,11 @@
     {%-for block in section.blocks-%}
         <div class="collection-container__inner">
             <a href="{{block.settings.collection.url}}">
+            {% if block.settings.image != blank %}
                 <img class="collection__image" src="{{ block.settings.image | collection_img_url: 'medium' }}">
+            {% else %}
+                <img class="collection__image" src="{{ block.settings.collection.featured_image | collection_img_url: 'medium' }}">
+            {% endif %}
                 <div class="inner">
                     <h4 class="inner__title">{{ block.settings.collection_title }}</h4>
                     <div class="inner__link-container">
