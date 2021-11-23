@@ -28,20 +28,29 @@
         {% endif %}
     }
 
-{%-for block in section.blocks-%}
-    .featured-product__header,
+    {%-for block in section.blocks-%}
+        .featured-product__header,
+        .featured-product__desc { 
+            color: {{block.settings.text_color}};
+        }
+        .featured-product__button {
+            color: {{block.settings.link_txt_color}};
+            background-color: {{block.settings.link_button_color}};
+        }
+    {%- endfor -%}
 
-    /* RICH TEXT CREATES ANOTHER P TAG */
-    .featured-product__desc { 
-        color: {{block.settings.text_color}};
+    .featured-product__img-container {
+        {% if section.settings.text_align == 'right' %}
+            grid-column-start: 2;
+        {% endif %}
     }
-    /*  */
 
-    .featured-product__button {
-        color: {{block.settings.link_txt_color}};
-        background-color: {{block.settings.link_button_color}};
+    .featured-product__txt-container {
+        {% if section.settings.text_align == 'right' %}
+            grid-column-start: 1;
+            grid-row-start: 1;
+        {% endif %}
     }
-{%- endfor -%}
 </style>
 
 {% schema %}
@@ -68,7 +77,8 @@
                     "value": "right",
                     "label": "Align text right"
                 }
-            ]
+            ],
+            "default": "left"
         }
     ],
     "blocks": [

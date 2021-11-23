@@ -188,8 +188,6 @@ header.site-header.border-bottom.logo--left {
 }
 .featured-product__button {
     padding: 1rem 3rem;
-}
-.featured-product__button {
     cursor: pointer;
 }
 .featured-product__button:hover {
