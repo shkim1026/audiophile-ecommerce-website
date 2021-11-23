@@ -8,7 +8,43 @@
             <h1>{{block.settings.heading}}</h1>
         </div>
     {% endfor %}
+
+    //select schema type example
+    <div class="wrapper">
+        {% if section.settings.textPostion === 'text-right' %}
+        <div>
+            <img />
+        </div>
+        {% endif %}
+        <div>
+            <p>Text</p>
+        </div>
+        {% if section.settings.textPosition === 'text-left' %}
+
+        {% endif %}
+    </div>
+
+    <div class="wrapper" {% if section.settings.textPosition === 'text-right' %} style='display: flex; flex-direction: row;' {% else %} >
+        <div>
+            <img />
+        </div>
+        {% endif %}
+        <div>
+            <p>
+    </div>
 </div>
+
+<style>
+    .wrapper {
+        display: flex;
+        {% if section.settings.textPositio === 'textRight' %}
+            flex-direction: row;
+        {% else %}
+            flex-direction: row-reverse;
+        {% endif %}
+    }
+    
+</style>
 
 {% schema %}
 {

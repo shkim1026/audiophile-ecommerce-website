@@ -6,10 +6,6 @@ a {
     text-decoration: none;
 }
 
-.hover {
-    color: #D87D4A !important;
-}
-
 
 /* HEADER  */
 header.site-header.border-bottom.logo--left {
@@ -106,6 +102,10 @@ header.site-header.border-bottom.logo--left {
     left: 0;
     width: 100%;
     cursor:pointer;
+}
+.collection-container__inner:hover .inner__link-text {
+    color: #D87D4A;
+    opacity: 1;
 }
 .collection__image {
     position: relative;
