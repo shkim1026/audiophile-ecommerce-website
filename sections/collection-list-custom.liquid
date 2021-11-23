@@ -1,0 +1,95 @@
+{{ 'custom.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom.js' | asset_url }}" defer></script>
+
+
+<div class="grid collection-container">
+    {%-for block in section.blocks-%}
+        <div class="collection-container__inner">
+            <a href="{{block.settings.collection.url}}">
+            {% if block.settings.image != blank %}
+                <img class="collection__image" src="{{ block.settings.image | collection_img_url: 'medium' }}">
+            {% else %}
+                <img class="collection__image" src="{{ block.settings.collection.featured_image | collection_img_url: 'medium' }}">
+            {% endif %}
+                <div class="inner">
+                    <h4 class="inner__title">{{ block.settings.collection_title }}</h4>
+                    <div class="inner__link-container">
+                        <p class="inner__link-text" href="{{block.settings.collection.url}}">{{ block.settings.link_text }}</p>
+                        <span><img src="{{ 'icon-arrow-right.png' | asset_url }}"></span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    {%- endfor -%}
+</div>
+
+<!-- (Collection image does not display correctly) -->
+<!-- <div class="grid collection-container">
+    {%-for block in section.blocks-%}
+        <div class="collection-container__inner">
+            <img class="collection__image" src="{{block.settings.collection.featured_image | img_url: 'medium'}}">
+            <div class="inner">
+                <h4 class="inner__title">{{block.settings.collection.title}}</h4>
+                <div class="inner__link-container">
+                    <p class="inner__link-text">{{ block.settings.link_text }}</p>
+                    <span><img src="{{ 'icon-arrow-right.png' | asset_url }}"></span>
+                </div>
+            </div>
+        </div>
+    {%- endfor -%}
+</div> -->
+
+
+{% schema %}
+{
+    "name": "Collection List (Custom)",
+    "tag": "section",
+    "class": "collection_custom_list",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "grid",
+            "label": "Grid"
+        }
+    ],
+    "blocks": [
+      {
+            "type": "collections",
+            "name": "t:sections.collection-list-custom.blocks.collection_title.name",
+            "limit": 3,
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Collection Image"
+                },
+                {
+                    "type": "text",
+                    "id": "collection_title",
+                    "label": "Collection Label"
+                },
+                {
+                    "type": "text",
+                    "id": "link_text",
+                    "label": "Link Text"
+                },
+                {
+                    "type": "collection",
+                    "id": "collection",
+                    "label": "Collection"
+                }
+            ]
+        }
+    ],
+    "presets": [
+      {
+          "name": "Collections List (Custom)",
+          "blocks": [
+          {
+            "type": "collections"
+          }
+        ]
+      }
+      ]
+  }
+{% endschema %}
