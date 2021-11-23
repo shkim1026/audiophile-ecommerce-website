@@ -1,0 +1,99 @@
+{{ 'custom.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom.js' | asset_url }}" defer></script>
+
+<div>
+    {%-for block in section.blocks-%}
+        <img src="{{block.settings.image | img_url: 'medium'}}">
+        <h2>{{block.settings.featured_product_label}}</h2>
+    {% if block.settings.product_desc != blank%}
+        <p>{{block.settings.product_desc}}</p>
+    {% endif %}
+        <button>{{block.settings.link_text}}</button>
+    {%- endfor -%}
+</div>
+
+{% schema %}
+{
+    "name": "Featured Product (Custom)",
+    "tag": "section",
+    "class": "featured_product_custom",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "column",
+            "label": "2 columns"
+        },
+        {
+            "type": "select",
+            "id": "text_align",
+            "label": "Text alignment",
+            "options": [
+                {
+                    "value": "left",
+                    "label": "Align text left"
+                },
+                {
+                    "value": "right",
+                    "label": "Align text right"
+                }
+            ]
+        }
+    ],
+    "blocks": [
+      {
+            "type": "featured_product",
+            "name": "Featured Product",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Featured Product Image"
+                },
+                {
+                    "type": "text",
+                    "id": "featured_product_label",
+                    "label": "Product Label"
+                },
+                {
+                    "type": "richtext",
+                    "id": "product_desc",
+                    "label": "Description"
+                },
+                {
+                    "type": "color",
+                    "id": "text_color",
+                    "label": "Text Color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "text",
+                    "id": "link_text",
+                    "label": "Link Text"
+                },
+                {
+                    "type": "color",
+                    "id": "link_txt_color",
+                    "label": "Link Text Color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "color",
+                    "id": "link_button_color",
+                    "label": "Link Button Color"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Featured Product (Custom)",
+            "blocks": [
+                {
+                    "type": "featured_product"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
