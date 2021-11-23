@@ -1,16 +1,48 @@
 {{ 'custom.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'custom.js' | asset_url }}" defer></script>
-
-<div>
-    {%-for block in section.blocks-%}
-        <img src="{{block.settings.image | img_url: 'medium'}}">
-        <h2>{{block.settings.featured_product_label}}</h2>
-    {% if block.settings.product_desc != blank%}
-        <p>{{block.settings.product_desc}}</p>
-    {% endif %}
-        <button>{{block.settings.link_text}}</button>
-    {%- endfor -%}
+<div class="featured-product">
+    <div class="featured-product__container column-2">
+        {%-for block in section.blocks-%}
+            <div class="featured-product__img-container">
+                <img class="featured-product__img" src="{{block.settings.image | img_url: 'large'}}">
+            </div>
+            <div class="featured-product__txt-container">
+                <h2 class="featured-product__header">{{block.settings.featured_product_label}}</h2>
+                {% if block.settings.product_desc != blank%}
+                <div class="featured-product__desc">{{block.settings.product_desc}}</div>
+                {% endif %}
+            <button class="featured-product__button">{{block.settings.link_text}}</button>
+            </div>
+        {%- endfor -%}
+    </div>
 </div>
+
+<style>
+    .featured-product__container {
+        {% if block.settings.pattern == checked %}
+            background-color: #D87D4A;
+            background-image: url({{'pattern-circles.png' | asset_url}});
+            background-repeat: no-repeat;
+            background-position-y: inherit;
+            background-position-x: left;
+        {% endif %}
+    }
+
+{%-for block in section.blocks-%}
+    .featured-product__header,
+
+    /* RICH TEXT CREATES ANOTHER P TAG */
+    .featured-product__desc { 
+        color: {{block.settings.text_color}};
+    }
+    /*  */
+
+    .featured-product__button {
+        color: {{block.settings.link_txt_color}};
+        background-color: {{block.settings.link_button_color}};
+    }
+{%- endfor -%}
+</style>
 
 {% schema %}
 {
@@ -45,6 +77,11 @@
             "name": "Featured Product",
             "limit": 1,
             "settings": [
+                {
+                    "type": "checkbox",
+                    "id": "pattern",
+                    "label": "Enable Background Pattern"
+                },
                 {
                     "type": "image_picker",
                     "id": "image",
