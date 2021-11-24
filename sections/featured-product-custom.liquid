@@ -42,6 +42,15 @@
         }
     }
 
+    @media only screen and (max-width: 767px) {
+        .featured-product__container {
+            {% if block.settings.pattern == checked %}
+                background-size: 70rem;
+                background-position-y: -15rem;
+            {% endif %}
+        }
+    }
+
     {%-for block in section.blocks-%}
         .featured-product__header,
         .featured-product__desc { 

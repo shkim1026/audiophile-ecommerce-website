@@ -294,4 +294,15 @@ header.site-header.border-bottom.logo--left {
     .collection-container__inner {
         margin-top: 8rem;
     }
+
+    /* FEATURED PRODUCTS */
+    .featured-product__container {
+        margin: 0px 2rem;
+    }
+    .featured-product__txt-container {
+        padding: 0 2rem;
+    }
+    .featured-product__desc {
+        margin-bottom: 3rem;
+    }
 }
