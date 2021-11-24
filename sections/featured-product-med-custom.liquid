@@ -3,21 +3,21 @@
 
 <div class="featured-product">
     {%-for block in section.blocks-%}
-        <div class="featured-product__container pos-relative product-med-container-{{forloop.index}}">
+        <div class="featured-product__container pos-relative product-med-container-{{forloop.index}} {% if block.settings.grid == true %} grid-view {% endif %}">
             <div class="featured-product-med__img-container img-med-container-{{forloop.index}}">
                 <picture>
                     <source media="(min-width: 992px)" srcset="{{ block.settings.image | img_url: 'master' }}">
                     <source media="(min-width: 768px)" srcset="{{ block.settings.image_2 | img_url: 'master' }}">
                     <source media="(max-width: 767.87px)" srcset="{{ block.settings.image_3 | img_url: 'master' }}">
-                    <img class="featured-product-med__img" src="{{ block.settings.image | img_url: 'master' }}">
+                    <img class="featured-product-med__img {% if block.settings.grid == true %} border-radius {% endif %}" src="{{ block.settings.image | img_url: 'master' }}">
                 </picture>
             </div>
-            <div class="featured-product__txt-container featured-product-med__txt-container pos-absolute absol-bottom txt-med-container-{{forloop.index}}">
+            <div class="featured-product__txt-container featured-product-med__txt-container pos-absolute txt-med-container-{{forloop.index}} {% if block.settings.grid == true %} grid-column-2 flex-column border-radius{% else %} absol-bottom {% endif %}">
                 <h2 class="featured-product__header featured-product-med__header text-med-color-{{forloop.index}}">{{ block.settings.featured_product_label }}</h2>
                 {% if block.settings.product_desc != blank%}
                 <div class="featured-product__desc text-med-color-{{forloop.index}}">{{ block.settings.product_desc }}</div>
                 {% endif %}
-                <a class="featured-product__button featured-product-med__button button-med-color-{{forloop.index}}" href="{{ block.settings.product.url }}">{{ block.settings.link_text }}</a>
+                <a class="featured-product__button featured-product-med__button button-med-color-{{forloop.index}} {% if block.settings.grid == true %} fit-content {% endif %}" href="{{ block.settings.product.url }}">{{ block.settings.link_text }}</a>
             </div>
         </div>
     {%- endfor -%}
@@ -36,6 +36,22 @@
             background-color: {{block.settings.link_button_color}};
             border: 1px solid {{block.settings.link_border_color}};
         }
+
+        {% if block.settings.grid == true %}
+            .product-med-container-{{forloop.index}} {
+                background-color: transparent;
+            }
+            .txt-med-container-{{forloop.index}} {
+                background-color: {{block.settings.background_color}};
+            }
+
+            @media only screen and (max-width: 767px) {
+                .img-med-container-{{forloop.index}} {
+                       margin-top: 2rem;
+                }
+            }
+        {% endif %}
+
     {%- endfor -%}
 
     {% if section.settings.text_align == 'left' %}
@@ -70,12 +86,6 @@
                 }
             ],
             "default": "right" 
-        },
-        {
-            "type": "checkbox",
-            "id": "grid",
-            "label": "Split into 2 Columns",
-            "default": true
         }
     ],
     "blocks": [
@@ -84,6 +94,12 @@
             "name": "Featured Product Medium",
             "limit": 3,
             "settings": [
+                {
+                    "type": "checkbox",
+                    "id": "grid",
+                    "label": "Split into 2 Columns",
+                    "default": false
+                },
                 {
                     "type": "color",
                     "id": "background_color",

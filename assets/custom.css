@@ -160,6 +160,7 @@ header.site-header.border-bottom.logo--left {
 }
 .featured-product__container {
     border-radius: 0.5rem;
+    margin-bottom: 4rem;
 }
 .featured-product__header,
 .featured-product__button {
@@ -200,6 +201,10 @@ header.site-header.border-bottom.logo--left {
     border: 1px solid #4C4C4C;
 }
 
+.border-radius {
+    border-radius: 0.5rem;
+}
+
 
 /* FEATURED PRODUCT MEDIUM */
 .featured-product-med__img {
@@ -230,6 +235,23 @@ header.site-header.border-bottom.logo--left {
 .featured-product-med__button:hover {
     color: #FFFFFF;
     background-color: #000000;
+}
+.grid-view {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 2rem;
+}
+.grid-column-2 {
+    grid-column-start: 2;
+    height: 100%;
+}
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+}
+.fit-content {
+    width: fit-content;
 }
 
 
@@ -350,6 +372,19 @@ header.site-header.border-bottom.logo--left {
         padding: 0 2rem;
     }
     .featured-product__desc {
+        margin-bottom: 3rem;
+    }
+    .grid-view {
+        grid-template-rows: auto auto;
+        grid-template-columns: unset;
+    }
+    .grid-column-2 {
+        grid-column-start: unset;
+        grid-row-start: 2;
+        height: initial;
+        position: initial;
+    }
+    .fit-content {
         margin-bottom: 3rem;
     }
 }
