@@ -4,7 +4,12 @@
     <div class="featured-product__container column-2">
         {%-for block in section.blocks-%}
             <div class="featured-product__img-container">
-                <img class="featured-product__img" src="{{block.settings.image | img_url: 'large'}}">
+                <picture>
+                    <source media="(min-width: 992px)" srcset="{{ block.settings.image | img_url: 'large' }}">
+                    <source media="(min-width: 768px)" srcset="{{ block.settings.image_2 | img_url: 'medium' }}">
+                    <source media="(max-width: 767.87px)" srcset="{{ block.settings.image_3 | img_url: 'medium' }}">
+                    <img class="featured-product__img" src="{{ block.settings.image | img_url: 'large' }}">
+                </picture>
             </div>
             <div class="featured-product__txt-container">
                 <h2 class="featured-product__header">{{block.settings.featured_product_label}}</h2>
@@ -28,6 +33,15 @@
         {% endif %}
     }
 
+    @media only screen and (max-width: 991px) {
+        .featured-product__container {
+            {% if block.settings.pattern == checked %}
+                background-position-x: center;
+                background-position-y: bottom;
+            {% endif %}
+        }
+    }
+
     {%-for block in section.blocks-%}
         .featured-product__header,
         .featured-product__desc { 
@@ -40,13 +54,13 @@
     {%- endfor -%}
 
     .featured-product__img-container {
-        {% if section.settings.text_align == 'right' %}
+        {% if section.settings.text_align == 'left' %}
             grid-column-start: 2;
         {% endif %}
     }
 
     .featured-product__txt-container {
-        {% if section.settings.text_align == 'right' %}
+        {% if section.settings.text_align == 'left' %}
             grid-column-start: 1;
             grid-row-start: 1;
         {% endif %}
@@ -60,25 +74,20 @@
     "class": "featured_product_custom",
     "settings": [
         {
-            "type": "checkbox",
-            "id": "column",
-            "label": "2 columns"
-        },
-        {
             "type": "select",
             "id": "text_align",
             "label": "Text alignment",
             "options": [
                 {
                     "value": "left",
-                    "label": "Align text left"
+                    "label": "Align Text Left"
                 },
                 {
                     "value": "right",
-                    "label": "Align text right"
+                    "label": "Align Text Right"
                 }
             ],
-            "default": "left"
+            "default": "right" 
         }
     ],
     "blocks": [
@@ -95,7 +104,17 @@
                 {
                     "type": "image_picker",
                     "id": "image",
-                    "label": "Featured Product Image"
+                    "label": "Featured Product Image (Desktop)"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image_2",
+                    "label": "Featured Product Image (Tablet)"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image_3",
+                    "label": "Featured Product Image (Mobile)"
                 },
                 {
                     "type": "text",
