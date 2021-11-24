@@ -12,11 +12,11 @@
                 </picture>
             </div>
             <div class="featured-product__txt-container">
-                <h2 class="featured-product__header">{{block.settings.featured_product_label}}</h2>
+                <h2 class="featured-product__header">{{ block.settings.featured_product_label }}</h2>
                 {% if block.settings.product_desc != blank%}
-                <div class="featured-product__desc">{{block.settings.product_desc}}</div>
+                <div class="featured-product__desc">{{ block.settings.product_desc }}</div>
                 {% endif %}
-            <button class="featured-product__button">{{block.settings.link_text}}</button>
+            <a class="featured-product__button" href="{{ block.settings.product.url }}">{{ block.settings.link_text }}</a>
             </div>
         {%- endfor -%}
     </div>
@@ -156,6 +156,11 @@
                     "type": "color",
                     "id": "link_button_color",
                     "label": "Link Button Color"
+                },
+                {
+                    "type": "product",
+                    "id": "product",
+                    "label": "Select Product"
                 }
             ]
         }
