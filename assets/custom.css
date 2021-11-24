@@ -153,8 +153,12 @@ header.site-header.border-bottom.logo--left {
 
 /* FEATURED PRODUCTS */
 
+.featured-product {
+    margin: 4rem auto;
+    max-width: 1600px;
+    padding: 0 5rem;
+}
 .featured-product__container {
-    margin: 0 5rem;
     border-radius: 0.5rem;
 }
 .featured-product__header,

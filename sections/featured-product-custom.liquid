@@ -1,5 +1,6 @@
 {{ 'custom.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'custom.js' | asset_url }}" defer></script>
+
 <div class="featured-product">
     <div class="featured-product__container column-2">
         {%-for block in section.blocks-%}
@@ -23,57 +24,47 @@
 </div>
 
 <style>
-    .featured-product__container {
-        {% if block.settings.pattern == checked %}
-            background-color: #D87D4A;
-            background-image: url({{'pattern-circles.png' | asset_url}});
-            background-repeat: no-repeat;
-            background-position-y: inherit;
-            background-position-x: -14rem;
-        {% endif %}
-    }
-
-    @media only screen and (max-width: 991px) {
-        .featured-product__container {
-            {% if block.settings.pattern == checked %}
-                background-position-x: center;
-                background-position-y: bottom;
-            {% endif %}
-        }
-    }
-
-    @media only screen and (max-width: 767px) {
-        .featured-product__container {
-            {% if block.settings.pattern == checked %}
-                background-size: 70rem;
-                background-position-y: -15rem;
-            {% endif %}
-        }
-    }
-
     {%-for block in section.blocks-%}
-        .featured-product__header,
-        .featured-product__desc { 
-            color: {{block.settings.text_color}};
-        }
-        .featured-product__button {
-            color: {{block.settings.link_txt_color}};
-            background-color: {{block.settings.link_button_color}};
-        }
+        {% if block.settings.pattern == true %}
+            .featured-product__container {
+                background-color: #D87D4A;
+                background-image: url({{'pattern-circles.png' | asset_url}});
+                background-repeat: no-repeat;
+                background-position-y: inherit;
+                background-position-x: -10rem;
+            }
+            @media only screen and (max-width: 991px) {
+                .featured-product__container {
+                        background-position-x: center;
+                        background-position-y: bottom;
+                }
+            }
+            @media only screen and (max-width: 767px) {
+                .featured-product__container {
+                        background-size: 70rem;
+                        background-position-y: -15rem;
+                }
+            }
+            .featured-product__header,
+            .featured-product__desc { 
+                color: {{block.settings.text_color}};
+            }
+            .featured-product__button {
+                color: {{block.settings.link_txt_color}};
+                background-color: {{block.settings.link_button_color}};
+            }
+        {% endif %}
     {%- endfor -%}
 
+    {% if section.settings.text_align == 'left' %}
     .featured-product__img-container {
-        {% if section.settings.text_align == 'left' %}
-            grid-column-start: 2;
-        {% endif %}
+        grid-column-start: 2;
     }
-
     .featured-product__txt-container {
-        {% if section.settings.text_align == 'left' %}
-            grid-column-start: 1;
-            grid-row-start: 1;
-        {% endif %}
+        grid-column-start: 1;
+        grid-row-start: 1;
     }
+    {% endif %}
 </style>
 
 {% schema %}
@@ -108,7 +99,8 @@
                 {
                     "type": "checkbox",
                     "id": "pattern",
-                    "label": "Enable Background Pattern"
+                    "label": "Enable Background Pattern",
+                    "default": true
                 },
                 {
                     "type": "image_picker",
