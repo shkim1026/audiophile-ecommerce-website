@@ -2,54 +2,55 @@
 <script src="{{ 'custom.js' | asset_url }}" defer></script>
 
 <div class="featured-product">
-    <div class="featured-product__container column-2">
-        {%-for block in section.blocks-%}
-            <div class="featured-product__img-container">
+    {%-for block in section.blocks-%}
+        <div class="featured-product__container product-container-{{forloop.index}} column-2">
+            <div class="featured-product__img-container img-container-{{forloop.index}}">
                 <picture>
                     <source media="(min-width: 992px)" srcset="{{ block.settings.image | img_url: 'large' }}">
-                    <source media="(min-width: 768px)" srcset="{{ block.settings.image_2 | img_url: 'medium' }}">
-                    <source media="(max-width: 767.87px)" srcset="{{ block.settings.image_3 | img_url: 'medium' }}">
-                    <img class="featured-product__img" src="{{ block.settings.image | img_url: 'large' }}">
+                    <source media="(min-width: 768px)" srcset="{{ block.settings.image | img_url: 'medium' }}">
+                    <source media="(max-width: 767.87px)" srcset="{{ block.settings.image | img_url: 'small' }}">
+                    <img class="featured-product__img" src="{{ block.settings.image | img_url: 'master' }}">
                 </picture>
             </div>
-            <div class="featured-product__txt-container">
-                <h2 class="featured-product__header">{{ block.settings.featured_product_label }}</h2>
+            <div class="featured-product__txt-container txt-container-{{forloop.index}}">
+                <h2 class="featured-product__header text-color-{{forloop.index}}">{{ block.settings.featured_product_label }}</h2>
                 {% if block.settings.product_desc != blank%}
-                <div class="featured-product__desc">{{ block.settings.product_desc }}</div>
+                <div class="featured-product__desc text-color-{{forloop.index}}">{{ block.settings.product_desc }}</div>
                 {% endif %}
-            <a class="featured-product__button" href="{{ block.settings.product.url }}">{{ block.settings.link_text }}</a>
+                <a class="featured-product__button button-color-{{forloop.index}}" href="{{ block.settings.product.url }}">{{ block.settings.link_text }}</a>
             </div>
-        {%- endfor -%}
-    </div>
+        </div>
+    {%- endfor -%}
 </div>
 
 <style>
     {%-for block in section.blocks-%}
+        .product-container-{{forloop.index}} {
+            background-color: {{block.settings.background_color}};
+        }
         {% if block.settings.pattern == true %}
-            .featured-product__container {
-                background-color: #D87D4A;
+            .product-container-{{forloop.index}} {
                 background-image: url({{'pattern-circles.png' | asset_url}});
                 background-repeat: no-repeat;
                 background-position-y: inherit;
                 background-position-x: -10rem;
             }
             @media only screen and (max-width: 991px) {
-                .featured-product__container {
+                .product-container-{{forloop.index}} {
                         background-position-x: center;
                         background-position-y: bottom;
                 }
             }
             @media only screen and (max-width: 767px) {
-                .featured-product__container {
+                .product-container-{{forloop.index}} {
                         background-size: 70rem;
                         background-position-y: -15rem;
                 }
             }
-            .featured-product__header,
-            .featured-product__desc { 
+            .text-color-{{forloop.index}} { 
                 color: {{block.settings.text_color}};
             }
-            .featured-product__button {
+            .button-color-{{forloop.index}} {
                 color: {{block.settings.link_txt_color}};
                 background-color: {{block.settings.link_button_color}};
             }
@@ -57,13 +58,13 @@
     {%- endfor -%}
 
     {% if section.settings.text_align == 'left' %}
-    .featured-product__img-container {
-        grid-column-start: 2;
-    }
-    .featured-product__txt-container {
-        grid-column-start: 1;
-        grid-row-start: 1;
-    }
+        .img-container-{{forloop.index}} {
+            grid-column-start: 2;
+        }
+        .txt-container-{{forloop.index}} {
+            grid-column-start: 1;
+            grid-row-start: 1;
+        }
     {% endif %}
 </style>
 
@@ -94,7 +95,7 @@
       {
             "type": "featured_product",
             "name": "Featured Product",
-            "limit": 1,
+            "limit": 3,
             "settings": [
                 {
                     "type": "checkbox",
@@ -103,19 +104,15 @@
                     "default": true
                 },
                 {
+                    "type": "color",
+                    "id": "background_color",
+                    "label": "Banner Background Color",
+                    "default": "#D87D4A"
+                },
+                {
                     "type": "image_picker",
                     "id": "image",
-                    "label": "Featured Product Image (Desktop)"
-                },
-                {
-                    "type": "image_picker",
-                    "id": "image_2",
-                    "label": "Featured Product Image (Tablet)"
-                },
-                {
-                    "type": "image_picker",
-                    "id": "image_3",
-                    "label": "Featured Product Image (Mobile)"
+                    "label": "Featured Product Image"
                 },
                 {
                     "type": "text",

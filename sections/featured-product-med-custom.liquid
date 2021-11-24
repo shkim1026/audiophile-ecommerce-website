@@ -1,0 +1,164 @@
+{{ 'custom.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom.js' | asset_url }}" defer></script>
+
+<div class="featured-product">
+    {%-for block in section.blocks-%}
+        <div class="featured-product__container pos-relative product-med-container-{{forloop.index}}">
+            <div class="featured-product-med__img-container img-med-container-{{forloop.index}}">
+                <picture>
+                    <source media="(min-width: 992px)" srcset="{{ block.settings.image | img_url: 'master' }}">
+                    <source media="(min-width: 768px)" srcset="{{ block.settings.image_2 | img_url: 'master' }}">
+                    <source media="(max-width: 767.87px)" srcset="{{ block.settings.image_3 | img_url: 'master' }}">
+                    <img class="featured-product-med__img" src="{{ block.settings.image | img_url: 'master' }}">
+                </picture>
+            </div>
+            <div class="featured-product__txt-container featured-product-med__txt-container pos-absolute absol-bottom txt-med-container-{{forloop.index}}">
+                <h2 class="featured-product__header featured-product-med__header text-med-color-{{forloop.index}}">{{ block.settings.featured_product_label }}</h2>
+                {% if block.settings.product_desc != blank%}
+                <div class="featured-product__desc text-med-color-{{forloop.index}}">{{ block.settings.product_desc }}</div>
+                {% endif %}
+                <a class="featured-product__button featured-product-med__button button-med-color-{{forloop.index}}" href="{{ block.settings.product.url }}">{{ block.settings.link_text }}</a>
+            </div>
+        </div>
+    {%- endfor -%}
+</div>
+
+<style>
+    {%-for block in section.blocks-%}
+        .product-med-container-{{forloop.index}} {
+            background-color: {{block.settings.background_color}};
+        }
+        .text-med-color-{{forloop.index}} { 
+            color: {{block.settings.text_color}};
+        }
+        .button-med-color-{{forloop.index}} {
+            color: {{block.settings.link_txt_color}};
+            background-color: {{block.settings.link_button_color}};
+            border: 1px solid {{block.settings.link_border_color}};
+        }
+    {%- endfor -%}
+
+    {% if section.settings.text_align == 'left' %}
+        .img-med-container-{{forloop.index}} {
+            grid-column-start: 2;
+        }
+        .txt-med-container-{{forloop.index}} {
+            grid-column-start: 1;
+            grid-row-start: 1;
+        }
+    {% endif %}
+</style>
+
+{% schema %}
+{
+    "name": "Ft Product Med (Custom)",
+    "tag": "section",
+    "class": "featured_product_med_custom",
+    "settings": [
+        {
+            "type": "select",
+            "id": "text_align",
+            "label": "Text alignment",
+            "options": [
+                {
+                    "value": "left",
+                    "label": "Align Text Left"
+                },
+                {
+                    "value": "right",
+                    "label": "Align Text Right"
+                }
+            ],
+            "default": "right" 
+        },
+        {
+            "type": "checkbox",
+            "id": "grid",
+            "label": "Split into 2 Columns",
+            "default": true
+        }
+    ],
+    "blocks": [
+      {
+            "type": "featured_product_med",
+            "name": "Featured Product Medium",
+            "limit": 3,
+            "settings": [
+                {
+                    "type": "color",
+                    "id": "background_color",
+                    "label": "Banner Background Color"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Featured Product Image (Desktop)"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image_2",
+                    "label": "Featured Product Image (Tablet)"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image_3",
+                    "label": "Featured Product Image (Mobile)"
+                },
+                {
+                    "type": "text",
+                    "id": "featured_product_label",
+                    "label": "Product Label"
+                },
+                {
+                    "type": "richtext",
+                    "id": "product_desc",
+                    "label": "Description"
+                },
+                {
+                    "type": "color",
+                    "id": "text_color",
+                    "label": "Text Color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "text",
+                    "id": "link_text",
+                    "label": "Link Text"
+                },
+                {
+                    "type": "color",
+                    "id": "link_txt_color",
+                    "label": "Link Text Color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "color",
+                    "id": "link_border_color",
+                    "label": "Link Border Color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "color",
+                    "id": "link_button_color",
+                    "label": "Link Button Color"
+                },
+                {
+                    "type": "product",
+                    "id": "product",
+                    "label": "Select Product"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Featured Product Medium (Custom)",
+            "blocks": [
+                {
+                    "type": "featured_product_med"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
