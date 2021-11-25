@@ -9,6 +9,12 @@ button {
     box-shadow: none;
     border: 1px solid black;
 }
+a,
+a.button--primary,
+.inner__link-text,
+.featured-product__button {
+    transition: 0.3s;
+}
 
 
 /* HEADER  */
@@ -195,10 +201,10 @@ header.site-header.border-bottom.logo--left {
 .featured-product__button {
     padding: 1rem 3rem;
     cursor: pointer;
+    line-height: initial;
 } 
 .featured-product__button:hover {
     background-color: #4C4C4C;
-    border: 1px solid #4C4C4C;
 }
 
 .border-radius {
