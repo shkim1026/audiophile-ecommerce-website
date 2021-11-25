@@ -3,8 +3,8 @@
 
 <div class="featured-product">
     {%-for block in section.blocks-%}
-        <div class="featured-product__container pos-relative product-med-container-{{forloop.index}} {% if block.settings.grid == true %} grid-view {% endif %}">
-            <div class="featured-product-med__img-container img-med-container-{{forloop.index}}">
+        <div class="featured-product__container pos-relative product-med-container-{{forloop.index}} grid-view {% if block.settings.grid == true %} grid-gap {% endif %}">
+            <div class="featured-product-med__img-container img-med-container-{{forloop.index}} {% if block.settings.grid == false %} grid-area {% endif %}">
                 <picture>
                     <source media="(min-width: 992px)" srcset="{{ block.settings.image | img_url: 'master' }}">
                     <source media="(min-width: 768px)" srcset="{{ block.settings.image_2 | img_url: 'master' }}">
@@ -52,17 +52,28 @@
             }
         {% endif %}
 
+        {% if block.settings.text_align == 'left' and block.settings.grid == true %}
+            .img-med-container-{{forloop.index}} {
+                grid-column-start: 2;
+            }
+            .txt-med-container-{{forloop.index}} {
+                grid-column-start: 1;
+                grid-column-end: 1;
+                grid-row-start: 1;
+            }
+        {% elsif block.settings.text_align == 'left' and block.settings.grid == false %}
+            .txt-med-container-{{forloop.index}} {
+                grid-column-start: 1;
+                grid-column-end: 1;
+            }
+        {% else %}
+            .txt-med-container-{{forloop.index}} {
+                grid-column-start: 2;
+                grid-column-end: 2;
+            }
+        {% endif %}
     {%- endfor -%}
 
-    {% if section.settings.text_align == 'left' %}
-        .img-med-container-{{forloop.index}} {
-            grid-column-start: 2;
-        }
-        .txt-med-container-{{forloop.index}} {
-            grid-column-start: 1;
-            grid-row-start: 1;
-        }
-    {% endif %}
 </style>
 
 {% schema %}
@@ -70,24 +81,7 @@
     "name": "Ft Product Med (Custom)",
     "tag": "section",
     "class": "featured_product_med_custom",
-    "settings": [
-        {
-            "type": "select",
-            "id": "text_align",
-            "label": "Text alignment",
-            "options": [
-                {
-                    "value": "left",
-                    "label": "Align Text Left"
-                },
-                {
-                    "value": "right",
-                    "label": "Align Text Right"
-                }
-            ],
-            "default": "right" 
-        }
-    ],
+    "settings": [],
     "blocks": [
       {
             "type": "featured_product_med",
@@ -135,6 +129,22 @@
                     "id": "text_color",
                     "label": "Text Color",
                     "default": "#000000"
+                },
+                {
+                    "type": "select",
+                    "id": "text_align",
+                    "label": "Text alignment",
+                    "options": [
+                        {
+                            "value": "left",
+                            "label": "Align Text Left"
+                        },
+                        {
+                            "value": "right",
+                            "label": "Align Text Right"
+                        }
+                    ],
+                    "default": "right" 
                 },
                 {
                     "type": "text",
