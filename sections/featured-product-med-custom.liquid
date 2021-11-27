@@ -44,10 +44,13 @@
             .txt-med-container-{{forloop.index}} {
                 background-color: {{block.settings.background_color}};
             }
-
             @media only screen and (max-width: 767px) {
+                .product-med-container-{{forloop.index}} {
+                    display: block;
+                }
                 .img-med-container-{{forloop.index}} {
                        margin-top: 2rem;
+                       margin-bottom: 2rem;
                 }
             }
         {% endif %}
@@ -66,6 +69,11 @@
                 grid-column-start: 1;
                 grid-column-end: 1;
             }
+            @media only screen and (max-width: 767px) {
+                .txt-med-container-{{forloop.index}} {
+                    grid-column-end: auto;
+                }
+        }
         {% else %}
             .txt-med-container-{{forloop.index}} {
                 grid-column-start: 2;
@@ -133,7 +141,7 @@
                 {
                     "type": "select",
                     "id": "text_align",
-                    "label": "Text alignment",
+                    "label": "Text Alignment",
                     "options": [
                         {
                             "value": "left",
