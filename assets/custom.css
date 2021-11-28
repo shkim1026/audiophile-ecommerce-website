@@ -174,7 +174,6 @@ header.site-header.border-bottom.logo--left {
 }
 .featured-product__header {
     font-size: 5.5rem;
-    width: 75%;
     line-height: 1;
     margin: 0;
 }
@@ -319,10 +318,11 @@ header.site-header.border-bottom.logo--left {
     }
     .featured-product__header {
         margin: 0 auto;
+        width: 100%;
     }
     .featured-product__img {
         padding-top: 0;
-        padding-bottom: 8rem;
+        padding-bottom: 5rem;
     }
 
 
@@ -382,7 +382,7 @@ header.site-header.border-bottom.logo--left {
         margin: 0px 2rem;
     }
     .featured-product__txt-container {
-        padding: 0 2rem;
+        padding: 2rem;
     }
     .featured-product__desc {
         margin-bottom: 3rem;
