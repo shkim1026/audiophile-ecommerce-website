@@ -225,10 +225,6 @@ header.site-header.border-bottom.logo--left {
 .pos-absolute {
     position: absolute;
 }
-.absol-bottom {
-    bottom: 25%;
-    top: 25%;
-}
 .featured-product-med__txt-container {
     padding: 0 8rem;
     width: 100%;

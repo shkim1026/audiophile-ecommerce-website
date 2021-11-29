@@ -12,7 +12,7 @@
                     <img class="featured-product-med__img {% if block.settings.grid == true %} border-radius {% endif %}" src="{{ block.settings.image | img_url: 'master' }}">
                 </picture>
             </div>
-            <div class="featured-product__txt-container featured-product-med__txt-container pos-absolute txt-med-container-{{forloop.index}} {% if block.settings.grid == true %} grid-column-2 flex-column border-radius{% else %} absol-bottom {% endif %}">
+            <div class="featured-product__txt-container featured-product-med__txt-container pos-absolute txt-med-container-{{forloop.index}} {% if block.settings.grid == true %} grid-column-2 flex-column border-radius {% endif %}">
                 <h2 class="featured-product__header featured-product-med__header text-med-color-{{forloop.index}}">{{ block.settings.featured_product_label }}</h2>
                 {% if block.settings.product_desc != blank%}
                 <div class="featured-product__desc text-med-color-{{forloop.index}}">{{ block.settings.product_desc }}</div>

@@ -28,6 +28,13 @@
         .product-container-{{forloop.index}} {
             background-color: {{block.settings.background_color}};
         }
+        .text-color-{{forloop.index}} { 
+                color: {{block.settings.text_color}};
+        }
+        .button-color-{{forloop.index}} {
+            color: {{block.settings.link_txt_color}};
+            background-color: {{block.settings.link_button_color}};
+        }
         {% if block.settings.pattern == true %}
             .product-container-{{forloop.index}} {
                 background-image: url({{'pattern-circles.png' | asset_url}});
@@ -47,25 +54,17 @@
                         background-position-y: -15rem;
                 }
             }
-            .text-color-{{forloop.index}} { 
-                color: {{block.settings.text_color}};
+        {% endif %}
+        {% if section.settings.text_align == 'left' %}
+            .img-container-{{forloop.index}} {
+                grid-column-start: 2;
             }
-            .button-color-{{forloop.index}} {
-                color: {{block.settings.link_txt_color}};
-                background-color: {{block.settings.link_button_color}};
+            .txt-container-{{forloop.index}} {
+                grid-column-start: 1;
+                grid-row-start: 1;
             }
         {% endif %}
     {%- endfor -%}
-
-    {% if section.settings.text_align == 'left' %}
-        .img-container-{{forloop.index}} {
-            grid-column-start: 2;
-        }
-        .txt-container-{{forloop.index}} {
-            grid-column-start: 1;
-            grid-row-start: 1;
-        }
-    {% endif %}
 </style>
 
 {% schema %}
