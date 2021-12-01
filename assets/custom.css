@@ -34,6 +34,26 @@ header.site-header.border-bottom.logo--left {
 }
 
 
+/* NEW BANNER */
+.hero {
+    position: relative;
+}
+.hero__content {
+    position: absolute;
+    padding: 0 5rem;
+    width: 30%;
+}
+.hero__image-img {
+    width: 100%;
+}
+.hero__btn-container {
+    margin: 5rem 0;
+}
+.hero__button {
+    padding: 1rem 3rem;
+}
+
+
 /* BANNER */
 .banner__content {
     display: grid;
@@ -261,8 +281,19 @@ header.site-header.border-bottom.logo--left {
     width: fit-content;
 }
 
-
+/* =============================================================== */
+/* TABLETS */
+/* =============================================================== */
 @media only screen and (max-width: 991px) {
+    /* NEW BANNER */
+    .hero__content {
+        text-align: center;
+        width: 70%;
+        left: 15%;
+    }
+
+
+    /* BANNER */
     .banner__content {
         display: block;
     }
@@ -333,7 +364,20 @@ header.site-header.border-bottom.logo--left {
     }
 }
 
+/* =============================================================== */
+/* MOBILE */
+/* =============================================================== */
 @media only screen and (max-width: 767px) {
+    /* NEW BANNER */
+    .hero__content {
+        width: 100%;
+        left: 0;
+        top: 25%;
+        padding: 0 1rem;
+    }
+
+
+    /* BANNER */
     .banner__box {
         padding: 0;
     }
