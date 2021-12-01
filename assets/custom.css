@@ -196,6 +196,7 @@ header.site-header.border-bottom.logo--left {
     opacity: 0.5;
 }
 
+
 /* FEATURED PRODUCTS */
 
 .featured-product {
@@ -300,18 +301,17 @@ header.site-header.border-bottom.logo--left {
     width: fit-content;
 }
 
+
 /* =============================================================== */
 /* TABLETS */
 /* =============================================================== */
 @media only screen and (max-width: 991px) {
     /* NEW BANNER */
     .hero__content {
-        text-align: center;
         justify-self: center;
         grid-column-end: unset;
         width: 70%;
     }
-
 
     /* BANNER */
     .banner__content {
@@ -429,6 +429,7 @@ header.site-header.border-bottom.logo--left {
         box-shadow: none;
     }
 
+
     /* COLLECTIONS */
     .collection-container {
         display: block;
@@ -438,6 +439,7 @@ header.site-header.border-bottom.logo--left {
         margin-top: 8rem;
     }
 
+    
     /* FEATURED PRODUCTS */
     .featured-product {
         padding: 0;
