@@ -41,6 +41,7 @@ header.site-header.border-bottom.logo--left {
 }
 .hero__content-container {
     display: grid;
+    grid-template-columns: 33% 66%;
     width: 100%;
     position: absolute;
     top: 0;
@@ -54,7 +55,7 @@ header.site-header.border-bottom.logo--left {
 .hero__content {
     position: absolute;
     padding: 0 5rem;
-    width: 33%;
+    grid-column-end: 1;
 }
 .hero__image-img {
     width: 100%;
@@ -300,15 +301,6 @@ header.site-header.border-bottom.logo--left {
 }
 
 /* =============================================================== */
-/* BIG TABLETS */
-/* =============================================================== */
-@media only screen and (max-width: 1024px) {
-    .hero__content {
-        width: 50%;
-    }
-}
-
-/* =============================================================== */
 /* TABLETS */
 /* =============================================================== */
 @media only screen and (max-width: 991px) {
@@ -316,6 +308,7 @@ header.site-header.border-bottom.logo--left {
     .hero__content {
         text-align: center;
         justify-self: center;
+        grid-column-end: unset;
         width: 70%;
     }
 
