@@ -60,6 +60,7 @@
         .hero__heading {
             color: {{block.settings.heading_color}};
             font-size: {{block.settings.heading_font_size}};
+            line-height: {{block.settings.heading_line_height}};
             {% if block.settings.heading_uppercase == true %}
                 text-transform: uppercase;
             {% endif %}
@@ -249,6 +250,38 @@
                     "default": "#FFFFFF"
                 },
                 {
+                    "type": "select",
+                    "id": "heading_line_height",
+                    "label": "Line Height",
+                    "default": "6rem",
+                    "options": [
+                        {
+                            "value": "5rem",
+                            "label": "5rem"
+                        },
+                        {
+                            "value": "6rem",
+                            "label": "6rem"
+                        },
+                        {
+                            "value": "7rem",
+                            "label": "7rem"
+                        },
+                        {
+                            "value": "8rem",
+                            "label": "8rem"
+                        },
+                        {
+                            "value": "9rem",
+                            "label": "9rem"
+                        },
+                        {
+                            "value": "10rem",
+                            "label": "10rem"
+                        }
+                    ]
+                },
+                {
                     "type": "checkbox",
                     "id": "heading_uppercase",
                     "label": "Uppercase Text",
@@ -263,7 +296,7 @@
                 {
                     "type": "textarea",
                     "id": "description",
-                    "label": "description",
+                    "label": "Description",
                     "default": "Body of text here."
                 },
                 {

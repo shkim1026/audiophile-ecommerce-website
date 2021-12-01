@@ -1,5 +1,6 @@
 body,
-.header__active-menu-item {
+.header__active-menu-item,
+h1,h2,h3,p,a {
     font-family: 'Manrope', sans-serif;
 }
 a {
@@ -53,16 +54,21 @@ header.site-header.border-bottom.logo--left {
 .hero__content {
     position: absolute;
     padding: 0 5rem;
-    width: 50%;
+    width: 33%;
 }
 .hero__image-img {
     width: 100%;
 }
+.hero__heading {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    letter-spacing: 0.25rem;
+}
 .hero__btn-container {
-    margin: 5rem 0;
+    margin: 6rem 0;
 }
 .hero__button {
-    padding: 1rem 3rem;
+    padding: 2rem 4rem;
 }
 
 
