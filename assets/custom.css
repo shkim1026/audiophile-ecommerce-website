@@ -1,5 +1,6 @@
 body,
-.header__active-menu-item {
+.header__active-menu-item,
+h1,h2,h3,p,a {
     font-family: 'Manrope', sans-serif;
 }
 a {
@@ -31,6 +32,44 @@ header.site-header.border-bottom.logo--left {
 .header__menu-item {
     text-decoration: none;
     text-transform: uppercase;
+}
+
+
+/* NEW BANNER */
+.hero {
+    position: relative;
+}
+.hero__content-container {
+    display: grid;
+    grid-template-columns: 33% 66%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 1600px;
+    height: 100%;
+    align-items: center;
+    margin: 0 auto;
+}
+.hero__content {
+    position: absolute;
+    padding: 0 5rem;
+    grid-column-end: 1;
+}
+.hero__image-img {
+    width: 100%;
+}
+.hero__heading {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    letter-spacing: 0.25rem;
+}
+.hero__btn-container {
+    margin: 6rem 0;
+}
+.hero__button {
+    padding: 1rem 2rem;
 }
 
 
@@ -261,8 +300,20 @@ header.site-header.border-bottom.logo--left {
     width: fit-content;
 }
 
-
+/* =============================================================== */
+/* TABLETS */
+/* =============================================================== */
 @media only screen and (max-width: 991px) {
+    /* NEW BANNER */
+    .hero__content {
+        text-align: center;
+        justify-self: center;
+        grid-column-end: unset;
+        width: 70%;
+    }
+
+
+    /* BANNER */
     .banner__content {
         display: block;
     }
@@ -333,7 +384,25 @@ header.site-header.border-bottom.logo--left {
     }
 }
 
+/* =============================================================== */
+/* MOBILE */
+/* =============================================================== */
 @media only screen and (max-width: 767px) {
+    /* NEW BANNER */
+    .hero__content {
+        width: 100%;
+        left: 0;
+        top: 25%;
+        padding: 0 1rem;
+    }
+    .hero__heading {
+        font-size: 4rem;
+        letter-spacing: 0;
+        line-height: 5rem;
+    }
+
+
+    /* BANNER */
     .banner__box {
         padding: 0;
     }
