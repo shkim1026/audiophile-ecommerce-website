@@ -41,6 +41,9 @@
             text-align: {{block.settings.text_align}};
         }
         @media only screen and (max-width: 991px) {
+            .hero__content {
+                top: {{section.settings.vertical_align--mobile}}%;
+            }
             .hero__container {
                 text-align: {{block.settings.text_align--mobile}};
             }
@@ -76,6 +79,9 @@
                 text-transform: uppercase;
             {% endif %}
         }
+        .hero__button:hover {
+            background-color: {{block.settings.button_color--hover}};
+        }
     {%-endfor-%}
 </style>
 
@@ -103,8 +109,8 @@
         {
             "type": "number",
             "id": "vertical_align",
-            "label": "Vertically Align Text",
-            "default": 30
+            "label": "Vertically Align Text (Desktop)",
+            "default": 25
         },
         {
             "type": "select",
@@ -125,6 +131,12 @@
                     "label": "end"
                 }
             ]
+        },
+        {
+            "type": "number",
+            "id": "vertical_align--mobile",
+            "label": "Vertically Align Text (Tablet/Mobile)",
+            "default": 30
         },
         {
             "type": "select",
