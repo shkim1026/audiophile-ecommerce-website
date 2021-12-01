@@ -9,27 +9,29 @@
             <source media="(max-width: 767.87px)" srcset="{{ section.settings.image_3 | img_url: 'master' }}">
             <img class="hero__image-img" src="{{ section.settings.image_3 | img_url: 'master' }}" alt="{{section.settings.image.alt | escape}}">
         </picture>
-        <div class="hero__content">
-            {%- for block in section.blocks -%}
-                {%- case block.type -%}
-                    {%- when 'subscript'-%}
-                        <h3 class="hero__subscript">
-                            <span>{{ block.settings.subscript }}</span>
-                        </h3>
-                    {%- when 'heading'-%}
-                        <h2 class="hero__heading">
-                            <span>{{ block.settings.heading}}</span>
-                        </h2>
-                    {%- when 'description' -%}
-                        <div class="hero__description">
-                            <span>{{ block.settings.description }}</span>
-                        </div>
-                    {%- when 'button' -%}
-                        <div class="hero__btn-container">
-                            <a class="hero__button" href="{% if block.settings.button_link == blank %} {{ block.settings.product.url }} {% else %} {{ block.settings.button_link}} {% endif %}">{{ block.settings.button_text }}</a>
-                        </div>
-                {%- endcase -%}
-            {%- endfor -%}
+        <div class="hero__content-container">
+            <div class="hero__content">
+                {%- for block in section.blocks -%}
+                    {%- case block.type -%}
+                        {%- when 'subscript'-%}
+                            <h3 class="hero__subscript">
+                                <span>{{ block.settings.subscript }}</span>
+                            </h3>
+                        {%- when 'heading'-%}
+                            <h2 class="hero__heading">
+                                <span>{{ block.settings.heading}}</span>
+                            </h2>
+                        {%- when 'description' -%}
+                            <div class="hero__description">
+                                <span>{{ block.settings.description }}</span>
+                            </div>
+                        {%- when 'button' -%}
+                            <div class="hero__btn-container">
+                                <a class="hero__button" href="{% if block.settings.button_link == blank %} {{ block.settings.product.url }} {% else %} {{ block.settings.button_link}} {% endif %}">{{ block.settings.button_text }}</a>
+                            </div>
+                    {%- endcase -%}
+                {%- endfor -%}
+            </div>
         </div>
     </div>
 </div>
@@ -37,13 +39,9 @@
 <style>
     {%-for block in section.blocks-%}
         .hero__content {
-            top: {{section.settings.vertical_align}}%;
             text-align: {{block.settings.text_align}};
         }
         @media only screen and (max-width: 991px) {
-            .hero__content {
-                top: {{section.settings.vertical_align--mobile}}%;
-            }
             .hero__container {
                 text-align: {{block.settings.text_align--mobile}};
             }
@@ -107,12 +105,6 @@
             "label": "Image (for Mobile)"
         },
         {
-            "type": "number",
-            "id": "vertical_align",
-            "label": "Vertically Align Text (Desktop)",
-            "default": 25
-        },
-        {
             "type": "select",
             "id": "text_align",
             "label": "Text Alignment (Desktop)",
@@ -131,12 +123,6 @@
                     "label": "end"
                 }
             ]
-        },
-        {
-            "type": "number",
-            "id": "vertical_align--mobile",
-            "label": "Vertically Align Text (Tablet/Mobile)",
-            "default": 30
         },
         {
             "type": "select",

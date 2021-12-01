@@ -38,10 +38,19 @@ header.site-header.border-bottom.logo--left {
 .hero {
     position: relative;
 }
+.hero__content-container {
+    display: grid;
+    grid-template-columns: 30%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    align-items: center;
+}
 .hero__content {
     position: absolute;
     padding: 0 5rem;
-    width: 30%;
+    width: 50%;
 }
 .hero__image-img {
     width: 100%;
@@ -288,8 +297,8 @@ header.site-header.border-bottom.logo--left {
     /* NEW BANNER */
     .hero__content {
         text-align: center;
+        justify-self: center;
         width: 70%;
-        left: 15%;
     }
 
 
