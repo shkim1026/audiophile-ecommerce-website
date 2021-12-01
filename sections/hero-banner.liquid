@@ -37,15 +37,15 @@
 </div>
 
 <style>
-    {%-for block in section.blocks-%}
+    .hero__content {
+        text-align: {{section.settings.text_align}};
+    }
+    @media only screen and (max-width: 991px) {
         .hero__content {
-            text-align: {{block.settings.text_align}};
+            text-align: {{section.settings.text_align--mobile}};
         }
-        @media only screen and (max-width: 991px) {
-            .hero__container {
-                text-align: {{block.settings.text_align--mobile}};
-            }
-        }
+    }
+    {%-for block in section.blocks-%}
         .hero__subscript {
             color: {{block.settings.subscript_color}};
             letter-spacing: {{block.settings.subscript_letter_spacing}};
@@ -109,11 +109,11 @@
             "type": "select",
             "id": "text_align",
             "label": "Text Alignment (Desktop)",
-            "default": "initial",
+            "default": "left",
             "options": [
                 {
-                    "value": "initial",
-                    "label": "initial"
+                    "value": "left",
+                    "label": "left"
                 },
                 {
                     "value": "center",
@@ -129,18 +129,18 @@
             "type": "select",
             "id": "text_align--mobile",
             "label": "Text Alignment (Tablet & Mobile)",
-            "default": "center !important",
+            "default": "center",
             "options": [
                 {
-                    "value": "initial !important",
-                    "label": "initial"
+                    "value": "left",
+                    "label": "left"
                 },
                 {
-                    "value": "center !important",
+                    "value": "center",
                     "label": "center"
                 },
                 {
-                    "value": "end !important",
+                    "value": "end",
                     "label": "end"
                 }
             ]
