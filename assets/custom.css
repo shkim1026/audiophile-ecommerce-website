@@ -5,6 +5,16 @@ body,
 a {
     text-decoration: none;
 }
+button {
+    box-shadow: none;
+    border: 1px solid black;
+}
+a,
+a.button--primary,
+.inner__link-text,
+.featured-product__button {
+    transition: 0.3s;
+}
 
 
 /* HEADER  */
@@ -68,6 +78,7 @@ header.site-header.border-bottom.logo--left {
     background-color: #D87D4A;
     padding: 1rem 3rem;
 }
+.button--primary:hover,
 .button--primary:active {
     background-color: #FBAF85;
 }
@@ -146,6 +157,110 @@ header.site-header.border-bottom.logo--left {
     opacity: 0.5;
 }
 
+/* FEATURED PRODUCTS */
+
+.featured-product {
+    margin: 4rem auto;
+    max-width: 1600px;
+    padding: 0 5rem;
+}
+.featured-product__container {
+    border-radius: 0.5rem;
+    margin-bottom: 4rem;
+}
+.featured-product__header,
+.featured-product__button {
+    text-transform: uppercase;
+}
+.featured-product__header {
+    font-size: 5.5rem;
+    line-height: 1;
+    margin: 0;
+}
+.column-2 {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.featured-product__img-container {
+    text-align: center;
+    overflow: hidden;
+}
+.featured-product__img {
+    vertical-align: bottom;
+    transform: translateY(1rem);
+    padding-top: 10rem;
+}
+.featured-product__txt-container {
+    align-self: center;
+    padding: 0 13rem;
+}
+.featured-product__desc {
+    margin-bottom: 4rem;
+}
+.featured-product__button {
+    padding: 1rem 3rem;
+    cursor: pointer;
+    line-height: initial;
+} 
+.featured-product__button:hover {
+    background-color: #4C4C4C;
+}
+
+.border-radius {
+    border-radius: 0.5rem;
+}
+
+
+/* FEATURED PRODUCT MEDIUM */
+.featured-product-med__img {
+    width: 100%;
+}
+.featured-product-med__img-container {
+    line-height: 0;
+}
+.pos-relative {
+    position: relative;
+    overflow: hidden;
+}
+.pos-absolute {
+    position: absolute;
+}
+.featured-product-med__txt-container {
+    padding: 0 8rem;
+    width: 100%;
+}
+.featured-product-med__header {
+    padding: 3rem 0;
+    font-size: 4rem;
+}
+.featured-product-med__button:hover {
+    color: #FFFFFF;
+    background-color: #000000;
+}
+.grid-view {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto;
+}
+.grid-gap {
+    grid-gap: 2rem;
+}
+.grid-area {
+    grid-area: 1/1/4/4;
+}
+.grid-column-2 {
+    grid-column-start: 2;
+    height: 100%;
+}
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+}
+.fit-content {
+    width: fit-content;
+}
+
 
 @media only screen and (max-width: 991px) {
     .banner__content {
@@ -187,15 +302,41 @@ header.site-header.border-bottom.logo--left {
     .inner {
         padding-top: 5rem; 
     }
+
+
+    /* FEATURED PRODUCTS */
+    .column-2 {
+        display: block;
+        padding: 6rem 0;
+    }
+    .featured-product__txt-container {
+        text-align: center;
+    }
+    .featured-product__header {
+        margin: 0 auto;
+        width: 100%;
+    }
+    .featured-product__img {
+        padding-top: 0;
+        padding-bottom: 5rem;
+    }
+
+
+    /* FEATURED PRODUCTS MED */
+    .featured-product-med__header {
+        margin: 0;
+        font-size: 3.5rem;
+    }
+    .featured-product-med__txt-container {
+        padding: 0 6rem;
+        text-align: initial;
+    }
 }
 
 @media only screen and (max-width: 767px) {
     .banner__box {
         padding: 0;
     }
-    /* .banner__content {
-        height: 100vh;
-    } */
     .button--primary {
         color: white;
     }
@@ -226,5 +367,33 @@ header.site-header.border-bottom.logo--left {
     }
     .collection-container__inner {
         margin-top: 8rem;
+    }
+
+    /* FEATURED PRODUCTS */
+    .featured-product {
+        padding: 0;
+        margin: 2rem auto;
+    }
+    .featured-product__container {
+        margin: 0px 2rem;
+    }
+    .featured-product__txt-container {
+        padding: 2rem;
+    }
+    .featured-product__desc {
+        margin-bottom: 3rem;
+    }
+    .grid-view {
+        grid-template-rows: auto auto;
+        grid-template-columns: unset;
+    }
+    .grid-column-2 {
+        grid-column-start: unset;
+        grid-row-start: 2;
+        height: initial;
+        position: initial;
+    }
+    .fit-content {
+        margin-bottom: 3rem;
     }
 }

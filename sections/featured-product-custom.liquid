@@ -1,0 +1,167 @@
+{{ 'custom.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom.js' | asset_url }}" defer></script>
+
+<div class="featured-product">
+    {%-for block in section.blocks-%}
+        <div class="featured-product__container product-container-{{forloop.index}} column-2">
+            <div class="featured-product__img-container img-container-{{forloop.index}}">
+                <picture>
+                    <source media="(min-width: 992px)" srcset="{{ block.settings.image | img_url: 'large' }}">
+                    <source media="(min-width: 768px)" srcset="{{ block.settings.image | img_url: 'medium' }}">
+                    <source media="(max-width: 767.87px)" srcset="{{ block.settings.image | img_url: 'medium' }}">
+                    <img class="featured-product__img" src="{{ block.settings.image | img_url: 'master' }}">
+                </picture>
+            </div>
+            <div class="featured-product__txt-container txt-container-{{forloop.index}}">
+                <h2 class="featured-product__header text-color-{{forloop.index}}">{{ block.settings.featured_product_label }}</h2>
+                {% if block.settings.product_desc != blank%}
+                <div class="featured-product__desc text-color-{{forloop.index}}">{{ block.settings.product_desc }}</div>
+                {% endif %}
+                <a class="featured-product__button button-color-{{forloop.index}}" href="{{ block.settings.product.url }}">{{ block.settings.link_text }}</a>
+            </div>
+        </div>
+    {%- endfor -%}
+</div>
+
+<style>
+    {%-for block in section.blocks-%}
+        .product-container-{{forloop.index}} {
+            background-color: {{block.settings.background_color}};
+        }
+        .text-color-{{forloop.index}} { 
+                color: {{block.settings.text_color}};
+        }
+        .button-color-{{forloop.index}} {
+            color: {{block.settings.link_txt_color}};
+            background-color: {{block.settings.link_button_color}};
+        }
+        {% if block.settings.pattern == true %}
+            .product-container-{{forloop.index}} {
+                background-image: url({{'pattern-circles.png' | asset_url}});
+                background-repeat: no-repeat;
+                background-position-y: inherit;
+                background-position-x: -10rem;
+            }
+            @media only screen and (max-width: 991px) {
+                .product-container-{{forloop.index}} {
+                        background-position-x: center;
+                        background-position-y: bottom;
+                }
+            }
+            @media only screen and (max-width: 767px) {
+                .product-container-{{forloop.index}} {
+                        background-size: 70rem;
+                        background-position-y: -15rem;
+                }
+            }
+        {% endif %}
+        {% if section.settings.text_align == 'left' %}
+            .img-container-{{forloop.index}} {
+                grid-column-start: 2;
+            }
+            .txt-container-{{forloop.index}} {
+                grid-column-start: 1;
+                grid-row-start: 1;
+            }
+        {% endif %}
+    {%- endfor -%}
+</style>
+
+{% schema %}
+{
+    "name": "Featured Product (Custom)",
+    "tag": "section",
+    "class": "featured_product_custom",
+    "settings": [
+        {
+            "type": "select",
+            "id": "text_align",
+            "label": "Text alignment",
+            "options": [
+                {
+                    "value": "left",
+                    "label": "Align Text Left"
+                },
+                {
+                    "value": "right",
+                    "label": "Align Text Right"
+                }
+            ],
+            "default": "right" 
+        }
+    ],
+    "blocks": [
+      {
+            "type": "featured_product",
+            "name": "Featured Product",
+            "limit": 3,
+            "settings": [
+                {
+                    "type": "checkbox",
+                    "id": "pattern",
+                    "label": "Enable Background Pattern",
+                    "default": true
+                },
+                {
+                    "type": "color",
+                    "id": "background_color",
+                    "label": "Banner Background Color",
+                    "default": "#D87D4A"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Featured Product Image"
+                },
+                {
+                    "type": "text",
+                    "id": "featured_product_label",
+                    "label": "Product Label"
+                },
+                {
+                    "type": "richtext",
+                    "id": "product_desc",
+                    "label": "Description"
+                },
+                {
+                    "type": "color",
+                    "id": "text_color",
+                    "label": "Text Color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "text",
+                    "id": "link_text",
+                    "label": "Link Text"
+                },
+                {
+                    "type": "color",
+                    "id": "link_txt_color",
+                    "label": "Link Text Color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "color",
+                    "id": "link_button_color",
+                    "label": "Link Button Color"
+                },
+                {
+                    "type": "product",
+                    "id": "product",
+                    "label": "Select Product"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Featured Product (Custom)",
+            "blocks": [
+                {
+                    "type": "featured_product"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
