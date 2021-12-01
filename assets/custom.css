@@ -40,12 +40,15 @@ header.site-header.border-bottom.logo--left {
 }
 .hero__content-container {
     display: grid;
-    grid-template-columns: 30%;
     width: 100%;
     position: absolute;
     top: 0;
+    left: 0;
+    right: 0;
+    max-width: 1600px;
     height: 100%;
     align-items: center;
+    margin: 0 auto;
 }
 .hero__content {
     position: absolute;
