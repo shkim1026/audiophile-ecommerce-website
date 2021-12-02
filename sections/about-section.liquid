@@ -50,7 +50,26 @@
             text-align: {{section.settings.text_align--mobile}};
         }
     }
+
+    .highlight {
+        color: {{section.settings.highlight_color}};
+    }
 </style>
+
+
+<script>
+    function highlightWord() {
+        let heading = document.getElementsByClassName('about__heading')[0];
+        let word = '{{section.settings.highlight_text}}';
+        let split = heading.innerHTML.split(word);
+        let newText = split[0] + '<span class="highlight">' + word + '</span>' + split[1];
+        heading.innerHTML = newText;
+    }
+
+    {% if section.settings.highlight_text != blank %}
+        highlightWord();
+    {% endif %}
+</script>
 
 
 {% schema %}
@@ -90,6 +109,17 @@
             "id": "uppercase",
             "label": "Uppercase",
             "default": true
+        },
+        {
+            "type": "text",
+            "id": "highlight_text",
+            "label": "Highlight a word"
+        },
+        {
+            "type": "color",
+            "id": "highlight_color",
+            "label": "Highlighted Text Color",
+            "default": "#CCCCCC"
         },
         {
             "type": "textarea",
