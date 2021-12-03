@@ -73,64 +73,6 @@ header.site-header.border-bottom.logo--left {
 }
 
 
-/* BANNER */
-.banner__content {
-    display: grid;
-    grid-template-columns: 33% 67%;
-    padding-bottom: 0;
-    padding-top: 0;
-}
-.banner__box {
-    text-align: initial;
-}
-.color-background-1 {
-    background-color: unset;
-}
-.color-background-1,
-.banner__heading,
-.banner__buttons {
-    color: white;
-}
-.banner__heading {
-    font-size: 5rem;
-    letter-spacing: 0.2rem;
-    line-height: 6rem;
-}
-.banner__box >
-.banner__text {
-    margin-bottom: 5rem;
-    opacity: .75;
-}
-.banner__box > 
-.banner__buttons {
-    justify-content: initial;
-}
-.banner__image {
-    text-align: center;
-}
-.banner__image-img {
-    width: inherit;
-    height: auto;
-}
-.button--primary {
-    opacity: 1 !important;
-    background-color: #D87D4A;
-    padding: 1rem 3rem;
-}
-.button--primary:hover,
-.button--primary:active {
-    background-color: #FBAF85;
-}
-.banner__featured-text {
-    font-size: 1.25rem;
-    letter-spacing: 1rem;
-    line-height: 2rem;
-    color: white;
-    margin-bottom: 3rem;
-    opacity: .5;
-}
-
-
 /* COLLECTIONS */
 
 .grid {
@@ -302,6 +244,39 @@ header.site-header.border-bottom.logo--left {
 }
 
 
+/* ABOUT SECTION */
+.about {
+    max-width: 1600px;
+    margin: 15rem auto;
+    padding: 0 5rem;
+}
+.about__container {
+    display: grid;
+    grid-gap: 4rem;
+    grid-template-columns: 1fr 1fr;
+}
+.about__heading {
+    margin: 2rem 0;
+    line-height: 6rem;
+}
+.about__text-content {
+    align-self: center;
+    width: 75%;
+}
+.about__image-img {
+    width: 100%;
+    border-radius: 1rem;
+}
+
+
+/* =============================================================== */
+/* LRG TABLETS (iPadPro) */
+/* =============================================================== */
+@media only screen and (max-width: 1070px) {
+    .about__text-content {
+        width: 100%;
+    }
+}
 /* =============================================================== */
 /* TABLETS */
 /* =============================================================== */
@@ -311,35 +286,6 @@ header.site-header.border-bottom.logo--left {
         justify-self: center;
         grid-column-end: unset;
         width: 70%;
-    }
-
-    /* BANNER */
-    .banner__content {
-        display: block;
-    }
-    .banner__content,
-    .banner__heading,
-    .banner__featured-text {
-        text-align: center;
-        text-align-last: center;
-    }
-    .banner__box>
-    .banner__buttons {
-        justify-content: center;
-    }
-    .banner__content {
-        display: table;
-    }
-    .banner__box {
-        display: table-cell;
-        vertical-align: middle;
-        padding: 0 24vw;
-    }
-    .banner {
-        height: 71vh;
-    }
-    .banner__text {
-        text-align: center;
     }
 
 
@@ -382,6 +328,19 @@ header.site-header.border-bottom.logo--left {
         padding: 0 6rem;
         text-align: initial;
     }
+
+
+    /* ABOUT SECTION */
+    .about {
+        margin: 12rem auto;
+    }
+    .about__container {
+        display: block;
+    }
+    .about__text-content {
+        width: 100%;
+        margin-top: 4rem;
+    }
 }
 
 /* =============================================================== */
@@ -399,34 +358,6 @@ header.site-header.border-bottom.logo--left {
         font-size: 4rem;
         letter-spacing: 0;
         line-height: 5rem;
-    }
-
-
-    /* BANNER */
-    .banner__box {
-        padding: 0;
-    }
-    .button--primary {
-        color: white;
-    }
-
-    .banner__heading {
-        letter-spacing: 0px;
-    }
-    .banner,
-    .banner--large {
-        height: 65rem;
-    }
-    .banner__media {
-        left: unset;
-        top: unset;
-    }
-    .banner__text {
-        letter-spacing: normal;
-    }
-    .banner__buttons > .button {
-        border: none;
-        box-shadow: none;
     }
 
 
@@ -466,5 +397,18 @@ header.site-header.border-bottom.logo--left {
     }
     .fit-content {
         margin-bottom: 3rem;
+    }
+    .grid-gap {
+        grid-gap: 0;
+    }
+
+
+    /* ABOUT SECTION */
+    .about {
+        padding: 0 2rem;
+    }
+    .about__heading {
+        font-size: 3rem;
+        line-height: 4rem;
     }
 }
