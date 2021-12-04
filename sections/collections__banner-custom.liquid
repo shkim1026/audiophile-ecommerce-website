@@ -1,0 +1,78 @@
+<div class="collectionsBanner">
+    <div class="collectionsBanner__container">
+        <img class="collectionsBanner__image" srcset="{{ section.settings.image | img_url: 'master '}}">
+    </div>
+    <div class="collectionsBanner__container--txt">
+        <h1 class="collectionsBanner__heading">{{ collection.title | escape }}</h1>
+    </div>
+</div>
+
+<style>
+    .collectionsBanner {
+        background-color: {{section.settings.background-color}}
+    }
+    .collectionsBanner__container--txt {
+        place-content: {{section.settings.text-align}};
+    }
+    .collectionSBanner__heading {
+        color: {{section.settings.text-color}};
+    }
+
+    {% if section.settings.uppercase-text == true %}
+        .collectionsBanner__heading {
+            text-transform: uppercase;
+        }
+    {% endif %}
+</style>
+
+{% schema %}
+{
+    "name": "Collections (Custom)",
+    "tag": "section",
+    "class": "collections__banner",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+        },
+        {
+            "type": "checkbox",
+            "id": "uppercase-text",
+            "label": "Uppercase Text",
+            "default": true
+        },
+        {
+            "type": "select",
+            "id": "text-align",
+            "label": "Align Text",
+            "default": "baseline",
+            "options": [
+                {
+                    "value": "baseline",
+                    "label": "Left"
+                },
+                {
+                    "value": "center",
+                    "label": "Center"
+                },
+                {
+                    "value": "end",
+                    "label": "Right"
+                }
+            ]
+        },
+        {
+            "type": "color",
+            "id": "text-color",
+            "label": "Text Color",
+            "default": "#FFFFFF"
+        },
+        {
+            "type": "color",
+            "id": "background-color",
+            "label": "Background Color"
+        }
+    ]
+}
+{% endschema %}

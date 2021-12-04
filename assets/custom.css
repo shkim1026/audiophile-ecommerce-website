@@ -73,7 +73,7 @@ header.site-header.border-bottom.logo--left {
 }
 
 
-/* COLLECTIONS */
+/* COLLECTIONS SECTION */
 
 .grid {
     display: grid;
@@ -268,6 +268,23 @@ header.site-header.border-bottom.logo--left {
     border-radius: 1rem;
 }
 
+/* COLLECTIONS */
+.collectionsBanner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.collectionsBanner__image {
+    width: 100%;
+}
+.collectionsBanner__container--txt{
+    position: absolute;
+    width: 100%;
+    display: flex;
+    padding: 0 5rem;
+}
+
 
 /* =============================================================== */
 /* LRG TABLETS (iPadPro) */
@@ -289,7 +306,7 @@ header.site-header.border-bottom.logo--left {
     }
 
 
-    /* COLLECTIONS */
+    /* COLLECTIONS SECTION */
     .collection-container {
         margin: 12rem auto;
     }
@@ -361,7 +378,7 @@ header.site-header.border-bottom.logo--left {
     }
 
 
-    /* COLLECTIONS */
+    /* COLLECTIONS SECTION */
     .collection-container {
         display: block;
         padding: 0 2rem;
