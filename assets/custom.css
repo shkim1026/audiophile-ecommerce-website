@@ -281,8 +281,15 @@ header.site-header.border-bottom.logo--left {
 .collectionsBanner__container--txt{
     position: absolute;
     width: 100%;
+    max-width: 1600px;
     display: flex;
     padding: 0 5rem;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
 }
 
 
