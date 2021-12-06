@@ -16,7 +16,9 @@ a.button--primary,
 .featured-product__button {
     transition: 0.3s;
 }
-
+li {
+    list-style: none;
+}
 
 /* HEADER  */
 header.site-header.border-bottom.logo--left {
@@ -290,6 +292,21 @@ header.site-header.border-bottom.logo--left {
     right: 0;
     bottom: 0;
     align-items: center;
+}
+
+/* COLLECTIONS PRODUCT GRID */
+.display-grid {
+    padding: 0;
+}
+.product-grid {
+    max-width: 1600px;
+    padding: 0 5rem;
+    margin: 0 auto;
+}
+.product-grid__title,
+.product-grid__vendor,
+.product-grid__price {
+    margin: 1rem 0;
 }
 
 
