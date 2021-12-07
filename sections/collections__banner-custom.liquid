@@ -1,7 +1,7 @@
 <div class="collectionsBanner">
     {% if collection.featured_image != blank %}
         <div class="collectionsBanner__container">
-            <img class="collectionsBanner__image" srcset="{{ collection.featured_image | img_url: 'master '}}">
+            <img class="collectionsBanner__image" srcset="{{ collection.image | image_url: width: 2000}}">
         </div>
         <div class="collectionsBanner__container--txt">
             <h1 class="collectionsBanner__heading">{{ collection.title | escape }}</h1>

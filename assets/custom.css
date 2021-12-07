@@ -276,6 +276,7 @@ header.site-header.border-bottom.logo--left {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-bottom: 5rem;
 }
 .collectionsBanner__image {
     width: 100%;
@@ -306,7 +307,7 @@ header.site-header.border-bottom.logo--left {
 .product-grid__title,
 .product-grid__vendor,
 .product-grid__price {
-    margin: 1rem 0;
+    margin: 0.5rem 0;
 }
 
 
