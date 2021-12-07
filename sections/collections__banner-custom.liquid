@@ -1,0 +1,122 @@
+<div class="collectionsBanner">
+    {% if collection.featured_image != blank %}
+        <div class="collectionsBanner__container">
+            <img class="collectionsBanner__image" srcset="{{ collection.image | image_url: width: 2000}}">
+        </div>
+        <div class="collectionsBanner__container--txt">
+            <h1 class="collectionsBanner__heading">{{ collection.title | escape }}</h1>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+    .collectionsBanner {
+        background-color: {{section.settings.background-color}}
+    }
+    .collectionsBanner__container--txt {
+        place-content: {{section.settings.text-align}};
+    }
+    @media only screen and (max-width: 991px) {
+        .collectionsBanner__container--txt {
+            place-content: {{section.settings.text-align--mobile}};
+        }
+    }
+    .collectionsBanner__heading {
+        color: {{section.settings.text-color}};
+        font-size: {{section.settings.font-size}}rem;
+        {% if section.settings.bold-text == true %}
+            font-weight: 600;
+        {% endif %}
+        {% if section.settings.uppercase-text == true %}
+            text-transform: uppercase;
+        {% endif %}
+    }
+    @media only screen and (max-width: 767px) {
+        .collectionsBanner__heading {
+           font-size: 4rem;
+        }
+    }
+</style>
+
+{% schema %}
+{
+    "name": "Collections (Custom)",
+    "tag": "section",
+    "class": "collections__banner",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "uppercase-text",
+            "label": "Uppercase Text",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "bold-text",
+            "label": "Bold Text",
+            "default": true
+        },
+        {
+            "type": "range",
+            "id": "font-size",
+            "label": "Font Size (rem)",
+            "min": 3,
+            "max": 12,
+            "step": 1,
+            "unit": "rem",
+            "default": 6
+        },
+        {
+            "type": "select",
+            "id": "text-align",
+            "label": "Align Text",
+            "default": "baseline",
+            "options": [
+                {
+                    "value": "baseline",
+                    "label": "Left"
+                },
+                {
+                    "value": "center",
+                    "label": "Center"
+                },
+                {
+                    "value": "end",
+                    "label": "Right"
+                }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "text-align--mobile",
+            "label": "Align Text (Tablet/Mobile)",
+            "default": "baseline",
+            "options": [
+                {
+                    "value": "baseline",
+                    "label": "Left"
+                },
+                {
+                    "value": "center",
+                    "label": "Center"
+                },
+                {
+                    "value": "end",
+                    "label": "Right"
+                }
+            ]
+        },
+        {
+            "type": "color",
+            "id": "text-color",
+            "label": "Text Color",
+            "default": "#FFFFFF"
+        },
+        {
+            "type": "color",
+            "id": "background-color",
+            "label": "Background Color"
+        }
+    ]
+}
+{% endschema %}

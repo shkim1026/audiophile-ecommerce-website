@@ -1,0 +1,153 @@
+
+<div class="product-grid">
+    <ul class="display-grid">
+        {% for product in collection.products %}
+            <a href="{{ product.url }}">
+                <li class="product-grid__list-item">
+                    <img src="{{ product.featured_image | img_url: 'medium' }}">
+                    <h4 class="product-grid__title">{{ product.title }}</h4>
+                    <h5 class="product-grid__vendor">{{ product.vendor }}</h5>
+                    <h6 class="product-grid__price">{{ product.price | money }}</h6>
+                </li>
+            </a>
+        {% endfor %}
+    </ul>
+</div>
+
+<style>
+    .product-grid__title {
+        color: {{ section.settings.color-title }};
+        font-size: {{ section.settings.font-size }}rem;
+        {% if section.settings.uppercase-title == true %}
+            text-transform: uppercase;
+        {% endif %}
+        {% if section.settings.bold-title == true %}
+            font-weight: 600;
+        {% endif %}
+    }
+    .display-grid {
+        display: grid;
+        {% if section.settings.grid-columns == 2 %}
+            grid-template-columns: 1fr 1fr;
+        {% elsif section.settings.grid-columns == 3 %}
+            grid-template-columns: 1fr 1fr 1fr;
+        {% elsif section.settings.grid-columns == 4 %}
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        {% endif %} 
+        grid-gap: 6rem;
+    }
+    .product-grid__list-item {
+            display: flex;
+            flex-direction: column;
+            text-align: {{section.settings.text-align}};
+    }
+    @media only screen and (max-width: 1200px) {
+        .display-grid {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+    }
+    @media only screen and (max-width: 991px) {
+        .display-grid {
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 4rem;
+        }
+        .product-grid__list-item {
+            text-align: {{section.settings.text-align--mobile}};
+        }
+    }
+    @media only screen and (max-width: 767px) {
+        .display-grid {
+            display: block;
+        }
+        .product-grid__list-item {
+            margin: 3rem auto;
+        }
+    }
+</style>
+
+{% schema %}
+{
+    "name": "Product Grid (Custom)",
+    "tag": "section",
+    "class": "collections__products",
+    "settings": [
+        {
+            "type": "range",
+            "id": "grid-columns",
+            "label": "Grid Columns",
+            "min": 1,
+            "max": 4,
+            "step": 1,
+            "default": 3
+        },
+        {
+            "type": "color",
+            "id": "color-title",
+            "label": "Title Text Color",
+            "default": "#000000"
+        },
+        {
+            "type": "checkbox",
+            "id": "uppercase-title",
+            "label": "Uppercase Title Text",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "bold-title",
+            "label": "Bold Title Text",
+            "default": false
+        },
+        {
+            "type": "range",
+            "id": "font-size",
+            "label": "Font Size (rem)",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "unit": "rem",
+            "default": 3
+        },
+        {
+            "type": "select",
+            "id": "text-align",
+            "label": "Align Text",
+            "default": "baseline",
+            "options": [
+                {
+                    "value": "baseline",
+                    "label": "Left"
+                },
+                {
+                    "value": "center",
+                    "label": "Center"
+                },
+                {
+                    "value": "end",
+                    "label": "Right"
+                }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "text-align--mobile",
+            "label": "Align Text (Tablet/Mobile)",
+            "default": "baseline",
+            "options": [
+                {
+                    "value": "baseline",
+                    "label": "Left"
+                },
+                {
+                    "value": "center",
+                    "label": "Center"
+                },
+                {
+                    "value": "end",
+                    "label": "Right"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
