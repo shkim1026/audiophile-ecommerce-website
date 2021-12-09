@@ -1,0 +1,93 @@
+<div class="filters">
+    <div class="filter__inner">
+        <div class="filter">
+            <p class="filter__label">Filter:</p>
+            <div class="filter__container">
+                <p class="filter__label">Availability <span>&#11167;</span></p>
+                <div class="filter__activeContainer">
+                    <ul class="filter__list">
+                        <li class="filter__list-item">
+                            <input type="checkbox" class="filter__input" name="in-stock" value="inStock">
+                            <label for="in-stock">In Stock</label><br>
+                        </li>
+                        <li class="filter__list-item">
+                            <input type="checkbox" class="filter__input" name="out-of-stock" value="outOfStock">
+                            <label for="out-of-stock">Out of Stock</label>
+                        </li>
+                    </ul>
+                    <div class="filter__reset">
+                        <p>Reset</p>
+                    </div>
+                </div>
+            </div>
+            <!-- <div>
+                <p class="filter__label">Price <span>&#11167;</span></p>
+            </div> -->
+        </div>
+    </div>
+    <div class="filter__inner">
+        <div>
+            <label for="sortBy">Sort by:</label>
+            <select name="sort_by" id="sortBy">
+                <option value="featured">Featured</option>
+                <option value="best-selling">Best Selling</option>
+                <option value="title-ascending">Alphabetically, A-Z</option>
+                <option value="title-descending">Alphabetically, Z-A</option>
+                <option value="price-ascending">Price: Low to High</option>
+                <option value="price-descending">Price: High to Low</option>
+                <option value="created-ascending">Oldest First</option>
+                <option value="created-descending">Newest First</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<style>
+    .display-block {
+        display: block !important;
+    }
+    .filters {
+        max-width: 1600px;
+        padding: 0 5rem;
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto;
+    }
+    .filter {
+        display: flex;
+        position: relative;
+    }
+    .filter__inner {
+        display: flex;
+        align-items: center;
+    }
+    .filter__label {
+        padding-right: 2rem;
+    }
+    .filter__activeContainer {
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        width: 35rem;
+        position: absolute;
+        z-index: 2;
+        background-color: #FFFFFF;
+        left: 6rem;
+        display: none;
+    }
+    .filter__reset {
+        border-top: 1px solid rgba(0, 0, 0, 0.5);
+        padding-left: 2rem;
+    }
+    .filter__list {
+        padding: 0;
+    }
+    .filter__list-item {
+        padding: 0 1rem;
+    }
+    select {
+        font-family: 'Manrope', sans-serif;
+    }
+    #sortBy {
+        padding: 1rem;
+        margin-left: 1rem;
+    }
+</style>
