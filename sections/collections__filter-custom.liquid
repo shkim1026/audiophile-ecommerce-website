@@ -1,7 +1,7 @@
-<div class="filters">
-    <div class="filter__inner">
+<div class="filterAndSortBy flex-spaceBetween">
+    <div class="filter__inner flex-center">
         <div class="filter">
-            <p class="filter__label">Filter:</p>
+            <p class="filter__containerLabel padding-right">Filter:</p>
             <div class="filter__container">
                 <p class="filter__label">Availability <span>&#11167;</span></p>
                 <div class="filter__activeContainer">
@@ -25,7 +25,7 @@
             </div> -->
         </div>
     </div>
-    <div class="filter__inner">
+    <div class="sortBy__inner flex-center">
         <div>
             <label for="sortBy">Sort by:</label>
             <select name="sort_by" id="sortBy">
@@ -42,26 +42,76 @@
     </div>
 </div>
 
+<div class="filterAndSortBy--mobile">
+    <div class="filterAndSortBy__container">
+        <p class="filterAndSortBy__label">Filter and Sort</p>
+        <div class="filterAndSortBy__backgroundCover">
+            <div class="filterAndSortBy__activeContainer activeContainer">
+                <div class="activeContainer__headingContainer">
+                    <h4 class="activeContainer__heading">Filter and Sort</h4>
+                </div>
+                <div class="activeContainer__main">
+                    <div class="activeContainer__backContainer">
+                        <p class="leftArrow">&#129044;</p>
+                        <p>Back</p>
+                    </div>
+                    <div class="activeContainer__menuItem availability-label flex-spaceBetween">
+                        <p>Availability</p>
+                        <p class="downTriangle">&#9660;</p>
+                    </div>
+                    <div class="filter__listContainer--mobile">
+                        <ul class="filter__list--mobile">
+                            <li class="filter__list-item--mobile">
+                                <input type="checkbox" class="filter__input" name="in-stock" value="inStock">
+                                <label for="in-stock">In Stock</label><br>
+                            </li>
+                            <li class="filter__list-item--mobile">
+                                <input type="checkbox" class="filter__input" name="out-of-stock" value="outOfStock">
+                                <label for="out-of-stock">Out of Stock</label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="activeContainer__menuItem flex-spaceBetween">
+                        <label for="sortBy">Sort by:</label>
+                        <select name="sort_by" id="sortBy">
+                            <option value="featured">Featured</option>
+                            <option value="best-selling">Best Selling</option>
+                            <option value="title-ascending">Alphabetically, A-Z</option>
+                            <option value="title-descending">Alphabetically, Z-A</option>
+                            <option value="price-ascending">Price: Low to High</option>
+                            <option value="price-descending">Price: High to Low</option>
+                            <option value="created-ascending">Oldest First</option>
+                            <option value="created-descending">Newest First</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <style>
     .display-block {
         display: block !important;
     }
-    .filters {
-        max-width: 1600px;
-        padding: 0 5rem;
+    .flex-spaceBetween{
         display: flex;
         justify-content: space-between;
+    }
+    .filterAndSortBy {
+        max-width: 1600px;
+        padding: 0 5rem;
         margin: 0 auto;
     }
     .filter {
         display: flex;
         position: relative;
     }
-    .filter__inner {
+    .flex-center {
         display: flex;
         align-items: center;
     }
-    .filter__label {
+    .padding-right {
         padding-right: 2rem;
     }
     .filter__activeContainer {
@@ -89,5 +139,77 @@
     #sortBy {
         padding: 1rem;
         margin-left: 1rem;
+        border: none;
+    }
+
+    /* Mobile Viewport Styles */
+    .filterAndSortBy--mobile {
+        display: none;
+        width: max-content;
+    }
+    .filterAndSortBy__backgroundCover {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 3;
+        background-color: rgba(0,0,0,.5);
+    }
+    .filterAndSortBy__label {
+        padding-left: 2rem;
+        width: max-content;
+    }
+    .activeContainer {
+        display: none;
+        max-width: 38rem;
+        height: 100%;
+        background-color: #FFFFFF;
+        position: fixed;
+        z-index: 5;
+        max-width: 40rem;
+        width: calc(100% - 2rem);
+        top: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .activeContainer__heading {
+        text-align: center;
+    }
+    .activeContainer__headingContainer {
+        border-bottom: 1px solid black;
+    }
+    .activeContainer__backContainer {
+        display: flex;
+    }
+    .leftArrow {
+        padding-right: 1rem;
+    }
+    .activeContainer__main {
+        padding: 2rem;
+    }
+    .filter__list--mobile {
+        margin-top: 0;
+    }
+    .filter__listContainer--mobile {
+        display: none;
+    }
+    .filter__list-item--mobile {
+        padding: 0.5rem 0;
+    }
+
+
+    @media only screen and (max-width: 767px) {
+        .filterAndSortBy {
+            display: none;
+        }
+        .filterAndSortBy--mobile {
+            display: block;
+        }
+        .activeContainer__backgroundCover {
+            content: '';
+            background-color: rgba(0, 0, 0, 0.5);
+        }
     }
 </style>
