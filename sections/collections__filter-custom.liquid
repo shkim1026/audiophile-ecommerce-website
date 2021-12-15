@@ -1,0 +1,252 @@
+<div class="filterAndSortBy flex-spaceBetween">
+    <div class="filter__inner flex-center">
+        <div class="filter">
+            <p class="filter__containerLabel padding-right">Filter:</p>
+            <div class="filter__container">
+                <p class="filter__label">Availability <span> <img class="filter__label-chevron" src="{{'down-chevron.png' | asset_img_url: '12x' }}"> </span></p>
+                <div class="filter__activeContainer">
+                    <ul class="filter__list">
+                        <li class="filter__list-item">
+                            <input type="checkbox" class="filter__input" name="stock" id="in-stock" value="inStock">
+                            <label for="in-stock">In Stock</label><br>
+                        </li>
+                        <li class="filter__list-item">
+                            <input type="checkbox" class="filter__input" name="stock" id="out-of-stock" value="outOfStock">
+                            <label for="out-of-stock">Out of Stock</label>
+                        </li>
+                    </ul>
+                    <div class="filter__reset">
+                        <p class="filter__reset-label">Reset</p>
+                    </div>
+                </div>
+            </div>
+            <!-- <div>
+                <p class="filter__label">Price <span>&#11167;</span></p>
+            </div> -->
+        </div>
+    </div>
+    <div class="sortBy__inner flex-center">
+        <div>
+            <label for="sortBy">Sort by:</label>
+            <select name="sort_by" id="sortBy">
+                <option value="featured">Featured</option>
+                <option value="best-selling">Best Selling</option>
+                <option value="title-ascending">Alphabetically, A-Z</option>
+                <option value="title-descending">Alphabetically, Z-A</option>
+                <option value="price-ascending">Price: Low to High</option>
+                <option value="price-descending">Price: High to Low</option>
+                <option value="created-ascending">Oldest First</option>
+                <option value="created-descending">Newest First</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="filterAndSortBy--mobile">
+    <div class="filterAndSortBy__container">
+        <img class="filterAndSortBy__icon" src="{{'mixer.png' | asset_img_url }}">
+        <p class="filterAndSortBy__label">Filter and Sort</p>
+        <div class="filterAndSortBy__backgroundCover">
+            <div class="filterAndSortBy__activeContainer activeContainer">
+                <div class="activeContainer__headingContainer">
+                    <h4 class="activeContainer__heading">Filter and Sort</h4>
+                </div>
+                <div class="activeContainer__main">
+                    <div class="activeContainer__backContainer">
+                        <p class="leftArrow">&#129044;</p>
+                        <p>Back</p>
+                    </div>
+                    <div class="activeContainer__menuItem availability-label flex-spaceBetween">
+                        <label for="stock">Availability</label>
+                        <img class="chevron" src="{{'down-chevron.png' | asset_img_url }}">
+                        <img class="chevron display-none" src="{{'up-chevron.png' | asset_img_url }}">
+                    </div>
+                    <div class="filter__listContainer--mobile">
+                        <ul class="filter__list--mobile">
+                            <li class="filter__list-item--mobile">
+                                <input type="checkbox" class="filter__input" name="stock" id="inStock" value="inStock">
+                                <label for="inStock">In Stock</label><br>
+                            </li>
+                            <li class="filter__list-item--mobile">
+                                <input type="checkbox" class="filter__input" name="stock" id="outOfStock" value="outOfStock">
+                                <label for="outOfStock">Out of Stock</label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="activeContainer__menuItem flex-spaceBetween">
+                        <label for="sortBy">Sort by:</label>
+                        <select name="sort_by" id="sortBy">
+                            <option value="featured">Featured</option>
+                            <option value="best-selling">Best Selling</option>
+                            <option value="title-ascending">Alphabetically, A-Z</option>
+                            <option value="title-descending">Alphabetically, Z-A</option>
+                            <option value="price-ascending">Price: Low to High</option>
+                            <option value="price-descending">Price: High to Low</option>
+                            <option value="created-ascending">Oldest First</option>
+                            <option value="created-descending">Newest First</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .display-block {
+        display: block !important;
+    }
+    .display-none {
+        display: none;
+    }
+    .flex-spaceBetween {
+        display: flex;
+        justify-content: space-between;
+    }
+    .filterAndSortBy {
+        max-width: 1600px;
+        padding: 0 5rem;
+        margin: 0 auto;
+    }
+    .filter {
+        display: flex;
+        position: relative;
+    }
+    .flex-center {
+        display: flex;
+        align-items: center;
+    }
+    .padding-right {
+        padding-right: 2rem;
+    }
+    .filter__label,
+    #sortBy,
+    .filter__input,
+    .filter__list-item label,
+    .filter__reset-label {
+        cursor: pointer;
+    }
+    .filter__label-chevron {
+        padding-left: 1rem;
+    }
+    .filter__activeContainer {
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        width: 35rem;
+        position: absolute;
+        z-index: 2;
+        background-color: #FFFFFF;
+        left: 6rem;
+        display: none;
+    }
+    .filter__reset {
+        border-top: 1px solid rgba(0, 0, 0, 0.5);
+        padding-left: 2rem;
+    }
+    .filter__list {
+        padding: 0;
+    }
+    .filter__list-item {
+        padding: 0 1rem;
+    }
+    select {
+        font-family: 'Manrope', sans-serif;
+    }
+    #sortBy {
+        padding: 1rem;
+        margin-left: 1rem;
+        border: none;
+    }
+
+    /* Mobile Viewport Styles */
+    .filterAndSortBy--mobile {
+        display: none;
+        width: max-content;
+        padding: 0 1rem;
+    }
+    .filterAndSortBy__icon {
+        max-width: 2rem;
+    }
+    .filterAndSortBy__backgroundCover {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 3;
+        background-color: rgba(0,0,0,.5);
+    }
+    .filterAndSortBy__container {
+        display: grid;
+        grid-template-columns: auto auto;
+        align-items: center;
+    }
+    .filterAndSortBy__label {
+        padding-left: 1rem;
+        width: max-content;
+        margin: 0;
+    }
+    .activeContainer {
+        display: none;
+        max-width: 38rem;
+        height: 100%;
+        background-color: #FFFFFF;
+        position: fixed;
+        z-index: 5;
+        max-width: 40rem;
+        width: calc(100% - 2rem);
+        top: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .activeContainer__heading {
+        text-align: center;
+    }
+    .activeContainer__headingContainer {
+        border-bottom: 1px solid black;
+    }
+    .activeContainer__backContainer {
+        display: flex;
+        font-weight: 600;
+    }
+    .activeContainer__menuItem {
+        padding-bottom: 1rem;
+    }
+    .activeContainer__menuItem label {
+        align-self: center;
+    }
+    .leftArrow {
+        padding-right: 1rem;
+    }
+    .activeContainer__main {
+        padding: 2rem;
+    }
+    .filter__list--mobile {
+        margin-top: 0;
+    }
+    .filter__listContainer--mobile {
+        display: none;
+    }
+    .filter__list-item--mobile {
+        padding: 0.5rem 0;
+    }
+    .chevron {
+        width: 1rem;
+        height: 1rem;
+        align-self: center;
+    }
+
+
+    @media only screen and (max-width: 767px) {
+        .filterAndSortBy {
+            display: none;
+        }
+        .filterAndSortBy--mobile {
+            display: block;
+        }
+        .activeContainer__backgroundCover {
+            content: '';
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+    }
+</style>
