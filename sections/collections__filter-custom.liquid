@@ -53,7 +53,7 @@
                 </div>
                 <div class="activeContainer__main">
                     <div class="activeContainer__backContainer">
-                        <p class="leftArrow">&#129044;</p>
+                        <img class="left-arrow" src="{{ 'left-arrow.png' | asset_img_url }}">
                         <p>Back</p>
                     </div>
                     <div class="activeContainer__menuItem availability-label flex-spaceBetween">
@@ -215,12 +215,15 @@
     .activeContainer__menuItem label {
         align-self: center;
     }
-    .leftArrow {
+    .left-arrow {
+        height: fit-content;
+        align-self: center;
         padding-right: 1rem;
     }
     .activeContainer__main {
         padding: 2rem;
     }
+    
     .filter__list--mobile {
         margin-top: 0;
     }

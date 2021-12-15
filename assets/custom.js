@@ -35,7 +35,7 @@ $(document).mouseup(function(e){
 
 // Shows 'Availability' sub-menu for MOBILE and adjusts chevron accordingly
 $(".availability-label").click(function(){
-    $(this).next().toggleClass("display-block");
+    $(this).parent().find(".filter__listContainer--mobile").toggleClass("display-block");
     $(this).find(".chevron").toggleClass("display-none");
 });
 
