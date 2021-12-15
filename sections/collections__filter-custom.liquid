@@ -3,20 +3,20 @@
         <div class="filter">
             <p class="filter__containerLabel padding-right">Filter:</p>
             <div class="filter__container">
-                <p class="filter__label">Availability <span>&#11167;</span></p>
+                <p class="filter__label">Availability <span> <img class="filter__label-chevron" src="{{'down-chevron.png' | asset_img_url: '12x' }}"> </span></p>
                 <div class="filter__activeContainer">
                     <ul class="filter__list">
                         <li class="filter__list-item">
-                            <input type="checkbox" class="filter__input" name="in-stock" value="inStock">
+                            <input type="checkbox" class="filter__input" name="stock" id="in-stock" value="inStock">
                             <label for="in-stock">In Stock</label><br>
                         </li>
                         <li class="filter__list-item">
-                            <input type="checkbox" class="filter__input" name="out-of-stock" value="outOfStock">
+                            <input type="checkbox" class="filter__input" name="stock" id="out-of-stock" value="outOfStock">
                             <label for="out-of-stock">Out of Stock</label>
                         </li>
                     </ul>
                     <div class="filter__reset">
-                        <p>Reset</p>
+                        <p class="filter__reset-label">Reset</p>
                     </div>
                 </div>
             </div>
@@ -44,6 +44,7 @@
 
 <div class="filterAndSortBy--mobile">
     <div class="filterAndSortBy__container">
+        <img class="filterAndSortBy__icon" src="{{'mixer.png' | asset_img_url }}">
         <p class="filterAndSortBy__label">Filter and Sort</p>
         <div class="filterAndSortBy__backgroundCover">
             <div class="filterAndSortBy__activeContainer activeContainer">
@@ -56,18 +57,19 @@
                         <p>Back</p>
                     </div>
                     <div class="activeContainer__menuItem availability-label flex-spaceBetween">
-                        <p>Availability</p>
-                        <p class="downTriangle">&#9660;</p>
+                        <label for="stock">Availability</label>
+                        <img class="chevron" src="{{'down-chevron.png' | asset_img_url }}">
+                        <img class="chevron display-none" src="{{'up-chevron.png' | asset_img_url }}">
                     </div>
                     <div class="filter__listContainer--mobile">
                         <ul class="filter__list--mobile">
                             <li class="filter__list-item--mobile">
-                                <input type="checkbox" class="filter__input" name="in-stock" value="inStock">
-                                <label for="in-stock">In Stock</label><br>
+                                <input type="checkbox" class="filter__input" name="stock" id="inStock" value="inStock">
+                                <label for="inStock">In Stock</label><br>
                             </li>
                             <li class="filter__list-item--mobile">
-                                <input type="checkbox" class="filter__input" name="out-of-stock" value="outOfStock">
-                                <label for="out-of-stock">Out of Stock</label>
+                                <input type="checkbox" class="filter__input" name="stock" id="outOfStock" value="outOfStock">
+                                <label for="outOfStock">Out of Stock</label>
                             </li>
                         </ul>
                     </div>
@@ -94,7 +96,10 @@
     .display-block {
         display: block !important;
     }
-    .flex-spaceBetween{
+    .display-none {
+        display: none;
+    }
+    .flex-spaceBetween {
         display: flex;
         justify-content: space-between;
     }
@@ -113,6 +118,16 @@
     }
     .padding-right {
         padding-right: 2rem;
+    }
+    .filter__label,
+    #sortBy,
+    .filter__input,
+    .filter__list-item label,
+    .filter__reset-label {
+        cursor: pointer;
+    }
+    .filter__label-chevron {
+        padding-left: 1rem;
     }
     .filter__activeContainer {
         border: 1px solid rgba(0, 0, 0, 0.5);
@@ -146,6 +161,10 @@
     .filterAndSortBy--mobile {
         display: none;
         width: max-content;
+        padding: 0 1rem;
+    }
+    .filterAndSortBy__icon {
+        max-width: 2rem;
     }
     .filterAndSortBy__backgroundCover {
         display: none;
@@ -157,9 +176,15 @@
         z-index: 3;
         background-color: rgba(0,0,0,.5);
     }
+    .filterAndSortBy__container {
+        display: grid;
+        grid-template-columns: auto auto;
+        align-items: center;
+    }
     .filterAndSortBy__label {
-        padding-left: 2rem;
+        padding-left: 1rem;
         width: max-content;
+        margin: 0;
     }
     .activeContainer {
         display: none;
@@ -182,6 +207,13 @@
     }
     .activeContainer__backContainer {
         display: flex;
+        font-weight: 600;
+    }
+    .activeContainer__menuItem {
+        padding-bottom: 1rem;
+    }
+    .activeContainer__menuItem label {
+        align-self: center;
     }
     .leftArrow {
         padding-right: 1rem;
@@ -197,6 +229,11 @@
     }
     .filter__list-item--mobile {
         padding: 0.5rem 0;
+    }
+    .chevron {
+        width: 1rem;
+        height: 1rem;
+        align-self: center;
     }
 
 
