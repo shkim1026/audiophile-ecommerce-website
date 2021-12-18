@@ -43,3 +43,18 @@ $(".availability-label").click(function(){
 $(".filter__reset-label").click(function(){
     $(".filter__input").prop("checked", false);
 });
+
+
+// Adds or Subtracts 1 from Order Quantity on Product page when user clicks on '+' or '-'. Minimum quantity is '0'
+$(".product__quantity p").click(function(e){
+    let currentQuantityInt = parseInt($('#orderQuantity').val());
+    if ($(e.target).hasClass('add')) {
+        currentQuantityInt++
+        $('#orderQuantity').val(currentQuantityInt)
+    } else if (currentQuantityInt < 1) {
+        currentQuantityInt == 1;
+    } else {
+        currentQuantityInt--
+        $('#orderQuantity').val(currentQuantityInt);
+    }
+});

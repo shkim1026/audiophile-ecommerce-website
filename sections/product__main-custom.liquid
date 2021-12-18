@@ -38,11 +38,9 @@
 </div> -->
 
 <div class="product__container">
-    {% for collection in product.collections %}
     <div class="product__backContainer">
         <a class="product__backLink" href="javascript:history.back()">Go Back</a>
     </div>
-    {% endfor %}
     {% for image in product.images %}
         {% if forloop.first == true %}
             <div class="product__primaryContainer displayGridCol-info">
@@ -57,7 +55,16 @@
                     <p class="product__description">{{ product.description }}</p>
                     <p class="product__price">{{ product.price | money }}</p>
                     <div class="product__addToCartContainer">
-                        <input type="number" id="orderQuantity" name="quantity" min="1" max="99">
+                        <div class="product__quantityContainer">
+                            <div class="product__quantity">
+                                <p class="subtract">-</p>
+                            </div>
+                            <input type="number" id="orderQuantity" name="quantity" min="1" max="99" value="1">
+                            <div class="product__quantity">
+                                <p class="add">+</p>
+                            </div>
+                        </div>
+                        
                         <button class="addToCartBtn">Add to Cart</button>
                     </div>
                 </div>
@@ -147,11 +154,31 @@
     .product__metafieldContainer--inTheBox {
         justify-self: center;
     }
+    .product__addToCartContainer {
+        display: grid;
+        grid-template-columns: 40% 50%;
+        grid-gap: 1rem;
+        width: 75%;
+    }
+    .product__quantityContainer {
+        display: flex;
+        background-color: rgb(233, 233, 233);
+    }
+    .product__quantity {
+        width: 100%;
+    }
+    .product__quantity p {
+        text-align: center;
+        cursor: pointer;
+    }
+    .product__quantity p:hover {
+        color: {{section.settings.color-button}};
+    }
     #orderQuantity {
-        padding: 2rem 6rem;
+        width: 100%;
         border: none;
         background-color: rgb(233, 233, 233);
-        margin-right: 2rem;
+        text-align: center;
     }
     .addToCartBtn {
         box-shadow: none;
