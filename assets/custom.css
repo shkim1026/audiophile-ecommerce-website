@@ -1,6 +1,6 @@
 body,
 .header__active-menu-item,
-h1,h2,h3,p,a {
+h1,h2,h3,p,a,button {
     font-family: 'Manrope', sans-serif;
 }
 a {
