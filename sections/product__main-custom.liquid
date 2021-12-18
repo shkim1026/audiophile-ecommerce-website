@@ -40,7 +40,7 @@
 <div class="product__container">
     {% for collection in product.collections %}
     <div class="product__backContainer">
-        <a class="product__backLink" href="{{collection.url}}">Go Back</a>
+        <a class="product__backLink" href="javascript:history.back()">Go Back</a>
     </div>
     {% endfor %}
     {% for image in product.images %}
@@ -93,6 +93,15 @@
     .product__backContainer {
         margin-bottom: 5rem;
         font-size: 1.25rem;
+    }
+    .product__backLink {
+        color: black;
+    }
+    .product__backLink:visited {
+        opacity: 0.5;
+    }
+    .product__backLink:hover {
+        color: {{section.settings.color-botton--hover}};
     }
     .product__img {
         width: 100%;
@@ -151,6 +160,10 @@
         text-transform: uppercase;
         color: {{section.settings.color-buttonText}};
         background-color: {{section.settings.color-button}};
+        cursor: pointer;
+    }
+    .addToCartBtn:hover {
+        background-color: {{section.settings.color-botton--hover}};
     }
     .product__imgUl {
         padding: 0;
@@ -337,6 +350,12 @@
             "id": "color-button",
             "label": "Add to Cart Button Color",
             "default": "#D87D4A"
+        },
+        {
+            "type": "color",
+            "id": "color-botton--hover",
+            "label": "Add to Car Button Color on Hover",
+            "default": "#FBAF85"
         },
         {
             "type": "color",
