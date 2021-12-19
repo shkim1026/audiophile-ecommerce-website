@@ -49,12 +49,22 @@ $(".filter__reset-label").click(function(){
 $(".product__quantity p").click(function(e){
     let currentQuantityInt = parseInt($('#orderQuantity').val());
     if ($(e.target).hasClass('add')) {
-        currentQuantityInt++
-        $('#orderQuantity').val(currentQuantityInt)
-    } else if (currentQuantityInt < 1) {
-        currentQuantityInt == 1;
+        if (currentQuantityInt >= 99) {
+            currentQuantityInt = 99;
+        } else {
+            currentQuantityInt++
+        }
+    } else if (currentQuantityInt <= 1) {
+        currentQuantityInt = 1;
     } else {
         currentQuantityInt--
-        $('#orderQuantity').val(currentQuantityInt);
+    }
+    $('#orderQuantity').val(currentQuantityInt);
+});
+
+// Limits order quantitynumber input to 2 digits
+$("#orderQuantity").keydown(function(){
+    if (this.value.length > 1) {
+        this.value = this.value.slice(0,1);
     }
 });
