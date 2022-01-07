@@ -1,41 +1,3 @@
-<!-- <div class="product__container">
-    {% for image in product.images %}
-
-        {% if forloop.first == true %}
-            <div class="product__primaryContainer displayGridCol-2">
-                <div class="product__imgContainer">
-                    <img class="product__img" src="{{ image | img_url: 'large' }}">
-                </div>
-                <div class="product__infoContainer">
-                    <p>New Product</p>
-                    <h2>{{ product.title }}</h2>
-                    <p>{{ product.description }}</p>
-                    <p>{{ product.price | money }}</p>
-                    <div>
-                        <input type="number" id="orderQuantity" name="quantity" min="1" max="99">
-                        <button>Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-
-            
-            <div class="product__secondaryContainer displayGridCol-2fr1fr">
-                <div>
-                    <h3>Features</h3>
-                    <p>{{ product.metafields.global.features }}</p>
-                </div>
-                <div>
-                    <h3>In the box</h3>
-                    <div>{{ product.metafields.global.in-the-box }}</div>
-                </div>
-            </div>
-
-        {% elsif forloop.index0 > 0 and forloop.index0 < 4 %}
-                <img class="additionalImg-{{ forloop.index }}" src="{{ image | img_url: 'large'}}">
-        {% endif %}
-
-    {% endfor %}
-</div> -->
 
 <div class="product__container">
     <div class="product__backContainer">
@@ -65,7 +27,7 @@
                             </div>
                         </div>
                         
-                        <button class="addToCartBtn">Add to Cart</button>
+                        <button type="submit" class="addToCartBtn">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -89,6 +51,11 @@
             {% endif %}
         {% endfor %}
     </div>
+
+    <!-- Find this product collection
+    get products from this collection
+    if product is not the same as this product
+    display image -->
 </div>
 
 <style>
@@ -163,6 +130,7 @@
     .product__quantityContainer {
         display: flex;
         background-color: rgb(233, 233, 233);
+        min-width: 125px;
     }
     .product__quantity {
         width: 100%;
@@ -189,7 +157,7 @@
     .addToCartBtn {
         box-shadow: none;
         border: none;
-        padding: 2rem 5rem;
+        padding: 1rem 3rem;
         text-transform: uppercase;
         color: {{section.settings.color-buttonText}};
         background-color: {{section.settings.color-button}};

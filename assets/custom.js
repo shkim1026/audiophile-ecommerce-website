@@ -62,9 +62,32 @@ $(".product__quantity p").click(function(e){
     $('#orderQuantity').val(currentQuantityInt);
 });
 
-// Limits order quantitynumber input to 2 digits
+// Limits order quantity number input to 2 digits
 $("#orderQuantity").keydown(function(){
     if (this.value.length > 1) {
         this.value = this.value.slice(0,1);
     }
 });
+
+$('.product-form').on('submit', function(e) {
+    e.preventDefault();
+    //
+    $.ajax({
+        url: '/cart.js',
+        type: 'POST', // GET, POST, PUT, DELETE (CRUD): Create, Read, Update, Delete
+        dataType: 'json',
+        data: $('.product-form').serialize(), // === {quantity: 1}
+        success: function(data, status) {
+            console.log('data', data)
+            // const cartCount = data.cart.items.length
+            $('number element').text(cartCount)
+            //open cart modal (future)
+            // increase cart count in the top right icon
+            // set quantity count back to 1
+        },
+        error: function(error, status) {
+            console.log('error', err)
+            //show error message
+        }
+    })
+})
