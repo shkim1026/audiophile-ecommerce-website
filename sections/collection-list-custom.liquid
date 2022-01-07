@@ -2,16 +2,16 @@
 <div class="grid collection-container">
     {%-for block in section.blocks-%}
         <div class="collection-container__inner">
-            <a href="{{block.settings.collection.url}}">
-            {% if block.settings.image != blank %}
-                <img class="collection__image" src="{{ block.settings.image | collection_img_url: 'medium' }}">
-            {% else %}
-                <img class="collection__image" src="{{ block.settings.collection.featured_image | collection_img_url: 'medium' }}">
-            {% endif %}
-                <div class="inner">
-                    <h4 class="inner__title">{{ block.settings.collection_title }}</h4>
+            <a style="display:block" href="{{block.settings.collection.url}}">
+                {% if block.settings.image != blank %}
+                    <img class="collection__image" src="{{ block.settings.image | collection_img_url: 'medium' }}">
+                {% else %}
+                    <img class="collection__image" src="{{ block.settings.collection.featured_image | collection_img_url: 'medium' }}">
+                {% endif %}
+                <div class="inner" onclick="location.href='{{block.settings.collection.url}}';">
+                    <p class="inner__title">{{ block.settings.collection_title }}</p>
                     <div class="inner__link-container">
-                        <p class="inner__link-text" href="{{block.settings.collection.url}}">{{ block.settings.link_text }}</p>
+                        <p class="inner__link-text">{{ block.settings.link_text }}</p>
                         <span><img src="{{ 'icon-arrow-right.png' | asset_url }}"></span>
                     </div>
                 </div>

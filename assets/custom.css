@@ -119,6 +119,7 @@ header.site-header.border-bottom.logo--left {
 }
 .inner__title {
     margin: 0;
+    color: black;
 }
 .inner__title,
 .inner__link-container {
