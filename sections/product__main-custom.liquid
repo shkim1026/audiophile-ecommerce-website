@@ -1,0 +1,415 @@
+
+<div class="product__container">
+    <div class="product__backContainer">
+        <a class="product__backLink" href="javascript:history.back()">Go Back</a>
+    </div>
+    {% for image in product.images %}
+        {% if forloop.first == true %}
+            <div class="product__primaryContainer displayGridCol-info">
+                <div class="product__imgContainer">
+                    <img class="product__img" src="{{ image | img_url: 'large' }}">
+                </div>
+                <div class="product__infoContainer">
+                    {% if section.settings.subtext == true and product.metafields.global.new-product == true %}
+                    <p class="product__subtext">New Product</p>
+                    {% endif %}
+                    <h1 class="product__title">{{ product.title }}</h1>
+                    <p class="product__description">{{ product.description }}</p>
+                    <p class="product__price">{{ product.price | money }}</p>
+                    <div class="product__addToCartContainer">
+                        <div class="product__quantityContainer">
+                            <div class="product__quantity">
+                                <p class="subtract">-</p>
+                            </div>
+                            <input type="number" id="orderQuantity" name="quantity" min="1" max="99" value="1">
+                            <div class="product__quantity">
+                                <p class="add">+</p>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="addToCartBtn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product__secondaryContainer displayGridCol-metafield">
+                <div>
+                    <h3 class="product__metafieldLabel">Features</h3>
+                    <p>{{ product.metafields.global.features }}</p>
+                </div>
+                <div class="product__metafieldContainer--inTheBox">
+                    <h3 class="product__metafieldLabel">In the box</h3>
+                    <div>{{ product.metafields.global.in-the-box }}</div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <div class="displayGrid-imageGrid">
+        {% for image in product.images %}
+            {% if forloop.index0 > 0 and forloop.index0 < 4 %}
+                <img class="extraImg additionalImg-{{ forloop.index }}" src="{{ image | img_url: 'large'}}">
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <!-- Find this product collection
+    get products from this collection
+    if product is not the same as this product
+    display image -->
+</div>
+
+<style>
+    .product__container {
+        max-width: 1600px;
+        margin: 7rem auto;
+        padding: 0 5rem;
+    }
+    .product__backContainer {
+        margin-bottom: 5rem;
+        font-size: 1.25rem;
+    }
+    .product__backLink {
+        color: black;
+    }
+    .product__backLink:visited {
+        opacity: 0.5;
+    }
+    .product__backLink:hover {
+        color: {{section.settings.color-botton--hover}};
+    }
+    .product__img {
+        width: 100%;
+    }
+    .product__subtext {
+        text-transform: uppercase;
+        letter-spacing: 1rem;
+        font-size: 1.25rem;
+        color: {{section.settings.color-button}};
+    }
+    .product__title {
+        margin: 3rem 0;
+        color: {{section.settings.color-title}};
+        {% if section.settings.uppercase-title == true %}
+        text-transform: uppercase;
+        {% endif %}
+        line-height: {{section.settings.fontsize-title}}rem;
+        font-size: {{section.settings.fontsize-title}}rem;
+    }
+    .product__description,
+    .product__secondaryContainer p,
+    .product__secondaryContainer li {
+        font-size: 1.25rem;
+    }
+
+    .product__description {
+        margin-bottom: 6rem;
+    }
+    .product__price {
+        margin-bottom: 5rem;
+        font-weight: 600;
+    }
+    .product__secondaryContainer {
+        margin: 15rem auto;
+    }
+    .product__metafieldLabel {
+        {% if section.settings.uppercase-label == true %}
+        text-transform: uppercase;
+        {% endif %}
+        color: {{section.settings.color-label}};
+        font-size: {{section.settings.fontsize-label}}rem;
+    }
+    .product__metafieldContainer--inTheBox {
+        justify-self: center;
+    }
+    .product__addToCartContainer {
+        display: grid;
+        grid-template-columns: 40% 50%;
+        grid-gap: 1rem;
+        width: 75%;
+    }
+    .product__quantityContainer {
+        display: flex;
+        background-color: rgb(233, 233, 233);
+        min-width: 125px;
+    }
+    .product__quantity {
+        width: 100%;
+    }
+    .product__quantity p {
+        text-align: center;
+        cursor: pointer;
+    }
+    .product__quantity p:hover {
+        color: {{section.settings.color-button}};
+    }
+    #orderQuantity {
+        width: 100%;
+        border: none;
+        background-color: rgb(233, 233, 233);
+        text-align: center;
+        -moz-appearance: textfield;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    .addToCartBtn {
+        box-shadow: none;
+        border: none;
+        padding: 1rem 3rem;
+        text-transform: uppercase;
+        color: {{section.settings.color-buttonText}};
+        background-color: {{section.settings.color-button}};
+        cursor: pointer;
+    }
+    .addToCartBtn:hover {
+        background-color: {{section.settings.color-botton--hover}};
+    }
+    .product__imgUl {
+        padding: 0;
+    }
+    .product__imgUl li {
+        padding-bottom: 1rem;
+    }
+    .product__infoContainer {
+        align-self: center;
+        text-align: {{section.settings.textAlign-main}}
+    }
+    .displayGridCol-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 15rem;
+    }
+    .displayGridCol-metafield {
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+    }
+    .displayGrid-imageGrid {
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+        grid-template-rows: 50% 50%;
+        align-items: center;
+        max-width: 1600px;
+        margin: 0 auto;
+        grid-gap: 0rem 7rem;
+    }
+    .extraImg {
+        width: 100%;
+        border-radius: 1rem;
+    }
+    .additionalImg-2 {
+        align-self: baseline;
+    }
+    .additionalImg-3 {
+        grid-column-start: 1;
+        align-self: end;
+    }
+    .additionalImg-4 {
+        grid-row-start: 1;
+        grid-column-start: 2;
+        grid-row-end: 3;
+        width: 100%;
+    }
+    @media only screen and (max-width: 1199px) {
+        .displayGridCol-info {
+            grid-gap: 3rem;
+        }
+    }
+    @media only screen and (max-width: 991px) {
+        .displayGridCol-info {
+            grid-gap: 5rem;
+        }
+        .product__imgContainer {
+            display: flex;
+            align-items: center;
+            background-color: {{section.settings.color-imgBackground}};
+        }
+        .product__infoContainer {
+            margin: 3rem 0;
+        }
+        .product__title {
+            line-height: 3rem;
+            font-size: 3rem;
+        }
+        .product__description {
+            margin-bottom: 4rem;
+        }
+        .product__price {
+            margin-bottom: 3rem;
+        }
+        .product__addToCartContainer {
+            display: grid;
+            grid-template-columns: max-content max-content;
+        }
+        .product__secondaryContainer {
+            margin: 10rem auto;
+        }
+        .displayGridCol-metafield {
+            display: block;
+        }
+        .product__metafieldContainer--inTheBox {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin: 10rem 0;
+        }
+        .product__metafieldLabel {
+            margin-top: 1rem;
+        }
+        .displayGrid-imageGrid {
+            grid-gap: 0rem 3rem;
+        }
+    }
+    @media only screen and (max-width: 767px) {
+        .product__container {
+            padding: 0 2rem;
+            margin: 2rem auto;
+        }
+        .product__backContainer {
+            margin-bottom: 2rem;
+        }
+        .displayGridCol-info {
+            display: block;
+        }
+        .product__addToCartContainer {
+            grid-template-columns: 50% 50%;
+        }
+        .addToCartBtn {
+            padding: 0 2rem;
+        }
+        .product__metafieldContainer--inTheBox,
+        .displayGrid-imageGrid {
+            display: block;
+        }
+        .additionalImg-3 {
+            margin: 1rem 0;
+        }
+    }
+</style>
+
+
+{% schema %}
+{
+    "name": "Product (Custom)",
+    "tag": "section",
+    "class": "product",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "subtext",
+            "label": "New Product",
+            "default": true
+        },
+        {
+            "type": "color",
+            "id": "color-title",
+            "label": "Product Title Color",
+            "default": "#000000"
+        },
+        {
+            "type": "checkbox",
+            "id": "uppercase-title",
+            "label": "Uppercase Product Title",
+            "default": false
+        },
+        {
+            "type": "range",
+            "id": "fontsize-title",
+            "label": "Product Title Size (REM)",
+            "default": 6,
+            "min": 1,
+            "max": 12
+        },
+        {
+            "type": "color",
+            "id": "color-desc",
+            "label": "Product Description Color",
+            "default": "#000000"
+        },
+        {
+            "type": "color",
+            "id": "color-label",
+            "label": "Features/In the Box Color",
+            "default": "#000000"
+        },
+        {
+            "type": "checkbox",
+            "id": "uppercase-label",
+            "label": "Features/In the Box Uppercase",
+            "default": true
+        },
+        {
+            "type": "range",
+            "id": "fontsize-label",
+            "label": "Features/In the Box Size (REM)",
+            "default": 3,
+            "min": 1,
+            "max": 10
+        },
+        {
+            "type": "color",
+            "id": "color-button",
+            "label": "Add to Cart Button Color",
+            "default": "#D87D4A"
+        },
+        {
+            "type": "color",
+            "id": "color-botton--hover",
+            "label": "Add to Car Button Color on Hover",
+            "default": "#FBAF85"
+        },
+        {
+            "type": "color",
+            "id": "color-buttonText",
+            "label": "Add to Cart Text Color",
+            "default": "#FFFFFF"
+        },
+        {
+            "type": "select",
+            "id": "textAlign-main",
+            "label": "Align Text",
+            "default": "left",
+            "options": [
+                {
+                    "value": "left",
+                    "label": "Left"
+                },
+                {
+                    "value": "center",
+                    "label": "Center"
+                },
+                {
+                    "value": "end",
+                    "label": "Right"
+                }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "textAlign-main--mobile",
+            "label": "Align Text (Tablet/Mobile)",
+            "default": "left",
+            "options": [
+                {
+                    "value": "left",
+                    "label": "Left"
+                },
+                {
+                    "value": "center",
+                    "label": "Center"
+                },
+                {
+                    "value": "end",
+                    "label": "Right"
+                }
+            ]
+        },
+        {
+            "type": "color",
+            "id": "color-imgBackground",
+            "label": "Product Image Background Color (Tablet)",
+            "default": "#f1f1f1"
+        }
+    ]
+}
+{% endschema %}
