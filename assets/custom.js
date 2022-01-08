@@ -69,24 +69,33 @@ $("#orderQuantity").keydown(function(){
     }
 });
 
+function resetForm() {
+    $('.addToCartBtn').text('ADD TO CART');
+    $('#orderQuantity').val('1');
+}
+
 $('.product-form').on('submit', function(e) {
     e.preventDefault();
-    //
+    console.log('$(this).serialize()', $(this).serialize());
+    $('.addToCartBtn').text('ADDED!') //Changes button text to 'Added!'
     $.ajax({
-        url: '/cart.js',
+        url: '/cart/add.js',
         type: 'POST', // GET, POST, PUT, DELETE (CRUD): Create, Read, Update, Delete
         dataType: 'json',
         data: $('.product-form').serialize(), // === {quantity: 1}
         success: function(data, status) {
+            console.log('status', status)
             console.log('data', data)
-            // const cartCount = data.cart.items.length
-            $('number element').text(cartCount)
+            setTimeout(resetForm, 2000);
+            // const cartCount = data.cart.items.length;
+            // console.log('cartCount', cartCount)
+            // $('number element').text(cartCount)
             //open cart modal (future)
             // increase cart count in the top right icon
             // set quantity count back to 1
         },
         error: function(error, status) {
-            console.log('error', err)
+            console.log('error', error)
             //show error message
         }
     })

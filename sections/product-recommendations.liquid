@@ -140,12 +140,7 @@ var loadProductRecommendationsIntoSection = function() {
     if (request.status >= 200 && request.status < 300) {
       var container = document.createElement("div");
       container.innerHTML = request.response;
-     //console.log('request response', request.response)
-      console.log('container', container)
       var recommendationsInnerHTML = container.querySelector('.product-recommendations').innerHTML;
-      console.log('container.querySelector(".product-recommendations").innerHTML', container.querySelector(".product-recommendations").innerHTML)
-
-      //productRecommendationsSection.parentElement.innerHTML = container.querySelector(".product-recommendations").innerHTML;
       productRecommendationsSection.innerHTML = container.querySelector(".product-recommendations").innerHTML;
     }
   };
