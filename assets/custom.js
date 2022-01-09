@@ -81,7 +81,6 @@ function updateCart() {
         type: 'GET',
         dataType: 'json',
         success: function(data) {
-            console.log('data', data);
             $(`<div class='cart-count-bubble'>
                 <span aria-hidden="true">${data.item_count}</span>
                 <span class="visually-hidden">${data.item_count} items</span>
@@ -104,16 +103,19 @@ $('.product-form').on('submit', function(e) {
         type: 'POST', // GET, POST, PUT, DELETE (CRUD): Create, Read, Update, Delete
         dataType: 'json',
         data: $('.product-form').serialize(), // === {quantity: 1}
-        success: function(data, status) {
-            console.log('status', status);
-            console.log('data', data);
+        success: function() {
             setTimeout(resetForm, 2000);
             updateCart();
-            //open cart modal (future)
         },
-        error: function(error, status) {
+        error: function(error) {
             console.log('error', error)
-            //show error message
         }
     })
 })
+
+// Trash can on click
+// let quantity = get quantity from html
+// let variant id = get variant id from html
+// form data object (let data = {"quantity": quantity, "id": variantid})
+// POSt call to /cart/changes.js 
+// After success: update Total price, update cart quantity count in header, remove the product row
