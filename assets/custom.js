@@ -74,6 +74,27 @@ function resetForm() {
     $('#orderQuantity').val('1');
 }
 
+//GET cart object and append data to 'cart' icon in navbar
+function updateCart() {
+    $.ajax({
+        url: '/cart.js',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            console.log('data', data);
+            $(`<div class='cart-count-bubble'>
+                <span aria-hidden="true">${data.item_count}</span>
+                <span class="visually-hidden">${data.item_count} items</span>
+            </div>`)
+            .appendTo("#cart-icon-bubble");
+        },
+        error: function(error) {
+            console.log('error', error)
+        }
+    });
+}
+
+//POST product data when 'Add to cart' is clicked
 $('.product-form').on('submit', function(e) {
     e.preventDefault();
     console.log('$(this).serialize()', $(this).serialize());
@@ -84,15 +105,11 @@ $('.product-form').on('submit', function(e) {
         dataType: 'json',
         data: $('.product-form').serialize(), // === {quantity: 1}
         success: function(data, status) {
-            console.log('status', status)
-            console.log('data', data)
+            console.log('status', status);
+            console.log('data', data);
             setTimeout(resetForm, 2000);
-            // const cartCount = data.cart.items.length;
-            // console.log('cartCount', cartCount)
-            // $('number element').text(cartCount)
+            updateCart();
             //open cart modal (future)
-            // increase cart count in the top right icon
-            // set quantity count back to 1
         },
         error: function(error, status) {
             console.log('error', error)
