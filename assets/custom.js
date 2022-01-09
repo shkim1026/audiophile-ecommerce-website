@@ -69,25 +69,53 @@ $("#orderQuantity").keydown(function(){
     }
 });
 
-$('.product-form').on('submit', function(e) {
-    e.preventDefault();
-    //
+function resetForm() {
+    $('.addToCartBtn').text('ADD TO CART');
+    $('#orderQuantity').val('1');
+}
+
+//GET cart object and append data to 'cart' icon in navbar
+function updateCart() {
     $.ajax({
         url: '/cart.js',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            $(`<div class='cart-count-bubble'>
+                <span aria-hidden="true">${data.item_count}</span>
+                <span class="visually-hidden">${data.item_count} items</span>
+            </div>`)
+            .appendTo("#cart-icon-bubble");
+        },
+        error: function(error) {
+            console.log('error', error)
+        }
+    });
+}
+
+//POST product data when 'Add to cart' is clicked
+$('.product-form').on('submit', function(e) {
+    e.preventDefault();
+    console.log('$(this).serialize()', $(this).serialize());
+    $('.addToCartBtn').text('ADDED!') //Changes button text to 'Added!'
+    $.ajax({
+        url: '/cart/add.js',
         type: 'POST', // GET, POST, PUT, DELETE (CRUD): Create, Read, Update, Delete
         dataType: 'json',
         data: $('.product-form').serialize(), // === {quantity: 1}
-        success: function(data, status) {
-            console.log('data', data)
-            // const cartCount = data.cart.items.length
-            $('number element').text(cartCount)
-            //open cart modal (future)
-            // increase cart count in the top right icon
-            // set quantity count back to 1
+        success: function() {
+            setTimeout(resetForm, 2000);
+            updateCart();
         },
-        error: function(error, status) {
-            console.log('error', err)
-            //show error message
+        error: function(error) {
+            console.log('error', error)
         }
     })
 })
+
+// Trash can on click
+// let quantity = get quantity from html
+// let variant id = get variant id from html
+// form data object (let data = {"quantity": quantity, "id": variantid})
+// POSt call to /cart/changes.js 
+// After success: update Total price, update cart quantity count in header, remove the product row

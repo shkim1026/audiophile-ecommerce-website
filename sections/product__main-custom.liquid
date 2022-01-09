@@ -9,6 +9,8 @@
                 <div class="product__imgContainer">
                     <img class="product__img" src="{{ image | img_url: 'large' }}">
                 </div>
+        {% endif %}
+    {% endfor %}
                 <div class="product__infoContainer">
                     {% if section.settings.subtext == true and product.metafields.global.new-product == true %}
                     <p class="product__subtext">New Product</p>
@@ -16,19 +18,21 @@
                     <h1 class="product__title">{{ product.title }}</h1>
                     <p class="product__description">{{ product.description }}</p>
                     <p class="product__price">{{ product.price | money }}</p>
-                    <div class="product__addToCartContainer">
-                        <div class="product__quantityContainer">
-                            <div class="product__quantity">
-                                <p class="subtract">-</p>
+                    <form class="product-form">
+                        <div class="product__addToCartContainer">
+                            <div class="product__quantityContainer">
+                                <div class="product__quantity">
+                                    <p class="subtract">-</p>
+                                </div>
+                                <input type="number" id="orderQuantity" name="quantity" min="1" max="99" value="1">
+                                <div class="product__quantity">
+                                    <p class="add">+</p>
+                                </div>
                             </div>
-                            <input type="number" id="orderQuantity" name="quantity" min="1" max="99" value="1">
-                            <div class="product__quantity">
-                                <p class="add">+</p>
-                            </div>
+                            <input type="hidden" id="prodId" name="id" value="{{product.selected_or_first_available_variant.id}}">
+                            <button type="submit" class="addToCartBtn">Add to Cart</button>
                         </div>
-                        
-                        <button type="submit" class="addToCartBtn">Add to Cart</button>
-                    </div>
+                    </form>
                 </div>
             </div>
             <div class="product__secondaryContainer displayGridCol-metafield">
@@ -41,8 +45,6 @@
                     <div>{{ product.metafields.global.in-the-box }}</div>
                 </div>
             </div>
-        {% endif %}
-    {% endfor %}
 
     <div class="displayGrid-imageGrid">
         {% for image in product.images %}
@@ -51,11 +53,6 @@
             {% endif %}
         {% endfor %}
     </div>
-
-    <!-- Find this product collection
-    get products from this collection
-    if product is not the same as this product
-    display image -->
 </div>
 
 <style>
@@ -79,6 +76,7 @@
     }
     .product__img {
         width: 100%;
+        border-radius: 1rem;
     }
     .product__subtext {
         text-transform: uppercase;
