@@ -1,0 +1,102 @@
+{% if cart == empty %}
+    <div>
+        <h2>Your cart is empty!</h2>
+        <a href="{{routes.all_products_collections_url}}">Continue Shopping</a>
+    </div>
+{%  endif %}
+
+{% if cart != empty %}
+    <h2 class="cart-heading">Items in Your Cart</h2>
+    {% for item in cart.items %}
+    <div class="line-item">
+        <a href="{{item.url}}">
+            <img class="item__img" src="{{ item.image | img_url: '200x' }}">
+        </a>
+        <div class="quantity-container">
+            <a href="{{item.url}}"><p>{{item.title}}</p></a>
+            <label for="itemQuantity-{{forloop.index}}"><sub>Quantity:</sub></label>
+            <div class="quantity-input">
+                <div class="product__quantity">
+                    <p class="subtract margin-0 padding-0-1">-</p>
+                </div>
+                <input type="number" class="itemQuantity" id="itemQuantity-{{forloop.index}}" name="quantity" min="1" max="99" value="{{item.quantity}}">
+                <div class="product__quantity">
+                    <p class="add margin-0 padding-0-1">+</p>
+                </div>
+            </div>
+            <p class="remove">Remove</p>
+        </div>
+        <p class="final-price">{{item.final_line_price | money}}</p>
+    </div>
+    <hr class="hzn-rule">
+    {% endfor %}
+{% endif %}
+
+<style>
+    .cart-heading {
+        text-align: center;
+        font-weight: 600;
+    }
+    .line-item {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        max-width: 1600px;
+        margin: 0 auto;
+        justify-items: center;
+    }
+    .item__img {
+        vertical-align: top;
+    }
+    .quantity-container {
+        justify-self: left;
+        align-self: center;
+    }
+    .quantity-container p {
+        color: black;
+    }
+    .quantity-input {
+        display: flex;
+        height: fit-content;
+        width: fit-content;
+        border: 1px solid black;
+    }
+    .product__quantity,
+    .remove {
+        cursor: pointer;
+    }
+    .margin-0 {
+        margin: 0;
+    }
+    .padding-0-1 {
+        padding: 0 1rem;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type=number] {
+        -moz-appearance:textfield; /* Firefox */
+    }
+    .itemQuantity {
+        text-align: center;
+        border: none;
+        cursor: pointer;
+    }
+    .final-price {
+        align-self: center;
+        font-size: 2rem;
+        font-weight: 600;
+    }
+    .hzn-rule {
+        margin: 2rem;
+    }
+
+    @media only screen and (max-width: 767px) {
+        .line-item {
+           display: block;
+           text-align: center;
+           text-align: -webkit-center;
+        }
+    }
+</style>
