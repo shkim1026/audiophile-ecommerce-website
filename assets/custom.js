@@ -113,6 +113,70 @@ $('.product-form').on('submit', function(e) {
     })
 })
 
+
+//Number to currency formatter
+const currency = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+});
+
+// Adds or Subtracts 1 from Item Quantity on Cart page when user clicks on '+' or '-'. Minimum quantity is '0'
+$(".item__quantity p").click(function(e){
+    let itemQuantityInput = $(this).closest('.quantity-input').find('.itemQuantityInput');
+    let variantId = $(this).closest('.quantity-container').find('.variant-id').val();
+    let totalPrice = $(this).closest('.line-item').find('.final-price');
+    let currentQuantityInt = parseInt(itemQuantityInput.val());
+    if ($(e.target).hasClass('add')) {
+        if (currentQuantityInt >= 99) {
+            currentQuantityInt = 99;
+        } else {
+            currentQuantityInt++
+        }
+    } else if (currentQuantityInt <= 1) {
+        currentQuantityInt = 1;
+    } else {
+        currentQuantityInt--
+    }
+    itemQuantityInput.val(currentQuantityInt);
+
+    let data = {
+        quantity: currentQuantityInt,
+        id: variantId
+    }
+    console.log('data',data)
+
+    $.ajax({
+        url: '/cart/change.js',
+        type: 'POST',
+        dataType: 'json',
+        data: data,
+        success: function(itemData) {
+            console.log('itemData', itemData);
+            for (i = 0; i < itemData.items.length; i++) {
+                if (itemData.items[i].id == variantId) {
+                    console.log('itemData.items[i].id',itemData.items[i].id);
+                    console.log('itemData.items[i].final_line_price',itemData.items[i].final_line_price);
+                    let dataPrice = itemData.items[i].final_line_price.toString();
+                    let dataPriceFormat = dataPrice.substring(0,dataPrice.length-2)+"."+dataPrice.substring(dataPrice.length-2);
+                    let totalLinePrice = currency.format(dataPriceFormat);
+                    totalPrice.html(totalLinePrice);
+                }
+            }
+           
+        },
+        error: function(error) {
+            console.log('error', error);
+        }
+    })
+});
+
+//Limits Cart Quantity input to 2 digits
+$(".itemQuantityInput").keydown(function(){
+    if (this.value.length > 1) {
+        this.value = this.value.slice(0,1);
+    }
+});
+
 // Trash can on click
 // let quantity = get quantity from html
 // let variant id = get variant id from html
