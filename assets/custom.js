@@ -45,7 +45,7 @@ $(".filter__reset-label").click(function(){
 });
 
 
-// Adds or Subtracts 1 from Order Quantity on Product page when user clicks on '+' or '-'. Minimum quantity is '0'
+// Adds or Subtracts 1 from Order Quantity on Product page when user clicks on '+' or '-'. Minimum quantity is '1'
 $(".product__quantity p").click(function(e){
     let currentQuantityInt = parseInt($('#orderQuantity').val());
     if ($(e.target).hasClass('add')) {
@@ -120,7 +120,7 @@ const currency = new Intl.NumberFormat('en-US', {
     currency: 'USD',
 });
 
-// Adds or Subtracts 1 from Item Quantity on Cart page when user clicks on '+' or '-'. Minimum quantity is '0'
+// Adds or Subtracts 1 from Item Quantity on Cart page when user clicks on '+' or '-'. Minimum quantity is '1'
 $(".item__quantity p").click(function(e){
     let itemQuantityInput = $(this).closest('.quantity-input').find('.itemQuantityInput');
     let variantId = $(this).closest('.quantity-container').find('.variant-id').val();
@@ -143,7 +143,6 @@ $(".item__quantity p").click(function(e){
         quantity: currentQuantityInt,
         id: variantId
     }
-    console.log('data',data)
 
     $.ajax({
         url: '/cart/change.js',
@@ -151,18 +150,15 @@ $(".item__quantity p").click(function(e){
         dataType: 'json',
         data: data,
         success: function(itemData) {
-            console.log('itemData', itemData);
             for (i = 0; i < itemData.items.length; i++) {
                 if (itemData.items[i].id == variantId) {
-                    console.log('itemData.items[i].id',itemData.items[i].id);
-                    console.log('itemData.items[i].final_line_price',itemData.items[i].final_line_price);
-                    let dataPrice = itemData.items[i].final_line_price.toString();
-                    let dataPriceFormat = dataPrice.substring(0,dataPrice.length-2)+"."+dataPrice.substring(dataPrice.length-2);
-                    let totalLinePrice = currency.format(dataPriceFormat);
+                    let dataPrice = itemData.items[i].final_line_price.toString(); //Converts integer to string
+                    let dataPriceFormat = dataPrice.substring(0,dataPrice.length-2)+"."+dataPrice.substring(dataPrice.length-2); //Formats string to account for cents
+                    let totalLinePrice = currency.format(dataPriceFormat); //Formats string to currency
                     totalPrice.html(totalLinePrice);
                 }
             }
-           
+            updateCart();
         },
         error: function(error) {
             console.log('error', error);
@@ -175,6 +171,33 @@ $(".itemQuantityInput").keydown(function(){
     if (this.value.length > 1) {
         this.value = this.value.slice(0,1);
     }
+});
+
+
+//Removes item from cart when 'Remove' is clicked
+$('.remove').click(function(){
+    console.log('remove')
+    let variantId = $(this).closest('.quantity-container').find('.variant-id').val();
+    let itemRow = $(this).closest('.line-item');
+    
+    let data = {
+        quantity: 0,
+        id: variantId
+    }
+    console.log('data', data);
+    $.ajax({
+        url: '/cart/change.js',
+        type: 'POST',
+        dataType: 'json',
+        data: data,
+        success: function() {
+            itemRow.remove();
+            updateCart();
+        },
+        error: function(error) {
+            console.log('error', error);
+        }
+    })
 });
 
 // Trash can on click

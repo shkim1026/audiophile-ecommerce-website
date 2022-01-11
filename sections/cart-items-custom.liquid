@@ -1,5 +1,5 @@
 {% if cart == empty %}
-    <div>
+    <div class="emptyCart">
         <h2>Your cart is empty!</h2>
         <a href="{{routes.all_products_collections_url}}">Continue Shopping</a>
     </div>
@@ -34,6 +34,9 @@
 {% endif %}
 
 <style>
+    .emptyCart {
+        text-align: center;
+    }
     .cart-heading {
         text-align: center;
         font-weight: 600;
