@@ -31,7 +31,15 @@
     </div>
     <hr class="hzn-rule">
     {% endfor %}
-{% endif %}
+    
+    <div class="total-container">
+        <div class="item-total">
+            <p>Total Quantity: <span class="total-quantity">{{cart.item_count}}</span></p>
+            <p>Total Price: <span class="total-price">{{cart.total_price | money}}</span></p>
+            <button class="checkout-btn">Checkout</button>
+        </div>
+    </div>
+    {% endif %}
 
 <style>
     .emptyCart {
@@ -50,6 +58,7 @@
     }
     .item__img {
         vertical-align: top;
+        border-radius: 1rem;
     }
     .quantity-container {
         justify-self: left;
@@ -95,12 +104,56 @@
     .hzn-rule {
         margin: 2rem;
     }
+    .total-container {
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+    .item-total {
+        text-align: right;
+        padding: 0 5rem;
+        width: 30%;
+        float: right;
+        margin-right: 15rem;
+        margin-bottom: 3rem;
+    }
+    .item-total p {
+        display: flex;
+        justify-content: space-between;
+    }
+    .item-total p span {
+        font-size: 2rem;
+        font-weight: 600;
+    }
+    .checkout-btn {
+        background-color: #d87d4a;
+        padding: 1rem 2rem;
+        font-size: 2rem;
+        text-transform: uppercase;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    @media only screen and (max-width: 991px) {
+        .item-total {
+            width: 50%;
+            margin-right: 0;
+        }
+    }
 
     @media only screen and (max-width: 767px) {
         .line-item {
            display: block;
            text-align: center;
            text-align: -webkit-center;
+        }
+        .item-total {
+            text-align: center;
+            padding: 0;
+            width: 100%;
+            float: none;
+            margin-right: 0;
+            padding: 0 2rem;
         }
     }
 </style>

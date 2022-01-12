@@ -150,12 +150,18 @@ $(".item__quantity p").click(function(e){
         dataType: 'json',
         data: data,
         success: function(itemData) {
+            console.log('itemData', itemData)
             for (i = 0; i < itemData.items.length; i++) {
                 if (itemData.items[i].id == variantId) {
-                    let dataPrice = itemData.items[i].final_line_price.toString(); //Converts integer to string
-                    let dataPriceFormat = dataPrice.substring(0,dataPrice.length-2)+"."+dataPrice.substring(dataPrice.length-2); //Formats string to account for cents
-                    let totalLinePrice = currency.format(dataPriceFormat); //Formats string to currency
+                    let dataPrice = itemData.items[i].final_line_price.toString(); //Converts line item price integer to string
+                    let dataPriceFormat = dataPrice.substring(0,dataPrice.length-2)+"."+dataPrice.substring(dataPrice.length-2); //Formats line item string to account for cents
+                    let totalLinePrice = currency.format(dataPriceFormat); //Formats line item string to currency
                     totalPrice.html(totalLinePrice);
+                    $('.total-quantity').html(itemData.item_count);
+                    let dataTotalPrice = itemData.items_subtotal_price.toString(); //Converts total order price integer to string
+                    let dataTotalPriceFormat = dataTotalPrice.substring(0,dataTotalPrice.length-2)+"."+dataTotalPrice.substring(dataTotalPrice.length-2); //Formats total order string to account for cents
+                    let totalOrderPrice = currency.format(dataTotalPriceFormat); //Formats total order string to currency
+                    $('.total-price').html(totalOrderPrice);
                 }
             }
             updateCart();
@@ -190,19 +196,18 @@ $('.remove').click(function(){
         type: 'POST',
         dataType: 'json',
         data: data,
-        success: function() {
+        success: function(itemData) {
+            itemRow.next().remove(); //Deletes <hr> for line item
             itemRow.remove();
             updateCart();
+            $('.total-quantity').html(itemData.item_count);
+            let dataTotalPrice = itemData.items_subtotal_price.toString(); //Converts total order price integer to string
+            let dataTotalPriceFormat = dataTotalPrice.substring(0,dataTotalPrice.length-2)+"."+dataTotalPrice.substring(dataTotalPrice.length-2); //Formats total order string to account for cents
+            let totalOrderPrice = currency.format(dataTotalPriceFormat); //Formats total order string to currency
+            $('.total-price').html(totalOrderPrice);
         },
         error: function(error) {
             console.log('error', error);
         }
     })
 });
-
-// Trash can on click
-// let quantity = get quantity from html
-// let variant id = get variant id from html
-// form data object (let data = {"quantity": quantity, "id": variantid})
-// POSt call to /cart/changes.js 
-// After success: update Total price, update cart quantity count in header, remove the product row
