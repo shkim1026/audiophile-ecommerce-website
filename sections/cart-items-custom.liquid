@@ -1,0 +1,159 @@
+{% if cart == empty %}
+    <div class="emptyCart">
+        <h2>Your cart is empty!</h2>
+        <a href="{{routes.all_products_collections_url}}">Continue Shopping</a>
+    </div>
+{%  endif %}
+
+{% if cart != empty %}
+    <h2 class="cart-heading">Items in Your Cart</h2>
+    {% for item in cart.items %}
+    <div class="line-item">
+        <a href="{{item.url}}">
+            <img class="item__img" src="{{ item.image | img_url: '200x' }}">
+        </a>
+        <div class="quantity-container">
+            <a href="{{item.url}}"><p>{{item.title}}</p></a>
+            <input class="variant-id" type="hidden" id="itemId-{{forloop.index}}" name="variantId" value="{{item.variant_id}}">
+            <label for="itemQuantity-{{forloop.index}}"><sub>Quantity:</sub></label>
+            <div class="quantity-input">
+                <div class="item__quantity">
+                    <p class="subtract margin-0 padding-0-1">-</p>
+                </div>
+                <input type="number" class="itemQuantityInput" id="itemQuantity-{{forloop.index}}" name="quantity" min="1" max="99" value="{{item.quantity}}">
+                <div class="item__quantity">
+                    <p class="add margin-0 padding-0-1">+</p>
+                </div>
+            </div>
+            <p class="remove">Remove</p>
+        </div>
+        <p class="final-price">{{item.final_line_price | money}}</p>
+    </div>
+    <hr class="hzn-rule">
+    {% endfor %}
+    
+    <div class="total-container">
+        <div class="item-total">
+            <p>Total Quantity: <span class="total-quantity">{{cart.item_count}}</span></p>
+            <p>Total Price: <span class="total-price">{{cart.total_price | money}}</span></p>
+            <button class="checkout-btn">Checkout</button>
+        </div>
+    </div>
+    {% endif %}
+
+<style>
+    .emptyCart {
+        text-align: center;
+    }
+    .cart-heading {
+        text-align: center;
+        font-weight: 600;
+    }
+    .line-item {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        max-width: 1600px;
+        margin: 0 auto;
+        justify-items: center;
+    }
+    .item__img {
+        vertical-align: top;
+        border-radius: 1rem;
+    }
+    .quantity-container {
+        justify-self: left;
+        align-self: center;
+    }
+    .quantity-container p {
+        color: black;
+    }
+    .quantity-input {
+        display: flex;
+        height: fit-content;
+        width: fit-content;
+        border: 1px solid black;
+    }
+    .item__quantity,
+    .remove {
+        cursor: pointer;
+    }
+    .margin-0 {
+        margin: 0;
+    }
+    .padding-0-1 {
+        padding: 0 1rem;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type=number] {
+        -moz-appearance:textfield; /* Firefox */
+    }
+    .itemQuantityInput {
+        text-align: center;
+        border: none;
+        cursor: pointer;
+    }
+    .final-price {
+        align-self: center;
+        font-size: 2rem;
+        font-weight: 600;
+    }
+    .hzn-rule {
+        margin: 2rem;
+    }
+    .total-container {
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+    .item-total {
+        text-align: right;
+        padding: 0 5rem;
+        width: 30%;
+        float: right;
+        margin-right: 15rem;
+        margin-bottom: 3rem;
+    }
+    .item-total p {
+        display: flex;
+        justify-content: space-between;
+    }
+    .item-total p span {
+        font-size: 2rem;
+        font-weight: 600;
+    }
+    .checkout-btn {
+        background-color: #d87d4a;
+        padding: 1rem 2rem;
+        font-size: 2rem;
+        text-transform: uppercase;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    @media only screen and (max-width: 991px) {
+        .item-total {
+            width: 50%;
+            margin-right: 0;
+        }
+    }
+
+    @media only screen and (max-width: 767px) {
+        .line-item {
+           display: block;
+           text-align: center;
+           text-align: -webkit-center;
+        }
+        .item-total {
+            text-align: center;
+            padding: 0;
+            width: 100%;
+            float: none;
+            margin-right: 0;
+            padding: 0 2rem;
+        }
+    }
+</style>
