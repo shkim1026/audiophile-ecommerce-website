@@ -126,7 +126,7 @@ $(".item__quantity p").click(function(){
     let variantId = $(this).closest('.quantity-container').find('.variant-id').val();
     let totalPrice = $(this).closest('.line-item').find('.final-price');
     let currentQuantityInt = parseInt(itemQuantityInput.val());
-    if ($(e.target).hasClass('add')) {
+    if ($(this).hasClass('add')) {
         if (currentQuantityInt >= 99) {
             currentQuantityInt = 99;
         } else {
