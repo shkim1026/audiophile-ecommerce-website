@@ -20,6 +20,28 @@ li {
     list-style: none;
 }
 
+.display-none  {
+    display: none;
+}
+
+
+/* LOADER */
+.buttonload {
+    box-shadow: none;
+    border: none;
+    padding: 1rem 3rem;
+    color: #fcfcfc;
+    background-color: #d87d4a;
+    font-size: 1.75rem;
+}
+.cartload {
+    border: none;
+    color: black;
+    padding: 12px 24px;
+    font-size: 2rem;
+    align-self: center;
+}
+
 /* HEADER  */
 header.site-header.border-bottom.logo--left {
     background-color: gray;
