@@ -46,9 +46,9 @@ $(".filter__reset-label").click(function(){
 
 
 // Adds or Subtracts 1 from Order Quantity on Product page when user clicks on '+' or '-'. Minimum quantity is '1'
-$(".product__quantity p").click(function(e){
+$(".product__quantity p").click(function(){
     let currentQuantityInt = parseInt($('#orderQuantity').val());
-    if ($(e.target).hasClass('add')) {
+    if ($(this).hasClass('add')) {
         if (currentQuantityInt >= 99) {
             currentQuantityInt = 99;
         } else {
@@ -121,7 +121,7 @@ const currency = new Intl.NumberFormat('en-US', {
 });
 
 // Adds or Subtracts 1 from Item Quantity on Cart page when user clicks on '+' or '-'. Minimum quantity is '1'
-$(".item__quantity p").click(function(e){
+$(".item__quantity p").click(function(){
     let itemQuantityInput = $(this).closest('.quantity-input').find('.itemQuantityInput');
     let variantId = $(this).closest('.quantity-container').find('.variant-id').val();
     let totalPrice = $(this).closest('.line-item').find('.final-price');
@@ -149,16 +149,15 @@ $(".item__quantity p").click(function(e){
         type: 'POST',
         dataType: 'json',
         data: data,
-        success: function(itemData) {
-            console.log('itemData', itemData)
-            for (i = 0; i < itemData.items.length; i++) {
-                if (itemData.items[i].id == variantId) {
-                    let dataPrice = itemData.items[i].final_line_price.toString(); //Converts line item price integer to string
+        success: function(cartData) {
+            for (i = 0; i < cartData.items.length; i++) {
+                if (cartData.items[i].id == variantId) {
+                    let dataPrice = cartData.items[i].final_line_price.toString(); //Converts line item price integer to string
                     let dataPriceFormat = dataPrice.substring(0,dataPrice.length-2)+"."+dataPrice.substring(dataPrice.length-2); //Formats line item string to account for cents
                     let totalLinePrice = currency.format(dataPriceFormat); //Formats line item string to currency
                     totalPrice.html(totalLinePrice);
-                    $('.total-quantity').html(itemData.item_count);
-                    let dataTotalPrice = itemData.items_subtotal_price.toString(); //Converts total order price integer to string
+                    $('.total-quantity').html(cartData.item_count);
+                    let dataTotalPrice = cartData.items_subtotal_price.toString(); //Converts total order price integer to string
                     let dataTotalPriceFormat = dataTotalPrice.substring(0,dataTotalPrice.length-2)+"."+dataTotalPrice.substring(dataTotalPrice.length-2); //Formats total order string to account for cents
                     let totalOrderPrice = currency.format(dataTotalPriceFormat); //Formats total order string to currency
                     $('.total-price').html(totalOrderPrice);
@@ -182,7 +181,6 @@ $(".itemQuantityInput").keydown(function(){
 
 //Removes item from cart when 'Remove' is clicked
 $('.remove').click(function(){
-    console.log('remove')
     let variantId = $(this).closest('.quantity-container').find('.variant-id').val();
     let itemRow = $(this).closest('.line-item');
     
@@ -196,15 +194,26 @@ $('.remove').click(function(){
         type: 'POST',
         dataType: 'json',
         data: data,
-        success: function(itemData) {
+        success: function(cartData) {
+            console.log(cartData)
             itemRow.next().remove(); //Deletes <hr> for line item
             itemRow.remove();
             updateCart();
-            $('.total-quantity').html(itemData.item_count);
-            let dataTotalPrice = itemData.items_subtotal_price.toString(); //Converts total order price integer to string
+            $('.total-quantity').html(cartData.item_count);
+            let dataTotalPrice = cartData.items_subtotal_price.toString(); //Converts total order price integer to string
             let dataTotalPriceFormat = dataTotalPrice.substring(0,dataTotalPrice.length-2)+"."+dataTotalPrice.substring(dataTotalPrice.length-2); //Formats total order string to account for cents
             let totalOrderPrice = currency.format(dataTotalPriceFormat); //Formats total order string to currency
             $('.total-price').html(totalOrderPrice);
+            //If cart is empty: display 'Your cart is empty!'
+            if (cartData.item_count == 0) {
+                $('.cart-heading').remove();
+                $('.total-container').remove();
+                $(`<div class="emptyCart">
+                    <h2>Your cart is empty!</h2>
+                    <a href="/collections/all">Continue Shopping</a>
+                </div>`)
+                .appendTo('#shopify-section-cart-items-custom')
+            }
         },
         error: function(error) {
             console.log('error', error);
