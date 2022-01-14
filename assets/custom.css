@@ -27,6 +27,7 @@ li {
 
 /* LOADER */
 .buttonload {
+    display: none;
     box-shadow: none;
     border: none;
     padding: 1rem 3rem;
@@ -35,6 +36,7 @@ li {
     font-size: 1.75rem;
 }
 .cartload {
+    display: none;
     border: none;
     color: black;
     padding: 12px 24px;

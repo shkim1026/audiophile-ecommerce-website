@@ -95,13 +95,13 @@ function updateCart() {
 
 // Display loader on product form submission
 function displayButtonLoader() {
-    $('.buttonload').removeClass('display-none');
-    $('.addToCartBtn').addClass('display-none');
+    $('.buttonload').show();
+    $('.addToCartBtn').hide();
 }
 // Hide loader on product form after form submission
 function hideButtonLoader() {
-    $('.addToCartBtn').removeClass('display-none');
-    $('.buttonload').addClass('display-none');
+    $('.addToCartBtn').show();
+    $('.buttonload').hide();
     $('.addToCartBtn').text('ADDED!') //Changes button text to 'Added!'
 }
 
@@ -133,34 +133,21 @@ const currency = new Intl.NumberFormat('en-US', {
 });
 
 
-
-
 // Adds or Subtracts 1 from Item Quantity on Cart page when user clicks on '+' or '-'. Minimum quantity is '1'
 $(".item__quantity p").click(function(){
     let itemQuantityInput = $(this).closest('.quantity-input').find('.itemQuantityInput');
     let variantId = $(this).closest('.quantity-container').find('.variant-id').val();
     let totalPrice = $(this).closest('.line-item').find('.final-price');
     let currentQuantityInt = parseInt(itemQuantityInput.val());
+    let $this = $(this)
     // Display loader when item quantity is changed on cart page
-    $(this).closest('.line-item').find('.cartload').removeClass('display-none');
-    $(this).closest('.line-item').find('.final-price').addClass('display-none');
-    // console.log('hidden')
-    // $(this).closest('.line-item').find('.final-price').removeClass('display-none');
-    // $(this).closest('.line-item').find('.cartload').addClass('display-none'); //Hides loader
-    // console.log('display');
-    // console.log("$(this).closest('.line-item').find('.final-price')",$(this).closest('.line-item').find('.final-price'))
-    
-    // $('.cartload').removeClass('display-none');
-    // $('.final-price').addClass('display-none');
-    // console.log("$('.final-price').addClass('display-none');")
+    $(this).closest('.line-item').find('.cartload').show();
+    $(this).closest('.line-item').find('.final-price').hide();
+
     function removeCartLoader() {
-        $('.final-price').removeClass('display-none');
-        $('.cartload').addClass('display-none');
-        // $(this).closest('.line-item').find('.final-price').removeClass('display-none');
-        // $(this).closest('.line-item').find('.cartload').addClass('display-none'); //Hides loader
+        $this.closest('.line-item').find('.final-price').show();
+        $this.closest('.line-item').find('.cartload').hide(); //Hides loader
     }
-    
-    console.log("$('.final-price').removeClass('display-none');")
 
     if ($(this).hasClass('add')) {
         if (currentQuantityInt >= 99) {
@@ -208,6 +195,7 @@ $(".item__quantity p").click(function(){
     })
 });
 
+
 //Limits Cart Quantity input to 2 digits
 $(".itemQuantityInput").keydown(function(){
     if (this.value.length > 1) {
@@ -232,7 +220,6 @@ $('.remove').click(function(){
         dataType: 'json',
         data: data,
         success: function(cartData) {
-            console.log(cartData)
             itemRow.next().remove(); //Deletes <hr> for line item
             itemRow.remove();
             updateCart();
