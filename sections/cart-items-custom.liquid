@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 {% if cart == empty %}
     <div class="emptyCart">
         <h2>Your cart is empty!</h2>
@@ -28,6 +30,9 @@
             <p class="remove">Remove</p>
         </div>
         <p class="final-price">{{item.final_line_price | money}}</p>
+        <div class="cartload">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
     </div>
     <hr class="hzn-rule">
     {% endfor %}

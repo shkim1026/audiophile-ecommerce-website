@@ -93,17 +93,29 @@ function updateCart() {
     });
 }
 
+// Display loader on product form submission
+function displayButtonLoader() {
+    $('.buttonload').show();
+    $('.addToCartBtn').hide();
+}
+// Hide loader on product form after form submission
+function hideButtonLoader() {
+    $('.addToCartBtn').show();
+    $('.buttonload').hide();
+    $('.addToCartBtn').text('ADDED!') //Changes button text to 'Added!'
+}
+
 //POST product data when 'Add to cart' is clicked
 $('.product-form').on('submit', function(e) {
     e.preventDefault();
-    console.log('$(this).serialize()', $(this).serialize());
-    $('.addToCartBtn').text('ADDED!') //Changes button text to 'Added!'
+    displayButtonLoader()
     $.ajax({
         url: '/cart/add.js',
         type: 'POST', // GET, POST, PUT, DELETE (CRUD): Create, Read, Update, Delete
         dataType: 'json',
         data: $('.product-form').serialize(), // === {quantity: 1}
         success: function() {
+            hideButtonLoader();
             setTimeout(resetForm, 2000);
             updateCart();
         },
@@ -120,12 +132,23 @@ const currency = new Intl.NumberFormat('en-US', {
     currency: 'USD',
 });
 
+
 // Adds or Subtracts 1 from Item Quantity on Cart page when user clicks on '+' or '-'. Minimum quantity is '1'
 $(".item__quantity p").click(function(){
     let itemQuantityInput = $(this).closest('.quantity-input').find('.itemQuantityInput');
     let variantId = $(this).closest('.quantity-container').find('.variant-id').val();
     let totalPrice = $(this).closest('.line-item').find('.final-price');
     let currentQuantityInt = parseInt(itemQuantityInput.val());
+    let $this = $(this)
+    // Display loader when item quantity is changed on cart page
+    $(this).closest('.line-item').find('.cartload').show();
+    $(this).closest('.line-item').find('.final-price').hide();
+
+    function removeCartLoader() {
+        $this.closest('.line-item').find('.final-price').show();
+        $this.closest('.line-item').find('.cartload').hide(); //Hides loader
+    }
+
     if ($(this).hasClass('add')) {
         if (currentQuantityInt >= 99) {
             currentQuantityInt = 99;
@@ -163,6 +186,7 @@ $(".item__quantity p").click(function(){
                     $('.total-price').html(totalOrderPrice);
                 }
             }
+            removeCartLoader();
             updateCart();
         },
         error: function(error) {
@@ -170,6 +194,7 @@ $(".item__quantity p").click(function(){
         }
     })
 });
+
 
 //Limits Cart Quantity input to 2 digits
 $(".itemQuantityInput").keydown(function(){
@@ -195,7 +220,6 @@ $('.remove').click(function(){
         dataType: 'json',
         data: data,
         success: function(cartData) {
-            console.log(cartData)
             itemRow.next().remove(); //Deletes <hr> for line item
             itemRow.remove();
             updateCart();
