@@ -72,10 +72,15 @@
     margin-left: 10rem;
     width: 75%;
     justify-self: right;
-    {% if block.settings.uppercase-links == true %}
-    text-transform: uppercase;
-    {% endif %}
+    
+      text-transform: uppercase;
+    
   }
+  {% if block.settings.uppercase-links == true %}
+  .footer-link-list {
+    text-transform: uppercase;
+  }
+  {% endif %}
   .footer-link,
   .social-link svg,
   .footer-copyright {
