@@ -3,10 +3,9 @@
     <div class="about__container">
         <div class="about__image-content">
             <picture class="about__image">
-                <source media="(min-width: 992px)" srcset="{{ section.settings.image | img_url: 'master' }}">
-                <source media="(min-width: 768px)" srcset="{{ section.settings.image_2 | img_url: 'master' }}">
-                <source media="(max-width: 767.87px)" srcset="{{ section.settings.image_3 | img_url: 'master' }}">
-                <img class="about__image-img" src="{{ section.settings.image_3 | img_url: 'master' }}" alt="{{section.settings.image.alt | escape}}">
+                <source media="(max-width: 767px)" srcset="{{ section.settings.image_3 | img_url: 'master' }}">
+                <source media="(max-width: 991px)" srcset="{{ section.settings.image_2 | img_url: 'master' }}">
+                <img class="about__image-img" src="{{ section.settings.image | img_url: 'master' }}" alt="{{section.settings.image.alt | escape}}">
             </picture>
         </div>
         <div class="about__text-content">
