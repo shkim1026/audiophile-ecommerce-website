@@ -4,8 +4,11 @@
       {% case block.type %}
         {% when 'image' %}
           {% if block.settings.logo != blank %}
+          <div class="footer-logo__container">
             <img class="footer-logo" src="{{block.settings.logo | img_url: '200x'}}">
+          </div>
           {% endif %}
+      <div class="grid-column">
         <div class="footer__link-outer-container">
           {% when 'link_list' %}
             <div class="footer__link-container">
@@ -21,9 +24,24 @@
       {% endcase %}
     {% endfor %}
         </div>
-    <div class="copyright-container">
-      <sub class="footer-copyright">Copyright 2021. All Rights Reserved</sub>
-    </div>
+        {% form 'customer' %}
+          <input class="newsletter__input"
+            type="email"
+            name="contact[email]"
+            value="{{form.email}}"
+            id="newsletter-form"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            placeholder="Enter your email address..."
+            {% if form.errors %}
+              <script>alert("Sorry! There was an error. Please try again.");</script>
+            {% elsif form.posted_successfully?%}
+              <script>alert("Thank you for signing up for our newsletter!");</script>
+            {% endif %}>
+          <input type="submit" class="newsletter__sign-up" value="Get Updates">
+        {% endform %}
+      </div>
     <ul class="social-list">
       <li>
         <a href="#" class="social-link">
@@ -44,11 +62,21 @@
         </a>
       </li>
     </ul>
+    <div class="copyright-container">
+      <sub class="footer-copyright">Copyright 2021. All Rights Reserved</sub>
+    </div>
     
   </div>
 </div>
 
 <style>
+  #contact_form {
+    text-align: right;
+  }
+  .grid-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
   .footer {
     background-color: black;
   }
@@ -68,15 +96,17 @@
     color: white;
   }
   .footer__link-list {
+    margin-top: 1rem;
     padding: 0;
     width: 75%;
     justify-self: right;
-    min-width: 300px;
+    min-width: 230px;
     text-transform: {{section.settings.link-item-text-transform}};
   }
   .footer__links-heading {
     color: {{section.settings.link-heading-color}};
     text-transform: {{section.settings.link-heading-text-transform}};
+    margin-bottom: 1rem;
   }
   .footer__link-item {
     {% if section.settings.link-items-opacity == true %}
@@ -85,7 +115,8 @@
   }
   .footer__link-item,
   .social-link svg,
-  .footer-copyright {
+  .footer-copyright,
+  .newsletter__submit {
     color: {{section.settings.link-items-text-color}};
   }
   .footer__link-item:hover,
@@ -100,7 +131,7 @@
     right: 5rem;
     bottom: 10rem;
     display: flex;
-    place-content: space-around;
+    place-content: space-between;
   } 
   .social-link svg {
     width: 100%;
@@ -113,9 +144,36 @@
   }
   .footer-copyright {
     opacity: 0.5;
+    font-size: 1rem;
   }
-
-  @media only screen and (max-width: 991px) {
+  .newsletter__input,
+  .newsletter__sign-up {
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    font-family: Manrope,sans-serif;
+    border: none;
+  }
+  .newsletter__sign-up {
+    background-color: #d87d4a;
+    color: white;
+    text-transform: uppercase;
+  }
+  @media only screen and (max-width: 1240px) {
+    .footer__link-outer-container {
+      text-align: center;
+      place-content: center;
+    }
+    .grid-column {
+      display: block;
+    }
+    #contact_form {
+      text-align: center;
+    }
+    .newsletter__input,
+    .newsletter__sign-up {
+      font-size: 1.5rem;
+      margin: 2rem 0px;
+    }
     .column-grid-2 {
       display: block;
       margin-left: 0;
@@ -128,8 +186,10 @@
     .social-list {
       bottom: 1rem;
     }
+    .footer-logo__container {
+      text-align: center;
+    }
   }
-
   @media only screen and (max-width: 767px) {
     .footer__link-outer-container {
       display: block;
