@@ -48,9 +48,9 @@
 <style>
   .footer {
     background-color: black;
-    position: relative;
   }
   .footer__inner {
+    position: relative;
     max-width: 1600px;
     margin: 0 auto;
     padding: 3rem 5rem;
@@ -62,7 +62,7 @@
   .footer-logo {
     align-self: center;
   }
-  p {
+  .footer p {
     color: white;
   }
   .footer-link-list {
@@ -73,12 +73,10 @@
     width: 75%;
     justify-self: right;
     min-width: 399px;  
-  }
-  {% if block.settings.uppercase-links == true %}
-  .footer-link-list {
+  {% if section.settings.uppercase-links == true %}
     text-transform: uppercase;
-  }
   {% endif %}
+  }
   .footer-link,
   .social-link svg,
   .footer-copyright {
@@ -114,6 +112,7 @@
     .column-grid-2 {
       display: block;
       margin-left: 0;
+      text-align: center;
     }
     .about-subtext {
       margin-top: 2rem;
@@ -131,13 +130,14 @@
     .footer__inner {
       padding: 5rem 5rem;
     }
-    .link-list {
+    .footer-link-list {
       display: block;
       margin-left: 0;
       width: 100%;
       margin: 4rem auto;
+      min-width: auto;
     }
-    .link-list li {
+    .footer-link-list li {
       margin: 1rem 0;
     }
     .column-grid-2,
@@ -174,12 +174,6 @@
           "id": "menu",
           "default": "footer",
           "label": "Select Links for Footer"
-        },
-        {
-          "type": "checkbox",
-          "id": "uppercase-links",
-          "default": true,
-          "label": "Link Uppercase"
         }
       ]
     },
@@ -210,6 +204,14 @@
           "label": "Choose Logo Image"
         }
       ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "uppercase-links",
+      "default": true,
+      "label": "Link Uppercase"
     }
   ],
   "default": {
