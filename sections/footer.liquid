@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <div class="footer">
   <div class="footer__inner">
     {% for block in section.blocks %}
@@ -13,7 +15,7 @@
           {% when 'link_list' %}
             <div class="footer__link-container">
               {% if block.settings.link-heading != blank %}
-                <h5 class="footer__links-heading"> {{ block.settings.link-heading }} </h5>
+                <h5 class="footer__links-heading"> {{ block.settings.link-heading }} <span class="footer-chevron"><i class="fa fa-chevron-down" aria-hidden="true"></i></i></span> </h5>
               {% endif %}
               <ul class="footer__link-list">
                 {% for link in block.settings.menu.links %}
@@ -42,6 +44,7 @@
           <input type="submit" class="newsletter__sign-up" value="Get Updates">
         {% endform %}
       </div>
+
     <ul class="social-list">
       <li>
         <a href="#" class="social-link">
@@ -65,7 +68,6 @@
     <div class="copyright-container">
       <sub class="footer-copyright">Copyright 2021. All Rights Reserved</sub>
     </div>
-    
   </div>
 </div>
 
@@ -107,6 +109,9 @@
     color: {{section.settings.link-heading-color}};
     text-transform: {{section.settings.link-heading-text-transform}};
     margin-bottom: 1rem;
+  }
+  .footer-chevron {
+    display: none;
   }
   .footer__link-item {
     {% if section.settings.link-items-opacity == true %}
@@ -168,6 +173,7 @@
     }
     #contact_form {
       text-align: center;
+      margin-top: 2rem;
     }
     .newsletter__input,
     .newsletter__sign-up {
@@ -197,12 +203,23 @@
     .footer__inner {
       padding: 5rem 5rem;
     }
+    .footer__links-heading {
+      font-size: 1.5rem;
+    }
+    .footer-chevron {
+      display: inline-flex;
+    }
+    .footer-chevron i {
+      color: #d87d4a;
+      margin-left: 1rem;
+      transition: transform 0.2s;
+    }
     .footer__link-list {
-      display: none;
       width: 100%;
-      margin: 4rem auto;
-      margin-top: 2rem;
       min-width: auto;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
     }
     .footer__link-list li {
       margin: 1rem 0;
