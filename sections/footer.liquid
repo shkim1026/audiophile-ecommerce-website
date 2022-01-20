@@ -37,9 +37,9 @@
             autocomplete="email"
             placeholder="Enter your email address..."
             {% if form.errors %}
-              <script>alert("Sorry! There was an error. Please try again.");</script>
+              
             {% elsif form.posted_successfully?%}
-              <script>alert("Thank you for signing up for our newsletter!");</script>
+              
             {% endif %}>
           <input type="submit" class="newsletter__sign-up" value="Get Updates">
         {% endform %}
