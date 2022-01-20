@@ -244,3 +244,20 @@ $('.remove').click(function(){
         }
     })
 });
+
+//Display Footer sub-menu when footer menu is clicked
+$('.footer__links-heading').click(function(){
+    const submenu = $(this).next();
+    const mediaQuery = window.matchMedia('(max-width: 767px'); //Allows footer menus to be clicked ONLY on mobile viewports
+    if (mediaQuery.matches) {
+        if (submenu.hasClass('hidden')) {
+            submenu.removeClass('hidden')
+            submenu.addClass('growDown');
+        } else if (submenu.hasClass('growDown')) {
+            submenu.removeClass('growDown');
+            submenu.addClass('hidden')
+        } else {
+            submenu.addClass('growDown');
+        }
+    }
+});
