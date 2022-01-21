@@ -26,7 +26,7 @@
       {% endcase %}
     {% endfor %}
         </div>
-        {% form 'customer' %}
+        {% form 'customer'%}
           <input class="newsletter__input"
             type="email"
             name="contact[email]"
@@ -35,13 +35,13 @@
             autocorrect="off"
             autocapitalize="off"
             autocomplete="email"
-            placeholder="Enter your email address..."
-            {% if form.errors %}
-              
-            {% elsif form.posted_successfully?%}
-              
-            {% endif %}>
+            placeholder="Enter your email address...">
           <input type="submit" class="newsletter__sign-up" value="Get Updates">
+          {% if form.errors %}
+            <p class="newsletter__msg">Whoops! Something went wrong. Please try again</p>
+          {% elsif form.posted_successfully?%}
+            <p class="newsletter__msg">Thanks! You've been subscribed</p>
+          {% endif %}
         {% endform %}
       </div>
 
@@ -72,6 +72,9 @@
 </div>
 
 <style>
+  .newsletter__msg {
+    color: white;
+  }
   #contact_form {
     text-align: right;
   }
@@ -154,7 +157,7 @@
   .newsletter__input,
   .newsletter__sign-up {
     padding: 1rem 2rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-family: Manrope,sans-serif;
     border: none;
   }
