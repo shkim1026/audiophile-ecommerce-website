@@ -251,7 +251,7 @@ $('.footer__links-heading').click(function(){
     const submenu = $(this).next();
     const scrollHeight = submenu.prop('scrollHeight');
     const expandedHeight = scrollHeight + "px";
-    const mediaQuery = window.matchMedia('(max-width: 767px'); //Allows footer menu heading to be clicked ONLY on mobile viewports
+    const mediaQuery = window.matchMedia('(max-width: 767px)'); //Allows footer menu heading to be clicked ONLY on mobile viewports
     if (mediaQuery.matches) {
         $(this).toggleClass('active');
         if ($(this).hasClass('active')) {
