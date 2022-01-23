@@ -244,3 +244,22 @@ $('.remove').click(function(){
         }
     })
 });
+
+//Display Footer sub-menu when footer menu is clicked
+$('.footer__links-heading').click(function(){
+    const chevron = $(this).find('.fa-chevron-down');
+    const submenu = $(this).next();
+    const scrollHeight = submenu.prop('scrollHeight');
+    const expandedHeight = scrollHeight + "px";
+    const mediaQuery = window.matchMedia('(max-width: 767px'); //Allows footer menu heading to be clicked ONLY on mobile viewports
+    if (mediaQuery.matches) {
+        $(this).toggleClass('active');
+        if ($(this).hasClass('active')) {
+            submenu.css('maxHeight', expandedHeight);
+            chevron.css('transform', 'rotateX(180deg)');
+        } else {
+            submenu.css('maxHeight', '0')
+            chevron.css('transform', 'rotateX(0deg)');
+        }
+    }
+});

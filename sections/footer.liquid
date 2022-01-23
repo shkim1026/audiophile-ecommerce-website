@@ -1,26 +1,50 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <div class="footer">
   <div class="footer__inner">
-    <div class="column-grid-2">
     {% for block in section.blocks %}
       {% case block.type %}
         {% when 'image' %}
           {% if block.settings.logo != blank %}
+          <div class="footer-logo__container">
             <img class="footer-logo" src="{{block.settings.logo | img_url: '200x'}}">
+          </div>
           {% endif %}
-        {% when 'link_list' %}
-          <ul class="footer-link-list">
-            {% for link in block.settings.menu.links %}
-              <li><a href="{{ link.url }}" class="footer-link">{{ link.title }}</a></li>
-            {% endfor %}
-          </ul>
-    </div>
-        {% when 'text' %}
-          <div class="about-subtext">{{block.settings.subtext}}</div>
+      <div class="grid-column">
+        <div class="footer__link-outer-container">
+          {% when 'link_list' %}
+            <div class="footer__link-container">
+              {% if block.settings.link-heading != blank %}
+                <h5 class="footer__links-heading"> {{ block.settings.link-heading }} <span class="footer-chevron"><i class="fa fa-chevron-down" aria-hidden="true"></i></i></span> </h5>
+              {% endif %}
+              <ul class="footer__link-list">
+                {% for link in block.settings.menu.links %}
+                  <li><a href="{{ link.url }}" class="footer__link-item">{{ link.title }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
       {% endcase %}
     {% endfor %}
-    <div class="copyright-container">
-      <sub class="footer-copyright">Copyright 2021. All Rights Reserved</sub>
-    </div>
+        </div>
+        {% form 'customer'%}
+          <input class="newsletter__input"
+            type="email"
+            name="contact[email]"
+            value="{{form.email}}"
+            id="newsletter-form"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            placeholder="Enter your email address...">
+          <input type="submit" class="newsletter__sign-up" value="Get Updates">
+          {% if form.errors %}
+            <p class="newsletter__msg">Whoops! Something went wrong. Please try again</p>
+          {% elsif form.posted_successfully?%}
+            <p class="newsletter__msg">Thanks! You've been subscribed</p>
+          {% endif %}
+        {% endform %}
+      </div>
+
     <ul class="social-list">
       <li>
         <a href="#" class="social-link">
@@ -41,11 +65,24 @@
         </a>
       </li>
     </ul>
-    
+    <div class="copyright-container">
+      <sub class="footer-copyright">Copyright 2021. All Rights Reserved</sub>
+    </div>
   </div>
 </div>
 
 <style>
+  .newsletter__msg {
+    color: white;
+    margin: 0;
+  }
+  #contact_form {
+    text-align: right;
+  }
+  .grid-column {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
   .footer {
     background-color: black;
   }
@@ -55,9 +92,8 @@
     margin: 0 auto;
     padding: 3rem 5rem;
   }
-  .column-grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  .footer__link-outer-container {
+    display: flex;
   }
   .footer-logo {
     align-self: center;
@@ -65,35 +101,49 @@
   .footer p {
     color: white;
   }
-  .footer-link-list {
+  .footer__link-container {
+    min-width: 230px;
+    width:100%;
+  }
+  .footer__link-list {
+    margin-top: 1rem;
     padding: 0;
-    display: flex;
-    place-content: space-between;
-    margin-left: 10rem;
-    width: 75%;
+    width: 100%;
     justify-self: right;
-    min-width: 399px;  
-  {% if section.settings.uppercase-links == true %}
-    text-transform: uppercase;
-  {% endif %}
+    text-transform: {{section.settings.link-item-text-transform}};
   }
-  .footer-link,
+  .footer__links-heading {
+    color: {{section.settings.link-heading-color}};
+    text-transform: {{section.settings.link-heading-text-transform}};
+    margin-bottom: 1rem;
+  }
+  .footer-chevron {
+    display: none;
+  }
+  .footer__link-item {
+    {% if section.settings.link-items-opacity == true %}
+    opacity: 0.5;
+    {% endif %}
+  }
+  .footer__link-item,
   .social-link svg,
-  .footer-copyright {
-    color: white;
+  .footer-copyright,
+  .newsletter__submit {
+    color: {{section.settings.link-items-text-color}};
   }
-  .footer-link:hover,
+  .footer__link-item:hover,
   .social-link svg:hover {
-    color: #D87D4A;
+    color: {{section.settings.items-hover-color}};
+    opacity: 1;
   }
   .social-list {
     padding: 0;
-    display: flex;
-    justify-content: space-between;
     width: 10%;
     position: absolute;
     right: 5rem;
     bottom: 10rem;
+    display: flex;
+    place-content: space-between;
   } 
   .social-link svg {
     width: 100%;
@@ -106,9 +156,49 @@
   }
   .footer-copyright {
     opacity: 0.5;
+    font-size: 1rem;
   }
-
-  @media only screen and (max-width: 991px) {
+  .newsletter__input,
+  .newsletter__sign-up {
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    font-family: Manrope,sans-serif;
+    border: none;
+  }
+  .newsletter__input {
+    width: 65%;
+  }
+  .newsletter__sign-up {
+    background-color: #d87d4a;
+    color: white;
+    text-transform: uppercase;
+    width: 34%;
+    cursor: pointer;
+  }
+  .copyright-container {
+    margin-top: 4rem;
+  }
+  @media only screen and (max-width: 1240px) {
+    .footer__link-outer-container {
+      text-align: center;
+      place-content: center;
+    }
+    .grid-column {
+      display: block;
+    }
+    #contact_form {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .newsletter__input,
+    .newsletter__sign-up {
+      font-size: 1.5rem;
+      margin: 2rem 0px;
+      width: auto;
+    }
+    .newsletter__input {
+      min-width: 23rem;
+    }
     .column-grid-2 {
       display: block;
       margin-left: 0;
@@ -121,32 +211,54 @@
     .social-list {
       bottom: 1rem;
     }
+    .footer-logo__container {
+      text-align: center;
+    }
   }
-
   @media only screen and (max-width: 767px) {
-    .footer__inner {
-      padding: 5rem 5rem;
-    }
-    .footer-link-list {
+    .footer__link-outer-container {
       display: block;
-      margin-left: 0;
-      width: 100%;
-      margin: 4rem auto;
-      min-width: auto;
     }
-    .footer-link-list li {
+    .footer__inner {
+      padding: 5rem 1rem;
+    }
+    .footer__links-heading {
+      font-size: 1.5rem;
+    }
+    .footer-chevron {
+      display: inline-flex;
+    }
+    .footer-chevron i {
+      color: #d87d4a;
+      margin-left: 1rem;
+      transition: transform 0.2s;
+    }
+    .footer__link-list {
+      width: 100%;
+      min-width: auto;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+    }
+    .footer__link-list li {
       margin: 1rem 0;
     }
     .column-grid-2,
     .about-subtext {
       text-align: center;
     }
+    .newsletter__input,
+    .newsletter__sign-up {
+      padding: 1rem 1rem;
+    }
+    .newsletter__input {
+      min-width: 21rem;
+    }
     .copyright-container {
       text-align: center;
     }
     .social-list {
-      margin: 0 auto;
-      margin-top: 5rem;
+      margin: 5rem auto;
       position: initial;
       width: 50%;
     }
@@ -175,23 +287,6 @@
       ]
     },
     {
-      "type": "text",
-      "name": "About Co./Mission Stmt",
-      "settings": [
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "Heading"
-        },
-        {
-          "type": "richtext",
-          "id": "subtext",
-          "default": "<p>Share store details, promotions, or brand content with your customers.</p>",
-          "label": "Subtext"
-        }
-      ]
-    },
-    {
       "type": "image",
       "name": "Logo",
       "settings": [
@@ -205,10 +300,68 @@
   ],
   "settings": [
     {
+      "type": "color",
+      "id": "link-heading-color",
+      "label": "Color for Links Heading",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "select",
+      "id": "link-heading-text-transform",
+      "label": "Select Heading Text Style",
+      "options": [
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        },
+        {
+          "value": "lowercase",
+          "label": "Lowercase"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "color",
+      "id": "link-items-text-color",
+      "label": "Color for Links & Social Media Icons",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "items-hover-color",
+      "label": "Hover Color for Lnks & SM Icons",
+      "default": "#D87D4A"
+    },
+    {
+      "type": "select",
+      "id": "link-item-text-transform",
+      "label": "Select Link Text Style",
+      "options": [
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        },
+        {
+          "value": "lowercase",
+          "label": "Lowercase"
+        }
+      ],
+      "default": "capitalize"
+    },
+    {
       "type": "checkbox",
-      "id": "uppercase-links",
-      "default": true,
-      "label": "Link Uppercase"
+      "id": "link-items-opacity",
+      "label": "Enable Link Opacity",
+      "default": true
     }
   ],
   "default": {
@@ -218,9 +371,6 @@
       },
       {
         "type": "link_list"
-      },
-      {
-        "type": "text"
       }
     ]
   }
