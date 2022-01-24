@@ -1,66 +1,91 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
+/>
+
 
 <div class="product__container">
     <div class="product__backContainer">
         <a class="product__backLink" href="javascript:history.back()">Go Back</a>
     </div>
-    {% for image in product.images %}
+    <!-- {% for image in product.images %}
         {% if forloop.first == true %}
             <div class="product__primaryContainer displayGridCol-info">
                 <div class="product__imgContainer">
                     <img class="product__img" src="{{ image | img_url: 'large' }}">
                 </div>
         {% endif %}
-    {% endfor %}
-                <div class="product__infoContainer">
-                    {% if section.settings.subtext == true and product.metafields.global.new-product == true %}
-                    <p class="product__subtext">New Product</p>
+    {% endfor %} -->
+    <div class="product__primaryContainer displayGridCol-info">
+        <div class="swiper">
+            <div class="product__imgContainer swiper-wrapper">
+                {% for image in product.images %}
+                    {% assign carouselImages = forloop.length | minus: 3 %}
+                    {% if forloop.index0 < carouselImages %}
+                        <img class="product__img swiper-slide" src="{{ image | img_url: 'large' }}">
                     {% endif %}
-                    <h1 class="product__title">{{ product.title }}</h1>
-                    <p class="product__description">{{ product.description }}</p>
-                    <p class="product__price">{{ product.price | money }}</p>
-                    <form class="product-form">
-                        <div class="product__addToCartContainer">
-                            <div class="product__quantityContainer">
-                                <div class="product__quantity">
-                                    <p class="subtract">-</p>
-                                </div>
-                                <input type="number" id="orderQuantity" name="quantity" min="1" max="99" value="1">
-                                <div class="product__quantity">
-                                    <p class="add">+</p>
-                                </div>
-                            </div>
-                            <input type="hidden" id="prodId" name="id" value="{{product.selected_or_first_available_variant.id}}">
-                            <button type="submit" class="addToCartBtn">Add to Cart</button>
-                            <button class="buttonload">
-                                <i class="fa fa-spinner fa-spin"></i>
-                            </button>
+                {% endfor %}
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+        <div class="product__infoContainer">
+            {% if section.settings.subtext == true and product.metafields.global.new-product == true %}
+            <p class="product__subtext">New Product</p>
+            {% endif %}
+            <h1 class="product__title">{{ product.title }}</h1>
+            <p class="product__description">{{ product.description }}</p>
+            <p class="product__price">{{ product.price | money }}</p>
+            <form class="product-form">
+                <div class="product__addToCartContainer">
+                    <div class="product__quantityContainer">
+                        <div class="product__quantity">
+                            <p class="subtract">-</p>
                         </div>
-                    </form>
+                        <input type="number" id="orderQuantity" name="quantity" min="1" max="99" value="1">
+                        <div class="product__quantity">
+                            <p class="add">+</p>
+                        </div>
+                    </div>
+                    <input type="hidden" id="prodId" name="id" value="{{product.selected_or_first_available_variant.id}}">
+                    <button type="submit" class="addToCartBtn">Add to Cart</button>
+                    <button class="buttonload">
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </button>
                 </div>
-            </div>
-            <div class="product__secondaryContainer displayGridCol-metafield">
-                <div>
-                    <h3 class="product__metafieldLabel">Features</h3>
-                    <p>{{ product.metafields.global.features }}</p>
-                </div>
-                <div class="product__metafieldContainer--inTheBox">
-                    <h3 class="product__metafieldLabel">In the box</h3>
-                    <div>{{ product.metafields.global.in-the-box }}</div>
-                </div>
-            </div>
+            </form>
+        </div>
+    </div>
+    <div class="product__secondaryContainer displayGridCol-metafield">
+        <div>
+            <h3 class="product__metafieldLabel">Features</h3>
+            <p>{{ product.metafields.global.features }}</p>
+        </div>
+        <div class="product__metafieldContainer--inTheBox">
+            <h3 class="product__metafieldLabel">In the box</h3>
+            <div>{{ product.metafields.global.in-the-box }}</div>
+        </div>
+    </div>
 
     <div class="displayGrid-imageGrid">
         {% for image in product.images %}
-            {% if forloop.index0 > 0 and forloop.index0 < 4 %}
-                <img class="extraImg additionalImg-{{ forloop.index }}" src="{{ image | img_url: 'large'}}">
+            {% assign productImages = forloop.length | minus: 3 %}
+            {% if forloop.index0 >= productImages %}
+                <img class="extraImg" src="{{ image | img_url: 'large'}}">
             {% endif %}
         {% endfor %}
     </div>
 </div>
 
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
 <style>
+    .swiper {
+        width: 500px;
+        height: 500px;
+    }
     .product__container {
         max-width: 1600px;
         margin: 7rem auto;
@@ -201,14 +226,14 @@
         width: 100%;
         border-radius: 1rem;
     }
-    .additionalImg-2 {
+    .additionalImg-0 {
         align-self: baseline;
     }
-    .additionalImg-3 {
+    .additionalImg-1 {
         grid-column-start: 1;
         align-self: end;
     }
-    .additionalImg-4 {
+    .additionalImg-2 {
         grid-row-start: 1;
         grid-column-start: 2;
         grid-row-end: 3;
@@ -284,7 +309,7 @@
         .displayGrid-imageGrid {
             display: block;
         }
-        .additionalImg-3 {
+        .additionalImg-2 {
             margin: 1rem 0;
         }
     }

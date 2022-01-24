@@ -263,3 +263,28 @@ $('.footer__links-heading').click(function(){
         }
     }
 });
+
+// Gives non-carousel images (on the bottom of each Product page) a unique class for styling
+let nonCarouselImage = $('.extraImg');
+for (i = 0; i < nonCarouselImage.length; i++) {
+    $('.extraImg').eq(i).addClass(`additionalImg-${i}`)
+};
+
+
+// Initializes 'Swiper' for Product images
+const swiper = new Swiper('.swiper', {
+    // Optional parameters
+    direction: 'vertical',
+    loop: true,
+  
+    // Navigation arrows
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  
+    // And if we need scrollbar
+    scrollbar: {
+      el: '.swiper-scrollbar',
+    },
+});
