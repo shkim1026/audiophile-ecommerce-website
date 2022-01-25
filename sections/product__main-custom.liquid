@@ -71,8 +71,7 @@
 
     <div class="displayGrid-imageGrid">
         {% for image in product.images %}
-            {% assign productImages = forloop.length | minus: 3 %}
-            {% if forloop.index0 >= productImages %}
+            {% if forloop.index0 >= carouselImages %}
                 <img class="extraImg" src="{{ image | img_url: 'large'}}">
             {% endif %}
         {% endfor %}
@@ -86,6 +85,18 @@
         width: 500px;
         height: 500px;
     }
+    .swiper-button-next,
+    .swiper-button-prev {
+        display: block !important;
+        color: #d87d4a;
+    }
+    .swiper-wrapper.disabled {
+    transform: translate3d(0px, 0, 0) !important;
+    }
+    .swiper-pagination.disabled {
+        display: none;
+    }
+
     .product__container {
         max-width: 1600px;
         margin: 7rem auto;

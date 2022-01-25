@@ -264,11 +264,20 @@ $('.footer__links-heading').click(function(){
     }
 });
 
-// Gives non-carousel images (on the bottom of each Product page) a unique class for styling
+// Gives (last three images in product images) non-carousel images (on the bottom of each Product page) a unique class for styling
 let nonCarouselImage = $('.extraImg');
 for (i = 0; i < nonCarouselImage.length; i++) {
     $('.extraImg').eq(i).addClass(`additionalImg-${i}`)
 };
+
+
+// Disables Swiper if there is only one Product image
+if($(".swiper-slide").length == 1) {
+    $('.swiper-wrapper').addClass( "disabled" );
+    $('.swiper-pagination').addClass( "disabled" );
+    $('.swiper-button-next').removeClass( 'swiper-button-next' );
+    $('.swiper-button-prev').removeClass( 'swiper-button-prev' );
+}
 
 
 // Initializes 'Swiper' for Product images
@@ -276,7 +285,7 @@ const swiper = new Swiper('.swiper', {
     // Optional parameters
     direction: 'vertical',
     loop: true,
-  
+
     // Navigation arrows
     navigation: {
       nextEl: '.swiper-button-next',
@@ -286,5 +295,5 @@ const swiper = new Swiper('.swiper', {
     // And if we need scrollbar
     scrollbar: {
       el: '.swiper-scrollbar',
-    },
+    }
 });
