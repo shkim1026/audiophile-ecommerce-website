@@ -5,32 +5,38 @@
   href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
 />
 
-
 <div class="product__container">
     <div class="product__backContainer">
         <a class="product__backLink" href="javascript:history.back()">Go Back</a>
     </div>
-    <!-- {% for image in product.images %}
-        {% if forloop.first == true %}
-            <div class="product__primaryContainer displayGridCol-info">
-                <div class="product__imgContainer">
-                    <img class="product__img" src="{{ image | img_url: 'large' }}">
-                </div>
-        {% endif %}
-    {% endfor %} -->
+    
     <div class="product__primaryContainer displayGridCol-info">
-        <div class="swiper">
-            <div class="product__imgContainer swiper-wrapper">
-                {% for image in product.images %}
-                    {% assign carouselImages = forloop.length | minus: 3 %}
-                    {% if forloop.index0 < carouselImages %}
-                        <img class="product__img swiper-slide" src="{{ image | img_url: 'large' }}">
-                    {% endif %}
-                {% endfor %}
+        <div class="gallery__container">
+            <div class="swiper-container gallery__main">
+                <div class="product__imgContainer swiper-wrapper">
+                    {% for image in product.images %}
+                        {% assign carouselImages = forloop.length | minus: 3 %}
+                        {% if forloop.index0 < carouselImages %}
+                            <img class="product__img swiper-slide" src="{{ image | img_url: 'large' }}">
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+
+            <div class="swiper-container gallery__thumbs">
+                <div class="swiper-wrapper">
+                    {% for image in product.images %}
+                        {% assign carouselImages = forloop.length | minus: 3 %}
+                        {% if forloop.index0 < carouselImages %}
+                            <img class="swiper-slide" src="{{ image | img_url: 'small' }}">
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
         </div>
+
         <div class="product__infoContainer">
             {% if section.settings.subtext == true and product.metafields.global.new-product == true %}
             <p class="product__subtext">New Product</p>
@@ -80,11 +86,38 @@
 
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
+
 <style>
-    .swiper {
+    .gallery__container {
+        position: relative;
+        width: 600px;
+        display: flex;
+        justify-content: space-between;
+        overflow: hidden;
+    }
+    .gallery__main {
         width: 500px;
         height: 500px;
+        position: relative;
     }
+    .gallery__thumbs {
+        order: -1;
+        width: 100px;
+        height: 500px;
+        margin-right: 1rem;
+        cursor: pointer;
+    }
+    .gallery__thumbs .swiper-slide {
+        opacity: 0.5;
+    }
+    .gallery__thumbs .swiper-slide-active {
+        opacity: 1;
+    }
+    .gallery__thumbs .swiper-slide {
+        transition: 0.3s;
+    }
+
+
     .swiper-button-next,
     .swiper-button-prev {
         display: block !important;
@@ -96,6 +129,7 @@
     .swiper-pagination.disabled {
         display: none;
     }
+
 
     .product__container {
         max-width: 1600px;

@@ -281,19 +281,43 @@ if($(".swiper-slide").length == 1) {
 
 
 // Initializes 'Swiper' for Product images
-const swiper = new Swiper('.swiper', {
-    // Optional parameters
-    direction: 'vertical',
-    loop: true,
-
-    // Navigation arrows
+var galleryMain = new Swiper('.gallery__main', {
+    watchOverflow: true,
+    spaceBetween: 10,
+    watchSlidesVisibility: true,
+    watchSlidesProgress: true,
+    preventInteractionOnTransition: true,
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
     },
+    effect: 'fade',
+      fadeEffect: {
+      crossFade: true
+    },
+    thumbs: {
+      swiper: galleryThumbs
+    },
+    loop: true,
+    loopedSlides: 5,
+  });
+
+var galleryThumbs = new Swiper('.gallery__thumbs', {
+    centeredSlides: true,
+    centeredSlidesBounds: true,
+    slidesPerView: 5,
+    watchOverflow: true,
+    watchSlidesProgress: true,
+    direction: 'vertical',
+    loop: true,
+    loopedSlides: 5,
+});
+
+
+galleryMain.on('slideChangeTransitionStart', function() {
+    galleryThumbs.slideTo(galleryMain.activeIndex);
+});
   
-    // And if we need scrollbar
-    scrollbar: {
-      el: '.swiper-scrollbar',
-    }
+galleryThumbs.on('transitionStart', function(){
+    galleryMain.slideTo(galleryThumbs.activeIndex);
 });
