@@ -1,0 +1,38 @@
+<script>
+  window.simesyProductSlider = {
+    moneyFormat: {{ shop.money_format | json }},
+	moneyFormatWithCurrency: {{ shop.money_with_currency_format | json }},
+	addToCartButtonText: {{ 'products.product.add_to_cart' | t | json }},
+	selectOptionsButtonText: "Select Options",
+	soldOut: {{ 'products.product.sold_out' | t | json }},
+	sale: {{ 'products.product.on_sale' | t | json }},
+    {%- if request.page_type == 'product' and product -%}
+    data: {
+      id: ["{{product.id}}"],
+      vendor: [{{ product.vendor | json }}],
+      type: [{{ product.type | json }}],
+      tags: {{ product.tags | json }},
+      collection: []
+    },
+    {%-else-%}
+    data: {},
+    {%- endif -%}
+    {%- if request.page_type == 'product' and product -%}
+    product_handle: "{{product.handle}}",
+    product: {
+    id: "{{ product.id }}",
+    title: {{ product.title | json }},
+    handle: {{ product.handle | json }},
+    price: {{ product.price }},
+    compare_at_price: {% if product.compare_at_price %}{{ product.compare_at_price }}{% else %}null{% endif %},
+    featured_image: {{product.featured_image | json}},
+    variants: {{ product.variants | json }},
+    available: {{ product.available }},
+    vendor: {{ product.vendor | json }},
+    product_type: {{ product.type | json }},
+    tags: {{ product.tags | json }},
+    published_at:"{{ product.published_at }}"
+  }
+  {%- endif -%}
+  }
+</script>
