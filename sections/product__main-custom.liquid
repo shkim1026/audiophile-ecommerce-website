@@ -17,7 +17,9 @@
                     {% for image in product.images %}
                         {% assign carouselImages = forloop.length | minus: 3 %}
                         {% if forloop.index0 < carouselImages %}
-                            <img class="product__img swiper-slide" src="{{ image | img_url: 'large' }}">
+                            <div class="swiper-slide">
+                                <img class="product__img" src="{{ image | img_url: 'large' }}">
+                            </div>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -30,7 +32,9 @@
                     {% for image in product.images %}
                         {% assign carouselImages = forloop.length | minus: 3 %}
                         {% if forloop.index0 < carouselImages %}
-                            <img class="swiper-slide" src="{{ image | img_url: 'small' }}">
+                        <div class="swiper-slide">
+                            <img class="thumbnail__image" src="{{ image | img_url: 'small' }}">
+                        </div>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -88,24 +92,24 @@
 
 
 <style>
+    .thumbnail__image {
+        max-width: 100%;
+        max-height: 100%;
+    }
     .gallery__container {
-        position: relative;
-        width: 600px;
-        display: flex;
-        justify-content: space-between;
         overflow: hidden;
+        max-width: 600px;
     }
     .gallery__main {
-        width: 500px;
-        height: 500px;
+        max-height: 500px;
         position: relative;
+        width: 80%;
+        float: right;
     }
     .gallery__thumbs {
-        order: -1;
-        width: 100px;
-        height: 500px;
-        margin-right: 1rem;
+        max-height: 500px;
         cursor: pointer;
+        width: 18%;
     }
     .gallery__thumbs .swiper-slide {
         opacity: 0.5;
@@ -247,12 +251,14 @@
     }
     .product__infoContainer {
         align-self: center;
-        text-align: {{section.settings.textAlign-main}}
+        text-align: {{section.settings.textAlign-main}};
+        grid-area: info;
     }
     .displayGridCol-info {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-gap: 15rem;
+        grid-gap: 2%;
+        grid-template-areas: 'carousel info';
     }
     .displayGridCol-metafield {
         display: grid;
@@ -296,7 +302,7 @@
         .product__imgContainer {
             display: flex;
             align-items: center;
-            background-color: {{section.settings.color-imgBackground}};
+            /* background-color: {{section.settings.color-imgBackground}}; */
         }
         .product__infoContainer {
             margin: 3rem 0;

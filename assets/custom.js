@@ -299,7 +299,7 @@ var galleryMain = new Swiper('.gallery__main', {
       swiper: galleryThumbs
     },
     loop: true,
-    loopedSlides: 5,
+    loopedSlides: 6,
   });
 
 var galleryThumbs = new Swiper('.gallery__thumbs', {
@@ -310,7 +310,7 @@ var galleryThumbs = new Swiper('.gallery__thumbs', {
     watchSlidesProgress: true,
     direction: 'vertical',
     loop: true,
-    loopedSlides: 5,
+    loopedSlides: 6,
 });
 
 
