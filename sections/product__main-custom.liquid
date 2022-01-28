@@ -1,9 +1,5 @@
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
-/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 
 <div class="product__container">
     <div class="product__backContainer">
@@ -13,7 +9,7 @@
     <div class="product__primaryContainer displayGridCol-info">
         <div class="gallery__container">
             <div class="swiper-container gallery__main">
-                <div class="product__imgContainer swiper-wrapper">
+                <div class="product__imgContainer">
                     {% for image in product.images %}
                         {% assign carouselImages = forloop.length | minus: 3 %}
                         {% if forloop.index0 < carouselImages %}
@@ -23,12 +19,10 @@
                         {% endif %}
                     {% endfor %}
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
             </div>
 
             <div class="swiper-container gallery__thumbs">
-                <div class="swiper-wrapper">
+                <div class="product__thumbnails">
                     {% for image in product.images %}
                         {% assign carouselImages = forloop.length | minus: 3 %}
                         {% if forloop.index0 < carouselImages %}
@@ -36,7 +30,8 @@
                             <img class="thumbnail__image" src="{{ image | img_url: 'small' }}">
                         </div>
                         {% endif %}
-                    {% endfor %}
+                        {% endfor %}
+                    <div class="slick-prev"></div>
                 </div>
             </div>
         </div>
@@ -88,17 +83,18 @@
     </div>
 </div>
 
-<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
-
-
 <style>
     .thumbnail__image {
         max-width: 100%;
         max-height: 100%;
     }
     .gallery__container {
-        overflow: hidden;
+        position: relative;
         max-width: 600px;
+        justify-content: space-between;
+        overflow: hidden;
+        grid-area: carousel;
+        grid-template-areas: 'thumbs image';
     }
     .gallery__main {
         max-height: 500px;
@@ -109,29 +105,31 @@
     .gallery__thumbs {
         max-height: 500px;
         cursor: pointer;
-        width: 18%;
+        width: 20%;
     }
-    .gallery__thumbs .swiper-slide {
+    .gallery__thumbs .slick-slide {
         opacity: 0.5;
     }
-    .gallery__thumbs .swiper-slide-active {
+    .gallery__thumbs .slick-current {
         opacity: 1;
     }
-    .gallery__thumbs .swiper-slide {
-        transition: 0.3s;
+    .product__thumbnails .slick-slide img {
+        margin: 0 auto;
     }
-
-
-    .swiper-button-next,
-    .swiper-button-prev {
-        display: block !important;
-        color: #d87d4a;
+    .slick-arrow::before {
+        color: black;
     }
-    .swiper-wrapper.disabled {
-    transform: translate3d(0px, 0, 0) !important;
+    .slick-prev {
+        transform: rotate(90deg);
+        left: 4.5rem;
+        z-index: 5;
+        top: 0rem;
     }
-    .swiper-pagination.disabled {
-        display: none;
+    .slick-next {
+        transform: rotate(90deg);
+        top: 48rem;
+        left: 4.5rem;
+        z-index: 5;
     }
 
 
@@ -154,8 +152,8 @@
         color: {{section.settings.color-botton--hover}};
     }
     .product__img {
-        width: 100%;
-        border-radius: 1rem;
+        max-width: 100%;
+        margin: 0 auto;
     }
     .product__subtext {
         text-transform: uppercase;

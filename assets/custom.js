@@ -271,53 +271,22 @@ for (i = 0; i < nonCarouselImage.length; i++) {
 };
 
 
-// Disables Swiper if there is only one Product image
-if($(".swiper-slide").length == 1) {
-    $('.swiper-wrapper').addClass( "disabled" );
-    $('.swiper-pagination').addClass( "disabled" );
-    $('.swiper-button-next').removeClass( 'swiper-button-next' );
-    $('.swiper-button-prev').removeClass( 'swiper-button-prev' );
-}
-
-
-// Initializes 'Swiper' for Product images
-var galleryMain = new Swiper('.gallery__main', {
-    watchOverflow: true,
-    spaceBetween: 10,
-    watchSlidesVisibility: true,
-    watchSlidesProgress: true,
-    preventInteractionOnTransition: true,
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    effect: 'fade',
-      fadeEffect: {
-      crossFade: true
-    },
-    thumbs: {
-      swiper: galleryThumbs
-    },
-    loop: true,
-    loopedSlides: 6,
-  });
-
-var galleryThumbs = new Swiper('.gallery__thumbs', {
-    centeredSlides: true,
-    centeredSlidesBounds: true,
-    slidesPerView: 5,
-    watchOverflow: true,
-    watchSlidesProgress: true,
-    direction: 'vertical',
-    loop: true,
-    loopedSlides: 6,
-});
-
-
-galleryMain.on('slideChangeTransitionStart', function() {
-    galleryThumbs.slideTo(galleryMain.activeIndex);
-});
-  
-galleryThumbs.on('transitionStart', function(){
-    galleryMain.slideTo(galleryThumbs.activeIndex);
+$(document).ready(function(){
+    $('.product__imgContainer').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        fade: true,
+        asNavFor: '.product__thumbnails'
+    });
+    $('.product__thumbnails').slick({
+        slidesToShow: 5,
+        slidesToScroll: 4,
+        asNavFor: '.product__imgContainer',
+        centerMode: true,
+        focusOnSelect: true,
+        vertical: true,
+        arrows: true,
+        infinite: false,
+      });
 });
