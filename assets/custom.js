@@ -264,29 +264,55 @@ $('.footer__links-heading').click(function(){
     }
 });
 
-// Gives (last three images in product images) non-carousel images (on the bottom of each Product page) a unique class for styling
-let nonCarouselImage = $('.extraImg');
-for (i = 0; i < nonCarouselImage.length; i++) {
-    $('.extraImg').eq(i).addClass(`additionalImg-${i}`)
+
+
+const thumbsContainer = $('.product__thumbnails')
+const productImg = $('.product__img').height()
+//Product thumbnail container remains same height as product image on window resize
+$(window).resize(() => {
+    thumbsContainer.height(productImg);
+});
+
+//Initializes flicker API
+$('.product__imgContainer').flickity({
+    pageDots: false,
+    contain: true,
+    cellAlign: 'center'
+});
+
+
+let number = 0;
+const arrowDown = $('.slide-down');
+const arrowUp = $('.slide-up');
+const thumbnails = $('.thumbnail-cell');
+const noOfClicks = thumbnails.length - 4;
+const stopScrollPercentage = noOfClicks * -100 + '%';
+console.log(stopScrollPercentage, 'finalStopScroll')
+arrowUp.hide();
+if (thumbnails.length <= 4) {
+    arrowDown.hide();
 };
-
-
-$(document).ready(function(){
-    $('.product__imgContainer').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false,
-        fade: true,
-        asNavFor: '.product__thumbnails'
-    });
-    $('.product__thumbnails').slick({
-        slidesToShow: 5,
-        slidesToScroll: 4,
-        asNavFor: '.product__imgContainer',
-        centerMode: true,
-        focusOnSelect: true,
-        vertical: true,
-        arrows: true,
-        infinite: false,
-      });
+arrowDown.click(function(){
+    number = number + -100;
+    let percentage = number + '%';
+    thumbnails.css('transform',  `translateY(${percentage})`);
+    if (number == 0) {
+        arrowUp.hide();
+    } else if (percentage == stopScrollPercentage){
+        arrowDown.hide();
+        arrowUp.show();
+    } else {
+        arrowUp.show();
+    }
+});
+arrowUp.click(function(){
+    number = number + 100;
+    let percentage = number + '%';
+    thumbnails.css('transform', `translateY(${percentage})`);
+    if (number == 0) {
+        arrowUp.hide();
+        arrowDown.show();
+    } else {
+        arrowUp.show();
+    }
 });
