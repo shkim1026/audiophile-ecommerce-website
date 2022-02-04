@@ -325,8 +325,17 @@ $('.thumbnail-cell').click(function(){
 });
 
 
-$('.flickity-button').click(function(){
-    console.log('click');
+//Switches to corresponding thumbnail when slide is changed
+$('.product__imgContainer').on( 'change.flickity', function(event, index) {
+    let productIndex = index;
+    removeThumbnailsOpacity();
+    $('.thumbnail__image').each(function(){
+        let thumbIndex = $(this).data('index');
+        if (thumbIndex == productIndex) {
+            $(this).parents('.thumbnail-cell').addClass('is-nav-selected');
+        }
+    });
+    addThumbnailOpacityToSelected();
 });
 
 
