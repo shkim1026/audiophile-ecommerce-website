@@ -266,28 +266,85 @@ $('.footer__links-heading').click(function(){
 
 
 
-const thumbsContainer = $('.product__thumbnails')
-const productImg = $('.product__img').height()
+// let thumbsContainer = $('.product__thumbnails')
+// let productImg = $('.product__img').height()
+// //Product thumbnail container remains same height as product image on window resize
+// $(window).resize(() => {
+//     console.log(thumbsContainer.height(), 'thumbsContainer.height(productImg);')
+//     console.log(productImg, 'productImg');
+//     console.log(thumbsContainer.outerHeight(), 'thumbsContainer.outerHeight')
+//     thumbsContainer.outerHeight(productImg + '!important');
+// });
+
+let thumbsContainer = $('.gallery__thumbs')
+let productImg = $('.gallery__main')
 //Product thumbnail container remains same height as product image on window resize
 $(window).resize(() => {
-    thumbsContainer.height(productImg);
+    console.log(thumbsContainer.height(), 'thumbsContainer.height(productImg);')
+    console.log(productImg.height(), 'productImg.height()');
+    console.log(thumbsContainer.outerHeight(), 'thumbsContainer.outerHeight')
+    thumbsContainer.outerHeight(productImg.height() + 'px !important');
 });
+
+
+//Sets opacity to 1 if thumbnail is selected
+function addThumbnailOpacityToSelected() {
+    $('.thumbnail-cell').each(function() {
+        if ($(this).hasClass('is-nav-selected')) {
+            $(this).css('opacity', '1');
+        }
+    });
+}
+
+//Removes opacity on all thumbnails and removes class 'is-nav-selected'
+function removeThumbnailsOpacity() {
+    $('.thumbnail-cell').css('opacity', '0.5');
+    $('.thumbnail-cell').removeClass('is-nav-selected');
+};
+
+
+//Ensures first thumbnail has solid opacity on window load
+$(document).ready(function() {
+    addThumbnailOpacityToSelected();
+});
+
+
+//Switches to corresponding slide when thumbnail image is clicked
+$('.thumbnail-cell').click(function(){
+    let galleryCell = $('.gallery__cell');
+    let thumbnailIndex = $(this).find('.thumbnail__image').data('index');
+    removeThumbnailsOpacity();
+    $(this).addClass('is-nav-selected');
+    addThumbnailOpacityToSelected();
+    galleryCell.each(function(){
+        let galleryIndex = $(this).find('.product__img').data('index');
+        if (galleryIndex == thumbnailIndex) {
+            $('.product__imgContainer').flickity('selectCell', galleryIndex);
+        }
+    });
+});
+
+
+$('.flickity-button').click(function(){
+    console.log('click');
+});
+
 
 //Initializes flicker API
 $('.product__imgContainer').flickity({
     pageDots: false,
     contain: true,
-    cellAlign: 'center'
+    cellAlign: 'center',
 });
 
 
+//Limits scrolling on thumbnails
 let number = 0;
 const arrowDown = $('.slide-down');
 const arrowUp = $('.slide-up');
 const thumbnails = $('.thumbnail-cell');
 const noOfClicks = thumbnails.length - 4;
 const stopScrollPercentage = noOfClicks * -100 + '%';
-console.log(stopScrollPercentage, 'finalStopScroll')
 arrowUp.hide();
 if (thumbnails.length <= 4) {
     arrowDown.hide();

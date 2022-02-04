@@ -11,8 +11,8 @@
             <div class="gallery__main">
                 <div class="product__imgContainer">
                     {% for image in product.images %}
-                        <div class="swiper-slide">
-                            <img class="product__img" src="{{ image | img_url: 'large' }}">
+                        <div class="gallery__cell">
+                            <img class="product__img" src="{{ image | img_url: 'large' }}" data-index="{{ forloop.index0 }}">
                         </div>
                     {% endfor %}
                 </div>
@@ -21,8 +21,8 @@
             <div class="gallery__thumbs">
                 <div class="product__thumbnails">
                     {% for image in product.images %}
-                        <div class="thumbnail-cell">
-                            <img class="thumbnail__image" src="{{ image | img_url: 'small' }}">
+                        <div class="thumbnail-cell {% if forloop.index0 == 0 %}is-nav-selected{% endif %}">
+                            <img class="thumbnail__image" src="{{ image | img_url: 'small' }}" data-index="{{ forloop.index0 }}">
                         </div>
                     {% endfor %}
                 </div>
@@ -77,7 +77,7 @@
 </div>
 
 <style>
-    .flickity-slider .swiper-slide {
+    .gallery__cell {
         text-align: center;
         width: 100%;
     }
@@ -90,9 +90,6 @@
     }
     .slide-down {
         bottom: 0;
-    }
-    .slick-list {
-        padding: 0px !important;
     }
     .thumbnail__image {
         max-width: 100%;
