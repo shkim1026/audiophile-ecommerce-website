@@ -265,25 +265,18 @@ $('.footer__links-heading').click(function(){
 });
 
 
-
-// let thumbsContainer = $('.product__thumbnails')
-// let productImg = $('.product__img').height()
-// //Product thumbnail container remains same height as product image on window resize
-// $(window).resize(() => {
-//     console.log(thumbsContainer.height(), 'thumbsContainer.height(productImg);')
-//     console.log(productImg, 'productImg');
-//     console.log(thumbsContainer.outerHeight(), 'thumbsContainer.outerHeight')
-//     thumbsContainer.outerHeight(productImg + '!important');
-// });
-
-let thumbsContainer = $('.gallery__thumbs')
-let productImg = $('.gallery__main')
-//Product thumbnail container remains same height as product image on window resize
-$(window).resize(() => {
+function resizeThumbsContainer() {
+    let thumbsContainer = $('.gallery__thumbs');
+    let productImg = $('.gallery__main');
+    thumbsContainer.height(`${productImg.height()}px`);
     console.log(thumbsContainer.height(), 'thumbsContainer.height(productImg);')
     console.log(productImg.height(), 'productImg.height()');
-    console.log(thumbsContainer.outerHeight(), 'thumbsContainer.outerHeight')
-    thumbsContainer.outerHeight(productImg.height() + 'px !important');
+    console.log(thumbsContainer.outerHeight(), 'thumbsContainer.outerHeight');
+}
+
+//Product thumbnail container remains same height as product image on window resize
+$(window).resize(() => {
+    resizeThumbsContainer();
 });
 
 
@@ -306,6 +299,7 @@ function removeThumbnailsOpacity() {
 //Ensures first thumbnail has solid opacity on window load
 $(document).ready(function() {
     addThumbnailOpacityToSelected();
+    resizeThumbsContainer();
 });
 
 
