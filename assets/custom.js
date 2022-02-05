@@ -269,9 +269,6 @@ function resizeThumbsContainer() {
     let thumbsContainer = $('.gallery__thumbs');
     let productImg = $('.product__img');
     thumbsContainer.height(`${productImg.height()}px`);
-    console.log(thumbsContainer.height(), 'thumbsContainer.height(productImg);')
-    console.log(productImg.height(), 'productImg.height()');
-    console.log(thumbsContainer.outerHeight(), 'thumbsContainer.outerHeight');
 };
 
 //Product thumbnail container remains same height as product image on window resize
