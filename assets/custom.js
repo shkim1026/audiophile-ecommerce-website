@@ -267,15 +267,16 @@ $('.footer__links-heading').click(function(){
 
 function resizeThumbsContainer() {
     let thumbsContainer = $('.gallery__thumbs');
-    let productImg = $('.gallery__main');
+    let productImg = $('.product__img');
     thumbsContainer.height(`${productImg.height()}px`);
     console.log(thumbsContainer.height(), 'thumbsContainer.height(productImg);')
     console.log(productImg.height(), 'productImg.height()');
     console.log(thumbsContainer.outerHeight(), 'thumbsContainer.outerHeight');
-}
+};
 
 //Product thumbnail container remains same height as product image on window resize
 $(window).resize(() => {
+    $('.product__imgContainer').flickity('resize');
     resizeThumbsContainer();
 });
 
@@ -338,6 +339,7 @@ $('.product__imgContainer').flickity({
     pageDots: false,
     contain: true,
     cellAlign: 'center',
+    imagesLoaded: true,
 });
 
 

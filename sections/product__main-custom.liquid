@@ -83,7 +83,7 @@
     }
     .thumbsArrow {
         position: fixed;
-        left: calc( (100% - 96.5%) );
+        left: calc( (100% - 92.5%) );
     }
     .slide-up {
         top: 0;
@@ -96,9 +96,16 @@
         max-height: 100%;
     }
     .gallery__container {
-        position: relative;
         max-width: 600px;
         overflow: hidden;
+        padding: 2rem 0 1rem 0;
+        align-self: center;
+        position: relative;
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
     }
     .gallery__main {
         max-height: 500px;
@@ -244,13 +251,6 @@
         grid-gap: 2%;
         grid-template-areas: 'carousel info';
         padding: 2rem 0;
-        position: relative;
-
-        -webkit-transform: rotate(0deg);
-        -moz-transform: rotate(0deg);
-        -ms-transform: rotate(0deg);
-        -o-transform: rotate(0deg);
-        transform: rotate(0deg);
     }
     .displayGridCol-metafield {
         display: grid;
@@ -286,15 +286,20 @@
         .displayGridCol-info {
             grid-gap: 3rem;
         }
+        .gallery__thumbs {
+            width: 17%;
+        }
     }
     @media only screen and (max-width: 991px) {
+        .gallery__thumbs {
+            width: 15%;
+        }
         .displayGridCol-info {
             grid-gap: 5rem;
         }
         .product__imgContainer {
-            display: flex;
+            display: block;
             align-items: center;
-            /* background-color: {{section.settings.color-imgBackground}}; */
         }
         .product__infoContainer {
             margin: 3rem 0;
@@ -354,6 +359,9 @@
         }
         .additionalImg-2 {
             margin: 1rem 0;
+        }
+        .thumbsArrow {
+            left: calc( (100% - 93.5%) );
         }
     }
 </style>
@@ -474,12 +482,6 @@
                     "label": "Right"
                 }
             ]
-        },
-        {
-            "type": "color",
-            "id": "color-imgBackground",
-            "label": "Product Image Background Color (Tablet)",
-            "default": "#f1f1f1"
         }
     ]
 }
