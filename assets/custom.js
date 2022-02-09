@@ -278,25 +278,8 @@ $(window).resize(() => {
 });
 
 
-//Sets opacity to 1 if thumbnail is selected
-function addThumbnailOpacityToSelected() {
-    $('.thumbnail-cell').each(function() {
-        if ($(this).hasClass('is-nav-selected')) {
-            $(this).css('opacity', '1');
-        }
-    });
-}
-
-//Removes opacity on all thumbnails and removes class 'is-nav-selected'
-function removeThumbnailsOpacity() {
-    $('.thumbnail-cell').css('opacity', '0.5');
-    $('.thumbnail-cell').removeClass('is-nav-selected');
-};
-
-
 //Ensures first thumbnail has solid opacity on window load
 $(document).ready(function() {
-    addThumbnailOpacityToSelected();
     resizeThumbsContainer();
 });
 
@@ -305,9 +288,8 @@ $(document).ready(function() {
 $('.thumbnail-cell').click(function(){
     let galleryCell = $('.gallery__cell');
     let thumbnailIndex = $(this).find('.thumbnail__image').data('index');
-    removeThumbnailsOpacity();
+    $('.thumbnail-cell').removeClass('is-nav-selected');
     $(this).addClass('is-nav-selected');
-    addThumbnailOpacityToSelected();
     galleryCell.each(function(){
         let galleryIndex = $(this).find('.product__img').data('index');
         if (galleryIndex == thumbnailIndex) {
@@ -320,14 +302,13 @@ $('.thumbnail-cell').click(function(){
 //Switches to corresponding thumbnail when slide is changed
 $('.product__imgContainer').on( 'change.flickity', function(event, index) {
     let productIndex = index;
-    removeThumbnailsOpacity();
+    $('.thumbnail-cell').removeClass('is-nav-selected');
     $('.thumbnail__image').each(function(){
         let thumbIndex = $(this).data('index');
         if (thumbIndex == productIndex) {
             $(this).parents('.thumbnail-cell').addClass('is-nav-selected');
         }
     });
-    addThumbnailOpacityToSelected();
 });
 
 
