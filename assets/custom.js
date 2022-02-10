@@ -351,22 +351,22 @@ arrowUp.click(function(){
 
 
 //Shows second collection image on hover
-$('.product-grid__list-item').each(function(){
-    $(this).hover(
-        function(){
-            if ($(this).children('img').length > 1) {
-                let ftImageHeight = $(this).find('.featured-image').height();
-                let ftImageWidth = $(this).find('.featured-image').width();
-                let hoveredImage = $(this).find('.hovered-image');
-                hoveredImage.height(`${ftImageHeight}px`);
-                hoveredImage.width(`${ftImageWidth}px`);
-                $(this).find('.featured-image').hide();
-                $(this).find('.hovered-image').show();
-            }
-        },
-        function(){
-            $(this).find('.featured-image').show();
-            $(this).find('.hovered-image').hide();
-        }
-    );
-});
+// $('.product-grid__list-item').each(function(){
+//     $(this).hover(
+//         function(){
+//             if ($(this).children('img').length > 1) {
+//                 let ftImageHeight = $(this).find('.featured-image').height();
+//                 let ftImageWidth = $(this).find('.featured-image').width();
+//                 let hoveredImage = $(this).find('.hovered-image');
+//                 hoveredImage.height(`${ftImageHeight}px`);
+//                 hoveredImage.width(`${ftImageWidth}px`);
+//                 $(this).find('.featured-image').hide();
+//                 $(this).find('.hovered-image').show();
+//             }
+//         },
+//         function(){
+//             $(this).find('.featured-image').show();
+//             $(this).find('.hovered-image').hide();
+//         }
+//     );
+// });
