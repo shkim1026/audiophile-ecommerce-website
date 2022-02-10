@@ -354,13 +354,15 @@ arrowUp.click(function(){
 $('.product-grid__list-item').each(function(){
     $(this).hover(
         function(){
-            let ftImageHeight = $(this).find('.featured-image').height();
-            let ftImageWidth = $(this).find('.featured-image').width();
-            let hoveredImage = $(this).find('.hovered-image');
-            hoveredImage.height(`${ftImageHeight}px`);
-            hoveredImage.width(`${ftImageWidth}px`);
-            $(this).find('.featured-image').hide();
-            $(this).find('.hovered-image').show();
+            if ($(this).children('img').length > 1) {
+                let ftImageHeight = $(this).find('.featured-image').height();
+                let ftImageWidth = $(this).find('.featured-image').width();
+                let hoveredImage = $(this).find('.hovered-image');
+                hoveredImage.height(`${ftImageHeight}px`);
+                hoveredImage.width(`${ftImageWidth}px`);
+                $(this).find('.featured-image').hide();
+                $(this).find('.hovered-image').show();
+            }
         },
         function(){
             $(this).find('.featured-image').show();
