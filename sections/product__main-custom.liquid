@@ -1,66 +1,137 @@
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 
 <div class="product__container">
     <div class="product__backContainer">
         <a class="product__backLink" href="javascript:history.back()">Go Back</a>
     </div>
-    {% for image in product.images %}
-        {% if forloop.first == true %}
-            <div class="product__primaryContainer displayGridCol-info">
+    
+    <div class="product__primaryContainer displayGridCol-info">
+        <div class="gallery__container">
+            <div class="gallery__main">
                 <div class="product__imgContainer">
-                    <img class="product__img" src="{{ image | img_url: 'large' }}">
-                </div>
-        {% endif %}
-    {% endfor %}
-                <div class="product__infoContainer">
-                    {% if section.settings.subtext == true and product.metafields.global.new-product == true %}
-                    <p class="product__subtext">New Product</p>
-                    {% endif %}
-                    <h1 class="product__title">{{ product.title }}</h1>
-                    <p class="product__description">{{ product.description }}</p>
-                    <p class="product__price">{{ product.price | money }}</p>
-                    <form class="product-form">
-                        <div class="product__addToCartContainer">
-                            <div class="product__quantityContainer">
-                                <div class="product__quantity">
-                                    <p class="subtract">-</p>
-                                </div>
-                                <input type="number" id="orderQuantity" name="quantity" min="1" max="99" value="1">
-                                <div class="product__quantity">
-                                    <p class="add">+</p>
-                                </div>
-                            </div>
-                            <input type="hidden" id="prodId" name="id" value="{{product.selected_or_first_available_variant.id}}">
-                            <button type="submit" class="addToCartBtn">Add to Cart</button>
-                            <button class="buttonload">
-                                <i class="fa fa-spinner fa-spin"></i>
-                            </button>
+                    {% for image in product.images %}
+                        <div class="gallery__cell">
+                            <img class="product__img" src="{{ image | img_url: 'large' }}" data-index="{{ forloop.index0 }}">
                         </div>
-                    </form>
-                </div>
-            </div>
-            <div class="product__secondaryContainer displayGridCol-metafield">
-                <div>
-                    <h3 class="product__metafieldLabel">Features</h3>
-                    <p>{{ product.metafields.global.features }}</p>
-                </div>
-                <div class="product__metafieldContainer--inTheBox">
-                    <h3 class="product__metafieldLabel">In the box</h3>
-                    <div>{{ product.metafields.global.in-the-box }}</div>
+                    {% endfor %}
                 </div>
             </div>
 
-    <div class="displayGrid-imageGrid">
-        {% for image in product.images %}
-            {% if forloop.index0 > 0 and forloop.index0 < 4 %}
-                <img class="extraImg additionalImg-{{ forloop.index }}" src="{{ image | img_url: 'large'}}">
+            <div class="gallery__thumbs">
+                <div class="product__thumbnails">
+                    {% for image in product.images %}
+                        <div class="thumbnail-cell {% if forloop.index0 == 0 %}is-nav-selected{% endif %}">
+                            <img class="thumbnail__image" src="{{ image | img_url: 'small' }}" data-index="{{ forloop.index0 }}">
+                        </div>
+                    {% endfor %}
+                </div>
+                <i class="fa fa-chevron-up thumbsArrow slide-up" aria-hidden="true"></i>
+                <i class="fa fa-chevron-down thumbsArrow slide-down" aria-hidden="true"></i>
+            </div>
+        </div>
+
+        <div class="product__infoContainer">
+            {% if section.settings.subtext == true and product.metafields.global.new-product == true %}
+            <p class="product__subtext">New Product</p>
             {% endif %}
-        {% endfor %}
+            <h1 class="product__title">{{ product.title }}</h1>
+            <p class="product__description">{{ product.description }}</p>
+            <p class="product__price">{{ product.price | money }}</p>
+            <form class="product-form">
+                <div class="product__addToCartContainer">
+                    <div class="product__quantityContainer">
+                        <div class="product__quantity">
+                            <p class="subtract">-</p>
+                        </div>
+                        <input type="number" id="orderQuantity" name="quantity" min="1" max="99" value="1">
+                        <div class="product__quantity">
+                            <p class="add">+</p>
+                        </div>
+                    </div>
+                    <input type="hidden" id="prodId" name="id" value="{{product.selected_or_first_available_variant.id}}">
+                    <button type="submit" class="addToCartBtn">Add to Cart</button>
+                    <button class="buttonload">
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="product__secondaryContainer displayGridCol-metafield">
+        <div>
+            <h3 class="product__metafieldLabel">Features</h3>
+            <p>{{ product.metafields.global.features }}</p>
+        </div>
+        <div class="product__metafieldContainer--inTheBox">
+            <h3 class="product__metafieldLabel">In the box</h3>
+            <div>{{ product.metafields.global.in-the-box }}</div>
+        </div>
+    </div>
+
+    <div class="displayGrid-imageGrid">
+        <img class="extraImg additionalImg-0" src="{{ product.metafields.global.marketing-image-0 | img_url: 'large' }}">
+        <img class="extraImg additionalImg-1" src="{{ product.metafields.global.marketing-image-1 | img_url: 'large' }}">
+        <img class="extraImg additionalImg-2" src="{{ product.metafields.global.marketing-image-2 | img_url: 'large' }}">
     </div>
 </div>
 
 <style>
+    .gallery__cell {
+        text-align: center;
+        width: 101%;
+    }
+    .thumbsArrow {
+        position: fixed;
+        left: calc( (100% - 92.5%) );
+    }
+    .slide-up {
+        top: 0;
+    }
+    .slide-down {
+        bottom: 0;
+    }
+    .thumbnail__image {
+        max-width: 100%;
+        max-height: 100%;
+    }
+    .gallery__container {
+        max-width: 600px;
+        overflow: hidden;
+        padding: 2rem 0 1rem 0;
+        align-self: center;
+        position: relative;
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    .gallery__main {
+        max-height: 500px;
+        width: 80%;
+        float: right;
+    }
+    .gallery__thumbs {
+        max-height: 500px;
+        cursor: pointer;
+        width: 18%;
+        overflow: hidden;
+    }
+    .thumbnail-cell {
+        opacity: 0.5;
+        transform: translateY(0%);
+        text-align: center;
+        padding-bottom: 1rem;
+    }
+    .is-nav-selected {
+        opacity: 1;
+    }
+
+    .product__imgContainer:focus-visible {
+        outline: none;
+        box-shadow: none;
+    }
     .product__container {
         max-width: 1600px;
         margin: 7rem auto;
@@ -80,8 +151,8 @@
         color: {{section.settings.color-botton--hover}};
     }
     .product__img {
-        width: 100%;
-        border-radius: 1rem;
+        max-width: 100%;
+        margin: 0 auto;
     }
     .product__subtext {
         text-transform: uppercase;
@@ -177,12 +248,14 @@
     }
     .product__infoContainer {
         align-self: center;
-        text-align: {{section.settings.textAlign-main}}
+        text-align: {{section.settings.textAlign-main}};
+        grid-area: info;
     }
     .displayGridCol-info {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-gap: 15rem;
+        grid-gap: 2%;
+        grid-template-areas: 'carousel info';
     }
     .displayGridCol-metafield {
         display: grid;
@@ -201,14 +274,14 @@
         width: 100%;
         border-radius: 1rem;
     }
-    .additionalImg-2 {
+    .additionalImg-0 {
         align-self: baseline;
     }
-    .additionalImg-3 {
+    .additionalImg-1 {
         grid-column-start: 1;
         align-self: end;
     }
-    .additionalImg-4 {
+    .additionalImg-2 {
         grid-row-start: 1;
         grid-column-start: 2;
         grid-row-end: 3;
@@ -218,15 +291,20 @@
         .displayGridCol-info {
             grid-gap: 3rem;
         }
+        .gallery__thumbs {
+            width: 17%;
+        }
     }
     @media only screen and (max-width: 991px) {
+        .gallery__thumbs {
+            width: 15%;
+        }
         .displayGridCol-info {
             grid-gap: 5rem;
         }
         .product__imgContainer {
-            display: flex;
+            display: block;
             align-items: center;
-            background-color: {{section.settings.color-imgBackground}};
         }
         .product__infoContainer {
             margin: 3rem 0;
@@ -284,8 +362,11 @@
         .displayGrid-imageGrid {
             display: block;
         }
-        .additionalImg-3 {
+        .additionalImg-2 {
             margin: 1rem 0;
+        }
+        .thumbsArrow {
+            left: calc( (100% - 93.5%) );
         }
     }
 </style>
@@ -406,12 +487,6 @@
                     "label": "Right"
                 }
             ]
-        },
-        {
-            "type": "color",
-            "id": "color-imgBackground",
-            "label": "Product Image Background Color (Tablet)",
-            "default": "#f1f1f1"
         }
     ]
 }

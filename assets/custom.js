@@ -263,3 +263,96 @@ $('.footer__links-heading').click(function(){
         }
     }
 });
+
+
+function resizeThumbsContainer() {
+    let thumbsContainer = $('.gallery__thumbs');
+    let productImg = $('.product__img');
+    thumbsContainer.height(`${productImg.height()}px`);
+};
+
+//Product thumbnail container remains same height as product image on window resize
+$(window).resize(() => {
+    $('.product__imgContainer').flickity('resize');
+    resizeThumbsContainer();
+});
+
+
+//Ensures first thumbnail has solid opacity on window load
+$(document).ready(function() {
+    resizeThumbsContainer();
+});
+
+
+//Switches to corresponding slide when thumbnail image is clicked
+$('.thumbnail-cell').click(function(){
+    let galleryCell = $('.gallery__cell');
+    let thumbnailIndex = $(this).find('.thumbnail__image').data('index');
+    $('.thumbnail-cell').removeClass('is-nav-selected');
+    $(this).addClass('is-nav-selected');
+    galleryCell.each(function(){
+        let galleryIndex = $(this).find('.product__img').data('index');
+        if (galleryIndex == thumbnailIndex) {
+            $('.product__imgContainer').flickity('selectCell', galleryIndex);
+        }
+    });
+});
+
+
+//Switches to corresponding thumbnail when slide is changed
+$('.product__imgContainer').on( 'change.flickity', function(event, index) {
+    let productIndex = index;
+    $('.thumbnail-cell').removeClass('is-nav-selected');
+    $('.thumbnail__image').each(function(){
+        let thumbIndex = $(this).data('index');
+        if (thumbIndex == productIndex) {
+            $(this).parents('.thumbnail-cell').addClass('is-nav-selected');
+        }
+    });
+});
+
+
+//Initializes flicker API
+$('.product__imgContainer').flickity({
+    pageDots: false,
+    contain: true,
+    cellAlign: 'center',
+    imagesLoaded: true,
+});
+
+
+//Limits scrolling on thumbnails
+let number = 0;
+const arrowDown = $('.slide-down');
+const arrowUp = $('.slide-up');
+const thumbnails = $('.thumbnail-cell');
+const noOfClicks = thumbnails.length - 4;
+const stopScrollPercentage = noOfClicks * -100 + '%';
+arrowUp.hide();
+if (thumbnails.length <= 4) {
+    arrowDown.hide();
+};
+arrowDown.click(function(){
+    number = number + -100;
+    let percentage = number + '%';
+    thumbnails.css('transform',  `translateY(${percentage})`);
+    if (number == 0) {
+        arrowUp.hide();
+    } else if (percentage == stopScrollPercentage){
+        arrowDown.hide();
+        arrowUp.show();
+    } else {
+        arrowUp.show();
+    }
+});
+arrowUp.click(function(){
+    number = number + 100;
+    let percentage = number + '%';
+    thumbnails.css('transform', `translateY(${percentage})`);
+    if (number == 0) {
+        arrowUp.hide();
+        arrowDown.show();
+    } else {
+        arrowUp.show();
+    }
+});
