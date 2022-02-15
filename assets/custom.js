@@ -268,10 +268,12 @@ function resizeThumbsContainer() {
     thumbsContainer.height(`${productImg.height()}px`);
 };
 
-//Product thumbnail container remains same height as product image on window resize
+//Product thumbnail container and Collections image remains same height as product image on window resize
 $(window).resize(() => {
     $('.product__imgContainer').flickity('resize');
     resizeThumbsContainer();
+    $('.featured-image').height('auto');
+    $('.featured-image').width('auto');
 });
 
 //Ensures first thumbnail has solid opacity on window load
@@ -351,24 +353,41 @@ arrowUp.click(function(){
 
 
 //Shows second collection image on hover
+// $('.product-grid__list-item').each(function(){
+//     $(this).hover(
+//         function(){
+//             if ($(this).children('#hovered-image').val() != "") {
+//                 let ftImageHeight = $(this).find('.featured-image').height();
+//                 let ftImageWidth = $(this).find('.featured-image').width();
+//                 let hoveredImage = $(this).find('#hovered-image');
+//                 $(this).find('.featured-image').attr('src', `${hoveredImage.val()}`);
+//                 $(this).find('.featured-image').height(`${ftImageHeight}px`);
+//                 $(this).find('.featured-image').width(`${ftImageWidth}px`);
+//             }
+//         },
+//         function(){
+//             let initialImage = $(this).find('#initial-image');
+//             $(this).find('.featured-image').attr('src', `${initialImage.val()}`);
+//         }
+//     );
+// });
+
 $('.product-grid__list-item').each(function(){
-    $(this).hover(
-        function(){
-            if ($(this).find('input').length) {
-                console.log($(this).find('#hovered-image').length)
+    if ($(this).find('input').length) {
+        $(this).hover(
+            function(){
+                console.log(($(this).find('input').length))
                 let ftImageHeight = $(this).find('.featured-image').height();
                 let ftImageWidth = $(this).find('.featured-image').width();
                 let hoveredImage = $(this).find('#hovered-image');
                 $(this).find('.featured-image').attr('src', `${hoveredImage.val()}`);
                 $(this).find('.featured-image').height(`${ftImageHeight}px`);
                 $(this).find('.featured-image').width(`${ftImageWidth}px`);
-            }
-        },
-        function(){
-            if ($(this).find('input').length) {
+            },
+            function(){
                 let initialImage = $(this).find('#initial-image');
                 $(this).find('.featured-image').attr('src', `${initialImage.val()}`);
             }
-        }
-    );
+        );
+    }
 });
