@@ -125,13 +125,11 @@ $('.product-form').on('submit', function(e) {
     })
 })
 
-
 //Number to currency formatter
 const currency = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
 });
-
 
 // Adds or Subtracts 1 from Item Quantity on Cart page when user clicks on '+' or '-'. Minimum quantity is '1'
 $(".item__quantity p").click(function(){
@@ -195,14 +193,12 @@ $(".item__quantity p").click(function(){
     })
 });
 
-
 //Limits Cart Quantity input to 2 digits
 $(".itemQuantityInput").keydown(function(){
     if (this.value.length > 1) {
         this.value = this.value.slice(0,1);
     }
 });
-
 
 //Removes item from cart when 'Remove' is clicked
 $('.remove').click(function(){
@@ -245,6 +241,7 @@ $('.remove').click(function(){
     })
 });
 
+
 //Display Footer sub-menu when footer menu is clicked
 $('.footer__links-heading').click(function(){
     const chevron = $(this).find('.fa-chevron-down');
@@ -277,12 +274,10 @@ $(window).resize(() => {
     resizeThumbsContainer();
 });
 
-
 //Ensures first thumbnail has solid opacity on window load
 $(document).ready(function() {
     resizeThumbsContainer();
 });
-
 
 //Switches to corresponding slide when thumbnail image is clicked
 $('.thumbnail-cell').click(function(){
@@ -298,7 +293,6 @@ $('.thumbnail-cell').click(function(){
     });
 });
 
-
 //Switches to corresponding thumbnail when slide is changed
 $('.product__imgContainer').on( 'change.flickity', function(event, index) {
     let productIndex = index;
@@ -311,7 +305,6 @@ $('.product__imgContainer').on( 'change.flickity', function(event, index) {
     });
 });
 
-
 //Initializes flicker API
 $('.product__imgContainer').flickity({
     pageDots: false,
@@ -319,7 +312,6 @@ $('.product__imgContainer').flickity({
     cellAlign: 'center',
     imagesLoaded: true,
 });
-
 
 //Limits scrolling on thumbnails
 let number = 0;
@@ -355,4 +347,28 @@ arrowUp.click(function(){
     } else {
         arrowUp.show();
     }
+});
+
+
+//Shows second collection image on hover
+$('.product-grid__list-item').each(function(){
+    $(this).hover(
+        function(){
+            if ($(this).find('input').length) {
+                console.log($(this).find('#hovered-image').length)
+                let ftImageHeight = $(this).find('.featured-image').height();
+                let ftImageWidth = $(this).find('.featured-image').width();
+                let hoveredImage = $(this).find('#hovered-image');
+                $(this).find('.featured-image').attr('src', `${hoveredImage.val()}`);
+                $(this).find('.featured-image').height(`${ftImageHeight}px`);
+                $(this).find('.featured-image').width(`${ftImageWidth}px`);
+            }
+        },
+        function(){
+            if ($(this).find('input').length) {
+                let initialImage = $(this).find('#initial-image');
+                $(this).find('.featured-image').attr('src', `${initialImage.val()}`);
+            }
+        }
+    );
 });
