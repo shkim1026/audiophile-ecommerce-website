@@ -5,8 +5,12 @@
             <a href="{{ product.url }}">
                 <li class="product-grid__list-item">
                     <img class="featured-image" src="{{ product.featured_image | img_url: 'medium' }}">
-                    <input type="hidden" id="initial-image" value="{{ product.featured_image | img_url: 'medium' }}">
-                    <input type="hidden" id="hovered-image" value="{% for image in product.images %}{% if forloop.index0 == 1 %}{{ image | img_url: 'medium' }}{% endif %}{% endfor %}">
+                    {% for image in product.images %}
+                        {% if forloop.index == 2 %}
+                            <input type="hidden" id="initial-image" value="{{ product.featured_image | img_url: 'medium' }}">
+                            <input type="hidden" id="hovered-image" value="{{ image | img_url: 'medium' }}">
+                        {% endif %}
+                    {% endfor %}
                     <h4 class="product-grid__title">{{ product.title }}</h4>
                     <h5 class="product-grid__vendor">{{ product.vendor }}</h5>
                     <h6 class="product-grid__price">{{ product.price | money }}</h6>
