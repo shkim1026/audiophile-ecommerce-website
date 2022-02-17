@@ -307,7 +307,7 @@ $('.product__imgContainer').on( 'change.flickity', function(event, index) {
     });
 });
 
-//Initializes flicker API
+//Initializes flicker API for Product Thumbnails
 $('.product__imgContainer').flickity({
     pageDots: false,
     contain: true,
@@ -376,7 +376,6 @@ $('.product-grid__list-item').each(function(){
     if ($(this).find('input').length) {
         $(this).hover(
             function(){
-                console.log(($(this).find('input').length))
                 let ftImageHeight = $(this).find('.featured-image').height();
                 let ftImageWidth = $(this).find('.featured-image').width();
                 let hoveredImage = $(this).find('#hovered-image');
@@ -390,4 +389,11 @@ $('.product-grid__list-item').each(function(){
             }
         );
     }
+});
+
+//Initializes flicker API for Announcement Bar
+$('.announcement__container').flickity({
+    pageDots: false,
+    contain: true,
+    cellAlign: 'center',
 });
