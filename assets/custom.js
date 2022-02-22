@@ -279,6 +279,8 @@ $(window).resize(() => {
 //Ensures first thumbnail has solid opacity on window load
 $(document).ready(function() {
     resizeThumbsContainer();
+    checkEmail();
+
 });
 
 //Switches to corresponding slide when thumbnail image is clicked
@@ -397,3 +399,58 @@ $('.announcement__container').flickity({
     contain: true,
     cellAlign: 'center',
 });
+
+
+
+//Opens modal
+function openModal() {
+    $('.modal').removeClass('display-none');
+}
+
+//Closes modal when user clicks on 'X' or outside of modal content
+$('.close-modal').click(function(){
+    $('.modal').addClass('display-none');
+});
+$(window).click(function(e){
+    const modal = $('.modal');
+    console.log(e.target);
+    if (e.target == modal) {
+        console.log('outside modal')
+        $('.modal').addClass('display-none');
+    }
+});
+
+//Clears value of 'email*' when user clicks/focuses on input of modal
+$('.form__input').focus(function(){
+    console.log('input')
+    $('.form__input').val("");
+    $('.form__input').css('color', 'black');
+});
+
+//If value of input is blank, replace with text 'Email*'
+$('.form__input').focusout(function(){
+    if ($(this).val() == "") {
+        $(this).val('Email*')
+        $('.form__input').css('color', 'gray');
+    }
+});
+
+//Saves email to local storage
+function saveEmail() {
+    let email = $('.form__input').val();
+    localStorage.setItem('email', email);
+}
+
+//Retrieves email from local storage. If no email is available: open modal
+function checkEmail() {
+    if (localStorage.getItem('email') === null) {
+        setTimeout(openModal, 1000);
+    } else {
+        return localStorage.getItem('email');
+    }
+}
+
+//On user email submission; save email to local storage;
+$('.modal__form').submit(function(){
+    saveEmail();
+})
