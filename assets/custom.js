@@ -404,23 +404,22 @@ $('.announcement__container').flickity({
 
 //Opens modal
 function openModal() {
-    // $('.modal').removeClass('display-none');
     $('.modal').show();
 }
 
 //Closes modal when user clicks on 'X' or outside of modal content
 $('.close-modal').click(function(){
-    // $('.modal').addClass('display-none');
     $('.modal').hide();
 });
-$(window).click(function(e){
-    const modal = $('.modal');
-    console.log(e.target);
-    if (e.target == modal) {
-        console.log('outside modal')
-        // $('.modal').addClass('display-none');
-        $('.modal').hide();
-    }
+
+//Closes modal when user clicks outside of modal box
+$('.modal').click(function() {
+    $(this).hide()
+});
+
+//Disables bubbling to modal content's parent elements
+$('.modal__content').click(function(e) {
+    e.stopPropagation();
 });
 
 //Clears value of 'email*' when user clicks/focuses on input of modal
