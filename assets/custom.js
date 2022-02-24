@@ -279,6 +279,8 @@ $(window).resize(() => {
 //Ensures first thumbnail has solid opacity on window load
 $(document).ready(function() {
     resizeThumbsContainer();
+    checkEmail();
+
 });
 
 //Switches to corresponding slide when thumbnail image is clicked
@@ -307,7 +309,7 @@ $('.product__imgContainer').on( 'change.flickity', function(event, index) {
     });
 });
 
-//Initializes flicker API
+//Initializes flicker API for Product Thumbnails
 $('.product__imgContainer').flickity({
     pageDots: false,
     contain: true,
@@ -376,7 +378,6 @@ $('.product-grid__list-item').each(function(){
     if ($(this).find('input').length) {
         $(this).hover(
             function(){
-                console.log(($(this).find('input').length))
                 let ftImageHeight = $(this).find('.featured-image').height();
                 let ftImageWidth = $(this).find('.featured-image').width();
                 let hoveredImage = $(this).find('#hovered-image');
@@ -391,3 +392,67 @@ $('.product-grid__list-item').each(function(){
         );
     }
 });
+
+//Initializes flicker API for Announcement Bar
+$('.announcement__container').flickity({
+    pageDots: false,
+    contain: true,
+    cellAlign: 'center',
+});
+
+
+
+//Opens modal
+function openModal() {
+    $('.modal').show();
+}
+
+//Closes modal when user clicks on 'X' or outside of modal content
+$('.close-modal').click(function(){
+    $('.modal').hide();
+});
+
+//Closes modal when user clicks outside of modal box
+$('.modal').click(function() {
+    $(this).hide()
+});
+
+//Disables bubbling to modal content's parent elements
+$('.modal__content').click(function(e) {
+    e.stopPropagation();
+});
+
+//Clears value of 'email*' when user clicks/focuses on input of modal
+$('.form__input').focus(function(){
+    console.log('input')
+    $('.form__input').val("");
+    $('.form__input').css('color', 'black');
+});
+
+//If value of input is blank, replace with text 'Email*'
+$('.form__input').focusout(function(){
+    if ($(this).val() == "") {
+        $(this).val('Email*')
+        $('.form__input').css('color', 'gray');
+    }
+});
+
+//Saves email to local storage
+function saveEmail() {
+    let email = $('.form__input').val();
+    localStorage.setItem('email', email);
+}
+
+//Retrieves email from local storage. If no email is available: open modal
+function checkEmail() {
+    if (localStorage.getItem('email') === null) {
+        setTimeout(openModal, 1000);
+    } else {
+        return localStorage.getItem('email');
+    }
+}
+
+//On user email submission; save email to local storage;
+$('.modal__form').submit(function(){
+    saveEmail();
+})
