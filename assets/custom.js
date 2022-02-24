@@ -404,19 +404,22 @@ $('.announcement__container').flickity({
 
 //Opens modal
 function openModal() {
-    $('.modal').removeClass('display-none');
+    // $('.modal').removeClass('display-none');
+    $('.modal').show();
 }
 
 //Closes modal when user clicks on 'X' or outside of modal content
 $('.close-modal').click(function(){
-    $('.modal').addClass('display-none');
+    // $('.modal').addClass('display-none');
+    $('.modal').hide();
 });
 $(window).click(function(e){
     const modal = $('.modal');
     console.log(e.target);
     if (e.target == modal) {
         console.log('outside modal')
-        $('.modal').addClass('display-none');
+        // $('.modal').addClass('display-none');
+        $('.modal').hide();
     }
 });
 
