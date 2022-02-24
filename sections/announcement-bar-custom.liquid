@@ -1,0 +1,149 @@
+{% if section.settings.enable == true %}
+    <div class="header__bar">
+        <div class="announcement__container">
+        {% for block in section.blocks %}
+            {% if block.settings.checkbox == true %}
+                {% if block.settings.link != blank %}
+                <div class="announcement__cell">
+                    <a class="announcement__link" href="{{ block.settings.link }}">
+                {% endif %}
+                <p class="announcement__text">{{block.settings.text}}
+                {% if block.settings.link != blank %}
+                    <span class="details-link">Details</span></p>
+                    </a>
+                </div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+{% endif %}
+
+<style>
+    #shopify-section-announcement-bar-custom {
+        background-color: {{ section.settings.background-color }};
+    }
+    .announcement__container {
+        text-align: center;
+        width: 60%;
+        margin: 0 auto;
+    }
+    .announcement__container:focus-visible {
+        outline: none;
+        box-shadow: none;
+    }
+    .announcement__cell {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .announcement__link {
+        color: {{ section.settings.text-color }};
+        width: calc(100% - 88px);
+    }
+    .announcement__link:hover {
+        text-decoration: underline;
+    }
+    .details-link {
+        color: {{ section.settings.text-color }};
+        text-decoration: underline;
+        font-weight: 100;
+        margin-left: 1rem;
+    }
+    .announcement__text {
+        color: {{ section.settings.text-color }};
+        {% if section.settings.bold-text == true %}
+        font-weight: 600;
+        {% endif %}
+    }
+    .flickity-button {
+        background: none;
+    }
+    .flickity-button:focus {
+        box-shadow: none;
+    }
+    .flickity-button:hover {
+        background: none;
+    }
+    @media only screen and (max-width: 991px) {
+        .announcement__container {
+            width: 100%;
+        }
+        .announcement__text {
+            font-size: 1.25rem;
+        }
+        .flickity-prev-next-button.previous {
+            left: 0px;
+        }
+        .flickity-prev-next-button.next {
+            right: 0px;
+        }
+    }
+
+</style>
+
+{% schema %}
+{
+    "name": "Announcement Bar (Custom)",
+    "max_blocks": 10,
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enable",
+            "default": true,
+            "label": "Enable Announcement Bar"
+        },
+        {
+            "type": "color",
+            "id": "background-color",
+            "label": "Background Color",
+            "default": "#e9e9e9"
+        },
+        {
+            "type": "color",
+            "id": "text-color",
+            "label": "Text Color",
+            "default": "#000000"
+        },
+        {
+            "type": "checkbox",
+            "id": "bold-text",
+            "default": true,
+            "label": "Enable Bold Text"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "announcement",
+            "name": "Annoucement Bar (Custom)",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "text",
+                    "default": "Welcome to our store!",
+                    "label": "Announcement Text"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "URL Link"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "checkbox",
+                    "label": "Display Annoucement",
+                    "default": true
+                }
+            ]
+        }
+    ],
+    "default": {
+        "blocks": [
+            {
+                "type": "announcement"
+            }
+        ]
+    }
+}
+{% endschema %}

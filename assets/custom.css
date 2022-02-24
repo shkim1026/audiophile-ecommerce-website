@@ -20,6 +20,9 @@ li {
     list-style: none;
 }
 
+.display-none {
+    display: none !important;
+}
 
 /* LOADER */
 .buttonload {
