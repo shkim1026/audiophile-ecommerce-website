@@ -279,8 +279,7 @@ $(window).resize(() => {
 //Ensures first thumbnail has solid opacity on window load
 $(document).ready(function() {
     resizeThumbsContainer();
-    checkEmail();
-
+    checkEmailOrDismissal();
 });
 
 //Switches to corresponding slide when thumbnail image is clicked
@@ -410,11 +409,13 @@ function openModal() {
 //Closes modal when user clicks on 'X' or outside of modal content
 $('.close-modal').click(function(){
     $('.modal').hide();
+    sessionStorage.setItem('dismiss', 'dismiss');
 });
 
 //Closes modal when user clicks outside of modal box
 $('.modal').click(function() {
-    $(this).hide()
+    $(this).hide();
+    sessionStorage.setItem('dismiss', 'dismiss');
 });
 
 //Disables bubbling to modal content's parent elements
@@ -444,15 +445,13 @@ function saveEmail() {
 }
 
 //Retrieves email from local storage. If no email is available: open modal
-function checkEmail() {
-    if (localStorage.getItem('email') === null) {
+function checkEmailOrDismissal() {
+    if (localStorage.getItem('email') === null && sessionStorage.getItem('dismiss') === null) {
         setTimeout(openModal, 1000);
-    } else {
-        return localStorage.getItem('email');
     }
 }
 
 //On user email submission; save email to local storage;
 $('.modal__form').submit(function(){
     saveEmail();
-})
+});
