@@ -446,8 +446,8 @@ function saveEmail() {
 
 //Retrieves email from local storage. If no email is available: open modal
 function checkEmailOrDismissal() {
-    if (localStorage.getItem('email') === null && sessionStorage.getItem('dismiss') === null) {
-        setTimeout(openModal, 1000);
+    if (!localStorage.getItem('email') && !sessionStorage.getItem('dismiss')) {
+        setTimeout(openModal, 5000);
     }
 }
 
