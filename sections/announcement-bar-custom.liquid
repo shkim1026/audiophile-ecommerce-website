@@ -38,6 +38,10 @@
         justify-content: center;
         align-items: center;
     }
+    .announcement__container .is-selected {
+        top: 50%;
+        bottom: 50%;
+    }
     .announcement__link {
         color: {{ section.settings.text-color }};
         width: calc(100% - 88px);
@@ -53,6 +57,7 @@
     }
     .announcement__text {
         color: {{ section.settings.text-color }};
+        font-size: {{ section.settings.font-size }}rem;
         {% if section.settings.bold-text == true %}
         font-weight: 600;
         {% endif %}
@@ -71,13 +76,18 @@
             width: 100%;
         }
         .announcement__text {
-            font-size: 1.25rem;
+            font-size: {{ section.settings.font-size-mobile }}rem;
         }
         .flickity-prev-next-button.previous {
             left: 0px;
         }
         .flickity-prev-next-button.next {
             right: 0px;
+        }
+    }
+    @media only screen and (max-width: 576px) {
+        .announcement__container .flickity-prev-next-button {
+            height: 40%;
         }
     }
 
@@ -111,6 +121,26 @@
             "id": "bold-text",
             "default": true,
             "label": "Enable Bold Text"
+        },
+        {
+            "type": "range",
+            "id": "font-size",
+            "min": 1,
+            "max": 2,
+            "step": 0.1,
+            "unit": "rem",
+            "label": "Font Size (Desktop)",
+            "default": 1.5
+        },
+        {
+            "type": "range",
+            "id": "font-size-mobile",
+            "min": 1,
+            "max": 2,
+            "step": 0.1,
+            "unit": "rem",
+            "label": "Font Size (Mobile/Tablet)",
+            "default": 1.2
         }
     ],
     "blocks": [
