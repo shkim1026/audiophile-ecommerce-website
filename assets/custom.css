@@ -3,6 +3,9 @@ body,
 h1,h2,h3,p,a,button {
     font-family: 'Manrope', sans-serif;
 }
+body {
+    grid-template-rows: 0fr 0fr 0fr 1fr;
+}
 a {
     text-decoration: none;
 }
