@@ -357,6 +357,24 @@ header.site-header.border-bottom.logo--left {
     border-radius: 1rem;
 }
 
+/* HEADING SEARCH BAR */
+.header__icons {
+    position: relative;
+}
+.header-search {
+    position: absolute;
+    left: calc(100% - 33rem);
+}
+.search-form {
+    display: none;
+    position: absolute;
+    transform: translateY(15%);
+}
+.search-form__input {
+    height: 3rem;
+    width: 25rem;
+}
+
 /* =============================================================== */
 /* LRG TABLETS (iPadPro) */
 /* =============================================================== */

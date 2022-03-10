@@ -149,9 +149,9 @@
         {% paginate search.results by 24 %}
           <div class="template-search__results collection page-width" id="product-grid" data-id="{{ section.id }}">
             <div class="loading-overlay gradient"></div>
-            <ul class="grid grid--4-col-desktop grid--3-col-tablet grid--2-col grid--one-third-max grid--quarter-max negative-margin product-grid" role="list">
+            <ul class="grid search-results__grid" role="list">
               {%- for item in search.results -%}
-                <li class="grid__item{% unless item.object_type == 'product' %} grid__item--small{% endunless %}">
+                <li class="search-results__grid-item{% unless item.object_type == 'product' %} grid__item--small{% endunless %}">
                   {%- case item.object_type -%}
                     {%- when 'product' -%}
                       {%- capture product_settings -%}{%- if section.settings.product_show_vendor -%}vendor,{%- endif -%}title,price{%- endcapture -%}
@@ -169,7 +169,7 @@
                         <div class="card card--search card--soft{% unless item.image %} card--text-only{% endunless %}">
                           <div class="card__inner">
                             {%- if item.image -%}
-                              <div class="media media--cropped">
+                              <div class="media media--cropped search-results__product">
                                 <img
                                   srcset="{%- if item.image.src.width >= 165 -%}{{ item.image.src | img_url: '165x' }} 165w,{%- endif -%}
                                     {%- if item.image.src.width >= 360 -%}{{ item.image.src | img_url: '360x' }} 360w,{%- endif -%}
@@ -228,6 +228,29 @@
     </div> 
   {%- endif -%}
 </div>
+
+<style>
+  .search-results__grid-item {
+    margin: 4rem 0;
+  }
+  .search-results__grid {
+    grid-template-columns: auto auto auto;
+    grid-gap: 6rem;
+    margin: 0 auto;
+  }
+  @media only screen and (max-width: 991px) {
+    .search-results__grid {
+      grid-template-columns: auto auto;
+      grid-gap: 4rem;
+    }
+  }
+  @media only screen and (max-width: 767px) {
+    .search-results__grid {
+      display: block;
+      padding: 0 5rem;
+    }
+  }
+</style>
 
 {% schema %}
 {
