@@ -413,7 +413,7 @@
       </summary>
       <div class="header-search">
         <predictive-search>
-          <form action="{{ routes.search_url }}" method="get" role="search" class="search-form">
+          <form action="{{ routes.search_url }}" method="get" role="search" class="search-form display-none">
             <input
               class="search-form__input"
               id="Search"
@@ -434,6 +434,11 @@
               {%- endif -%}
             >
             <input name="options[prefix]" type="hidden" value="last">
+            <button class="search-form__button">
+              <svg class="search-form__icon icon icon-search" aria-hidden="true" focusable="false" role="presentation">
+                <use href="#icon-search">
+              </svg>
+            </button>
         
             {%- if settings.predictive_search_enabled -%}
               <div id="predictive-search" tabindex="-1"></div>

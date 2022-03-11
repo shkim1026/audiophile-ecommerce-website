@@ -458,14 +458,14 @@ $('.modal__form').submit(function(){
 
 // On search icon click; display input form
 $('.modal__toggle-open').click(function(){
-    $('.search-form').show();
+    $('.search-form').removeClass('display-none');
     $('.modal__toggle-open').hide();
     $('.modal__toggle-close').show();
 });
 
 // On close icon click; hide input form
 $('.modal__toggle-close').click(function(){
-    $('.search-form').hide();
+    $('.search-form').addClass('display-none');
     $('.modal__toggle-open').show();
     $('.modal__toggle-close').hide();
 });
