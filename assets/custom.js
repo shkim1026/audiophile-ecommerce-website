@@ -469,3 +469,12 @@ $('.modal__toggle-close').click(function(){
     $('.modal__toggle-open').show();
     $('.modal__toggle-close').hide();
 });
+
+//Hides search results when user clicks outside of search results
+$(document).mouseup(function(e){
+    const predictiveSearchContainer = $('#predictive-search');
+ 
+    if(!predictiveSearchContainer.is(e.target) && predictiveSearchContainer.has(e.target).length === 0){
+        predictiveSearchContainer.hide();
+    }
+});

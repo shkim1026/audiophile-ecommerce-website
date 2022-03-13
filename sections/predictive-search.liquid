@@ -25,13 +25,14 @@
               <span class="predictive-search__item-heading">{{ product.title }}</span>
               {%- if settings.predictive_search_show_price -%}
                 {% comment %}Render price{% endcomment %}
+                <div class="predictive-search__item-price">{{product.price | money}}</div>
               {%- endif -%}
             </div>
           </a>
         </li>
       {%- endfor -%}
-      <li class="predictive-search__list-item" role="option">
-        <button class="predictive-search__item" tabindex="-1">
+      <li class="predictive-search__list-item--last" role="option">
+        <button class="predictive-search__item--button" tabindex="-1">
           Search for “{{ predictive_search.terms }}”
         </button>
       </li>
