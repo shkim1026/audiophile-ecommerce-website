@@ -357,6 +357,81 @@ header.site-header.border-bottom.logo--left {
     border-radius: 1rem;
 }
 
+/* HEADING SEARCH BAR */
+.header__icons {
+    position: relative;
+}
+.header-search {
+    position: absolute;
+    left: calc(100% - 33rem);
+}
+.search-form {
+    display: flex;
+    position: absolute;
+    padding-top: 0.75rem;
+}
+.search-form__input {
+    height: 3rem;
+    width: 25rem;
+}
+.search-form__button {
+    box-shadow: none;
+    background-color: unset;
+    border: none;
+    margin-left: -4rem;
+}
+.search-form__icon {
+    color: black;
+    background-color: unset;
+    width: 20px;
+    height: 20px;
+}
+/* clears the ‘X’ from Internet Explorer */
+input[type=search]::-ms-clear { display: none; width : 0; height: 0; }
+input[type=search]::-ms-reveal { display: none; width : 0; height: 0; }
+/* clears the ‘X’ from Chrome */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration { display: none; }
+
+/* PREDICTIVE SEARCH */
+#predictive-search {
+    position: absolute;
+    background-color: black;
+    top: 4.5rem;
+    width: 25rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+    border: 1px solid gray;
+}
+.predictive-search__heading {
+    border-bottom: 0.1rem solid gray !important;
+}
+#predictive-search-results-list {
+    padding-left: 0;
+}
+.predictive-search__item {
+    align-items: center;
+}
+.predictive-search__item-content {
+    padding-left: 1.5rem;
+    color: lightgray;
+}
+.predictive-search__item-heading {
+    font-size: 1.25rem;
+}
+.predictive-search__item-price {
+    font-size: 1rem;
+}
+.predictive-search__list-item--last {
+    text-align: center;
+}
+.predictive-search__item--button {
+    width: 85% !important;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
 /* =============================================================== */
 /* LRG TABLETS (iPadPro) */
 /* =============================================================== */
@@ -428,6 +503,27 @@ header.site-header.border-bottom.logo--left {
     .about__text-content {
         width: 100%;
         margin-top: 4rem;
+    }
+
+
+    /* PREDICTIVE SEARCH */
+    .search-form {
+        transform: translateX(-25rem);
+    }
+    .search-form__input {
+        width: 50rem;
+    }
+    #predictive-search {
+        width: 50rem;
+    }
+    .predictive-search__item-heading {
+        font-size: 1.75rem;
+    }
+    .predictive-search__item-price {
+        font-size: 1.5rem;
+    }
+    .predictive-search__item--button {
+        margin-top: 1rem;
     }
 }
 
@@ -510,5 +606,17 @@ header.site-header.border-bottom.logo--left {
     }
     .product__rec-li {
         margin-bottom: 3rem;
+    }
+
+
+    /* PREDICTIVE SEARCH */
+    .search-form {
+        transform: translateX(0rem);
+    }
+    .search-form__input {
+        width: 25rem;
+    }
+    #predictive-search {
+        width: 25rem;
     }
 }

@@ -455,3 +455,26 @@ function checkEmailOrDismissal() {
 $('.modal__form').submit(function(){
     saveEmail();
 });
+
+// On search icon click; display input form
+$('.modal__toggle-open').click(function(){
+    $('.search-form').removeClass('display-none');
+    $('.modal__toggle-open').hide();
+    $('.modal__toggle-close').show();
+});
+
+// On close icon click; hide input form
+$('.modal__toggle-close').click(function(){
+    $('.search-form').addClass('display-none');
+    $('.modal__toggle-open').show();
+    $('.modal__toggle-close').hide();
+});
+
+//Hides search results when user clicks outside of search results
+$(document).mouseup(function(e){
+    const predictiveSearchContainer = $('#predictive-search');
+ 
+    if(!predictiveSearchContainer.is(e.target) && predictiveSearchContainer.has(e.target).length === 0){
+        predictiveSearchContainer.hide();
+    }
+});
