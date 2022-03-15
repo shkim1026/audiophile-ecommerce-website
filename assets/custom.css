@@ -434,7 +434,6 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 
 /* HEADER MEGAMENU */
 .header__menu-dropdown {
-    height: 40vw;
     position: absolute;
     width: 100vw;
     left: 0;
@@ -444,22 +443,28 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     padding-right: 5rem;
 }
 .header__dropdown-header {
-    text-align: center;
     color: lightgray;
     font-size: 2rem;
     text-transform: uppercase;
-    margin-top: 6vw;
+    max-width: 1600px;
+    margin: 2vw auto 1vw auto;
+    padding-left: 5rem;
 }
 .grid-col-4 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 5vw;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 5rem;
+    padding-bottom: 5rem;
 }
 .dropdown__item-image {
     width: 100%;
 }
 .dropdown__item-title {
-    font-size: 1.25vw;
+    font-size: 2rem;
+    margin-top: 1rem;
 }
 
 /* =============================================================== */
