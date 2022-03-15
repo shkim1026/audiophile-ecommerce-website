@@ -352,6 +352,8 @@
       <nav class="header__inline-menu">
         <ul class="list-menu list-menu--inline" role="list">
           {%- for link in section.settings.menu.links -%}
+          <script>console.log('link', {{link.object.products | json}})</script>
+          <!-- <script>console.log('collections',{{ collections[link.object.handle] | json}})</script> -->
             <li>
               {%- if link.links != blank -%}
                 <details-disclosure>
@@ -393,6 +395,23 @@
                 <a href="{{ link.url }}" class="header__menu-item header__menu-item list-menu__item link link--text focus-inset"{% if link.current %} aria-current="page"{% endif %}>
                   <span {%- if link.current %} class="header__active-menu-item"{% endif %}>{{ link.title | escape }}</span>
                 </a>
+                {% if link.object.products != null %}
+                  <ul class="header__menu-dropdown display-none">
+                    <h4 class="header__dropdown-header">Customer Favorites</h4>
+                    <div class="grid-col-4">
+                      {% for product in link.object.products %}
+                        {% if forloop.index <= 4 %}
+                          <li>
+                            <a href="{{ product.url }}">
+                              <img class="dropdown__item-image" src="{{ product.featured_image | img_url: 'medium' }}">
+                              <h5 class="dropdown__item-title">{{ product.title }}</h5>
+                            </a>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  </ul>
+                {% endif %}
               {%- endif -%}
             </li>
           {%- endfor -%}
