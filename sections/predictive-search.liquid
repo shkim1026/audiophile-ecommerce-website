@@ -31,6 +31,33 @@
           </a>
         </li>
       {%- endfor -%}
+      {%- if predictive_search.resources.articles.size > 0 -%}
+        <h3 id="predictive-search-products" class="predictive-search__heading">
+          Articles
+        </h3>
+      {%- endif -%}
+      {%- for article in predictive_search.resources.articles -%}
+      <script>console.log('article', {{ article.title | json }})</script>
+        <li class="predictive-search__list-item" role="option">
+          <a href="{{ article.url }}" class="predictive-search__item" tabindex="-1">
+            {%- if article.image != blank -%}
+              <img class="predictive-search__image"
+                src="{{ article.image | img_url: '150x' }}"
+                alt="{{ article.image.alt }}"
+                width="50"
+                height="{{ 50 | divided_by: article.image.preview_image.aspect_ratio }}"
+              >
+            {%- endif -%}
+            <div class="predictive-search__item-content">
+              {%- if settings.predictive_search_show_author -%}
+                <span class="visually-hidden">Author</span>
+                <div class="predictive-search__item-author">{{ article.vendor }}</div>
+              {%- endif -%}
+              <span class="predictive-search__item-heading">{{ article.title }}</span>
+            </div>
+          </a>
+        </li>
+      {%- endfor -%}
       <li class="predictive-search__list-item--last" role="option">
         <button class="predictive-search__item--button" tabindex="-1">
           Search for “{{ predictive_search.terms }}”

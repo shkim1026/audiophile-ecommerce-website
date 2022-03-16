@@ -430,6 +430,7 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     width: 85% !important;
     margin: 0 auto;
     padding: 1rem;
+    cursor: pointer;
 }
 
 /* HEADER MEGAMENU */
