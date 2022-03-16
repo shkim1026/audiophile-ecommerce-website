@@ -478,3 +478,21 @@ $(document).mouseup(function(e){
         predictiveSearchContainer.hide();
     }
 });
+
+//Display and hides mega-menu on hover
+$('.header__menu-item').hover(
+    function(){
+        $(this).siblings('.header__menu-dropdown').removeClass('display-none')
+    }, 
+    function(){
+        $(this).siblings('.header__menu-dropdown').addClass('display-none');
+    }
+);
+$('.header__menu-dropdown').hover(
+    function(){
+        $(this).removeClass('display-none')
+    }, 
+    function(){
+        $(this).addClass('display-none');
+    }
+);
