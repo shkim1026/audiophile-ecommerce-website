@@ -32,12 +32,11 @@
         </li>
       {%- endfor -%}
       {%- if predictive_search.resources.articles.size > 0 -%}
-        <h3 id="predictive-search-products" class="predictive-search__heading">
+        <h3 id="predictive-search-articles" class="predictive-search__heading">
           Articles
         </h3>
       {%- endif -%}
       {%- for article in predictive_search.resources.articles -%}
-      <script>console.log('article', {{ article.title | json }})</script>
         <li class="predictive-search__list-item" role="option">
           <a href="{{ article.url }}" class="predictive-search__item" tabindex="-1">
             {%- if article.image != blank -%}
@@ -51,9 +50,27 @@
             <div class="predictive-search__item-content">
               {%- if settings.predictive_search_show_author -%}
                 <span class="visually-hidden">Author</span>
-                <div class="predictive-search__item-author">{{ article.vendor }}</div>
+                <div class="predictive-search__item-author">{{ article.author }}</div>
               {%- endif -%}
               <span class="predictive-search__item-heading">{{ article.title }}</span>
+            </div>
+          </a>
+        </li>
+      {%- endfor -%}
+      {%- if predictive_search.resources.pages.size > 0 -%}
+        <h3 id="predictive-search-pages" class="predictive-search__heading">
+          Pages
+        </h3>
+      {%- endif -%}
+      {%- for page in predictive_search.resources.pages -%}
+        <li class="predictive-search__list-item" role="option">
+          <a href="{{ page.url }}" class="predictive-search__item" tabindex="-1">
+            <div class="predictive-search__item-content">
+              {%- if settings.predictive_search_show_author -%}
+                <span class="visually-hidden">Author</span>
+                <div class="predictive-search__item-author">{{ page.author }}</div>
+              {%- endif -%}
+              <span class="predictive-search__item-heading">{{ page.title }}</span>
             </div>
           </a>
         </li>
