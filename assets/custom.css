@@ -432,6 +432,10 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     padding: 1rem;
     cursor: pointer;
 }
+.predictive-search__item-content--pages {
+    padding-left: 0;
+}
+
 
 /* HEADER MEGAMENU */
 .header__menu-dropdown {
