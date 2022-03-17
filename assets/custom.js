@@ -419,13 +419,12 @@ $('.modal').click(function() {
 });
 
 //Disables bubbling to modal content's parent elements
-$('.modal__content').click(function(e) {
+$('.modal-content').click(function(e) {
     e.stopPropagation();
 });
 
 //Clears value of 'email*' when user clicks/focuses on input of modal
 $('.form__input').focus(function(){
-    console.log('input')
     $('.form__input').val("");
     $('.form__input').css('color', 'black');
 });
