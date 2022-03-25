@@ -502,6 +502,7 @@ $('.header__icon--cart').click(function(){
     if ($('.mini-cart-modal').hasClass('display-none')) {
         $('.mini-cart-modal').removeClass('display-none');
         $('body').addClass('overflow-hidden');
+        $('.mini-cart__list').load(location.href + " .mini-cart__list"); //Refreshes mini-cart side drawer
     } else {
         $('.mini-cart-modal').addClass('display-none');
         $('body').removeClass('overflow-hidden');
