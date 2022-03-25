@@ -495,3 +495,127 @@ $('.header__menu-dropdown').hover(
         $(this).addClass('display-none');
     }
 );
+
+
+// Display cart side-drawer
+$('.header__icon--cart').click(function(){
+    if ($('.mini-cart-modal').hasClass('display-none')) {
+        $('.mini-cart-modal').removeClass('display-none');
+        $('body').addClass('overflow-hidden');
+    } else {
+        $('.mini-cart-modal').addClass('display-none');
+        $('body').removeClass('overflow-hidden');
+    }
+});
+
+//Disables bubbling to modal content's parent elements for cart side drawer
+$('.mini-cart').click(function(e) {
+    e.stopPropagation();
+});
+
+// Hide cart side-drawer 
+$('.mini-cart__close').click(function(){
+    $('.mini-cart-modal').addClass('display-none');
+    $('body').removeClass('overflow-hidden');
+});
+$('.mini-cart-modal').click(function(){
+    $('.mini-cart-modal').addClass('display-none');
+    $('body').removeClass('overflow-hidden');
+});
+
+// Adds or Subtracts 1 from Item Quantity on Cart page when user clicks on '+' or '-'. Minimum quantity is '1'
+$(".line-item__qty-btn").click(function(){
+    let itemQuantityInput = $(this).closest('.line-item__info--secondary').find('.line-item__itemQuantityInput');
+    let variantId = $(this).closest('.line-item__info').find('.variant-id').val();
+    let totalPrice = $(this).closest('.line-item__info').find('.line-item__price');
+    let currentQuantityInt = parseInt(itemQuantityInput.val());
+    let $this = $(this)
+    // Display loader when item quantity is changed on cart page
+    $(this).closest('.line-item__info--secondary').find('.mini-cartload').show();
+    $(this).closest('.line-item__info--secondary').find('.line-item__price').hide();
+
+    function removeCartLoader() {
+        $this.closest('.line-item__info--secondary').find('.line-item__price').show();
+        $this.closest('.line-item__info--secondary').find('.mini-cartload').hide(); //Hides loader
+    }
+
+    if ($(this).hasClass('add')) {
+        if (currentQuantityInt >= 99) {
+            currentQuantityInt = 99;
+        } else {
+            currentQuantityInt++
+        }
+    } else if (currentQuantityInt <= 1) {
+        currentQuantityInt = 1;
+    } else {
+        currentQuantityInt--
+    }
+    itemQuantityInput.val(currentQuantityInt);
+
+    let data = {
+        quantity: currentQuantityInt,
+        id: variantId
+    }
+
+    $.ajax({
+        url: '/cart/change.js',
+        type: 'POST',
+        dataType: 'json',
+        data: data,
+        success: function(cartData) {
+            for (i = 0; i < cartData.items.length; i++) {
+                if (cartData.items[i].id == variantId) {
+                    let dataPrice = cartData.items[i].final_line_price.toString(); //Converts line item price integer to string
+                    let dataPriceFormat = dataPrice.substring(0,dataPrice.length-2)+"."+dataPrice.substring(dataPrice.length-2); //Formats line item string to account for cents
+                    let totalLinePrice = currency.format(dataPriceFormat); //Formats line item string to currency
+                    totalPrice.html(totalLinePrice);
+                    $('.mini-cart__cart-quantity').html(cartData.item_count);
+                    let dataTotalPrice = cartData.items_subtotal_price.toString(); //Converts total order price integer to string
+                    let dataTotalPriceFormat = dataTotalPrice.substring(0,dataTotalPrice.length-2)+"."+dataTotalPrice.substring(dataTotalPrice.length-2); //Formats total order string to account for cents
+                    let totalOrderPrice = currency.format(dataTotalPriceFormat); //Formats total order string to currency
+                    $('.mini-cart__subtotal').html(totalOrderPrice);
+                }
+            }
+            removeCartLoader();
+            updateCart();
+        },
+        error: function(error) {
+            console.log('error', error);
+        }
+    })
+});
+
+//Removes item from cart when 'Remove' is clicked
+$('.mini-cart__remove-item').click(function(){
+    let variantId = $(this).closest('.line-item__info').find('.variant-id').val();
+    let itemRow = $(this).closest('.mini-cart__list-item');
+    
+    let data = {
+        quantity: 0,
+        id: variantId
+    }
+    console.log('data', data);
+    $.ajax({
+        url: '/cart/change.js',
+        type: 'POST',
+        dataType: 'json',
+        data: data,
+        success: function(cartData) {
+            itemRow.next().remove(); //Deletes <hr> for line item
+            itemRow.remove();
+            updateCart();
+            $('.mini-cart__cart-quantity').html(cartData.item_count);
+            let dataTotalPrice = cartData.items_subtotal_price.toString(); //Converts total order price integer to string
+            let dataTotalPriceFormat = dataTotalPrice.substring(0,dataTotalPrice.length-2)+"."+dataTotalPrice.substring(dataTotalPrice.length-2); //Formats total order string to account for cents
+            let totalOrderPrice = currency.format(dataTotalPriceFormat); //Formats total order string to currency
+            $('.mini-cart__subtotal').html(totalOrderPrice);
+            //If cart is empty: display 'Your cart is empty!'
+            if (cartData.item_count == 0) {
+                $('.mini-cart__empty').appendTo('.mini-cart__list');
+            }
+        },
+        error: function(error) {
+            console.log('error', error);
+        }
+    })
+});
