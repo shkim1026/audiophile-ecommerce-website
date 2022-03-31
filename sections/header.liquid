@@ -579,40 +579,41 @@
             <p class="mini-cart__close">Close</p>
           </div>
           {% if cart == empty %}
-            <p class="mini-cart__empty">Your cart is empty.</p>
-          {% else %}
-            <ul class="mini-cart__list">
-              {% for line_item in cart.items %}
-                <li class="mini-cart__list-item">
-                  <a href="{{ line_item.url }}"><img class="line-item__image" src="{{ line_item.image | img_url: 'small' }}"></a>
-                  <div class="line-item__info">
-                    <input class="variant-id" type="hidden" id="itemId-{{forloop.index}}" name="variantId" value="{{line_item.id}}">
-                    <div class="line-item__header">
-                      <a href="{{ line_item.url }}"><h6 class="line-item__heading">{{ line_item.title }}</h6></a>
-                      <svg class="mini-cart__remove-item icon icon-close" aria-hidden="true" focusable="false" role="presentation">
-                        <use href="#icon-close">
-                      </svg>
-                    </div>
-                    <div class="line-item__info--secondary">
-                      <div class="line-item__quantity">
-                        <button class="line-item__qty-btn subtract">
-                          <p>-</p>
-                        </button>
-                        <input type="number" class="line-item__itemQuantityInput" id="line-item__itemQuantity-{{forloop.index}}" name="quantity" min="1" max="99" value="{{line_item.quantity}}">
-                        <button class="line-item__qty-btn qty-btn-add add">
-                          <p>+</p>
-                        </button>
-                      </div>
-                      <p class="line-item__price">{{ line_item.final_price | money }}</p>
-                      <div class="mini-cartload">
-                        <i class="fa fa-spinner fa-spin"></i>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              {% endfor %}
-            </ul>
+          <p class="mini-cart__empty">Your cart is empty.</p>
           {% endif %}
+          <ul class="mini-cart__list" id="mini-cart-ul">
+            {% if cart != empty %}
+                {% for line_item in cart.items %}
+                  <li class="mini-cart__list-item">
+                    <a href="{{ line_item.url }}"><img class="line-item__image" src="{{ line_item.image | img_url: 'small' }}"></a>
+                    <div class="line-item__info">
+                      <input class="variant-id" type="hidden" id="itemId-{{forloop.index}}" name="variantId" value="{{line_item.id}}">
+                      <div class="line-item__header">
+                        <a href="{{ line_item.url }}"><h6 class="line-item__heading">{{ line_item.title }}</h6></a>
+                        <svg class="mini-cart__remove-item icon icon-close" aria-hidden="true" focusable="false" role="presentation">
+                          <use href="#icon-close">
+                        </svg>
+                      </div>
+                      <div class="line-item__info--secondary">
+                        <div class="line-item__quantity">
+                          <button class="line-item__qty-btn qty-btn-subtract subtract">
+                            <p>-</p>
+                          </button>
+                          <input type="number" class="line-item__itemQuantityInput" id="line-item__itemQuantity-{{forloop.index}}" name="quantity" min="1" max="99" value="{{line_item.quantity}}">
+                          <button class="line-item__qty-btn qty-btn-add add">
+                            <p>+</p>
+                          </button>
+                        </div>
+                        <p class="line-item__price">{{ line_item.final_price | money }}</p>
+                        <div class="mini-cartload">
+                          <i class="fa fa-spinner fa-spin"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                {% endfor %}
+              {% endif %}
+            </ul>
           <div class="mini-cart__cart-buttons">
             <div class="mini-cart__cart-quantity-div">
               <p class="mini-cart__cart-quantity-label">Total Quantity:</p>
