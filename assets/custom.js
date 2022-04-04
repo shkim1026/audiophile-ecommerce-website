@@ -77,10 +77,21 @@ function resetForm() {
 //GET cart object and append data to 'cart' icon in navbar
 function updateCart() {
     $.ajax({
+        url: '/cart'
+      }).done(function(data) {
+        $('.mini-cart__empty').remove();
+        $('.mini-cart__list').html($(data).find('.mini-cart__list').html());
+        $('.mini-cart__cart-quantity').html($(data).find('.mini-cart__cart-quantity').html());
+        $('.mini-cart__subtotal').html($(data).find('.mini-cart__subtotal').html());
+        displayMiniCart();
+      });
+
+    $.ajax({
         url: '/cart.js',
         type: 'GET',
         dataType: 'json',
         success: function(data) {
+            $('.cart-count-bubble').remove();
             $(`<div class='cart-count-bubble'>
                 <span aria-hidden="true">${data.item_count}</span>
                 <span class="visually-hidden">${data.item_count} items</span>
@@ -353,26 +364,6 @@ arrowUp.click(function(){
 });
 
 
-//Shows second collection image on hover
-// $('.product-grid__list-item').each(function(){
-//     $(this).hover(
-//         function(){
-//             if ($(this).children('#hovered-image').val() != "") {
-//                 let ftImageHeight = $(this).find('.featured-image').height();
-//                 let ftImageWidth = $(this).find('.featured-image').width();
-//                 let hoveredImage = $(this).find('#hovered-image');
-//                 $(this).find('.featured-image').attr('src', `${hoveredImage.val()}`);
-//                 $(this).find('.featured-image').height(`${ftImageHeight}px`);
-//                 $(this).find('.featured-image').width(`${ftImageWidth}px`);
-//             }
-//         },
-//         function(){
-//             let initialImage = $(this).find('#initial-image');
-//             $(this).find('.featured-image').attr('src', `${initialImage.val()}`);
-//         }
-//     );
-// });
-
 $('.product-grid__list-item').each(function(){
     if ($(this).find('input').length) {
         $(this).hover(
@@ -408,18 +399,24 @@ function openModal() {
 
 //Closes modal when user clicks on 'X' or outside of modal content
 $('.close-modal').click(function(){
+    console.log('this', $(this))
     $('.modal').hide();
     sessionStorage.setItem('dismiss', 'dismiss');
 });
 
 //Closes modal when user clicks outside of modal box
 $('.modal').click(function() {
-    $(this).hide();
+    console.log('this', $(this))
+    $('.modal').hide();
     sessionStorage.setItem('dismiss', 'dismiss');
 });
 
 //Disables bubbling to modal content's parent elements
 $('.modal-content').click(function(e) {
+    e.stopPropagation();
+});
+//Disables bubbling to mini-cart modal's content's parent elements
+$('.mini-cart').click(function(e) {
     e.stopPropagation();
 });
 
@@ -472,7 +469,6 @@ $('.modal__toggle-close').click(function(){
 //Hides search results when user clicks outside of search results
 $(document).mouseup(function(e){
     const predictiveSearchContainer = $('#predictive-search');
- 
     if(!predictiveSearchContainer.is(e.target) && predictiveSearchContainer.has(e.target).length === 0){
         predictiveSearchContainer.hide();
     }
@@ -495,3 +491,136 @@ $('.header__menu-dropdown').hover(
         $(this).addClass('display-none');
     }
 );
+
+
+// Display cart side-drawer when user clicks cart icon
+$('.header__icon--cart').click(function(){
+    if ($('.mini-cart-modal').hasClass('display-none')) {
+        $('.mini-cart-modal').removeClass('display-none');
+        $('.mini-cart').removeClass('slide-in');
+        $('.mini-cart').addClass('slide-out');
+        $('body').addClass('overflow-hidden');
+    } else {
+        $('.mini-cart').removeClass('slide-out');
+        $('.mini-cart').addClass('slide-in')
+        $('.mini-cart-modal').addClass('display-none');
+        $('body').removeClass('overflow-hidden');
+    }
+});
+
+function displayMiniCart() {
+    $('.mini-cart').removeClass('slide-in');
+    $('.mini-cart').addClass('slide-out');
+    $('.mini-cart-modal').removeClass('display-none');
+    $('body').addClass('overflow-hidden');
+}
+
+
+// Hide cart side-drawer 
+$('.mini-cart__close, .mini-cart-modal').click(function(){
+    $('.mini-cart').removeClass('slide-out');
+    $('.mini-cart').addClass('slide-in');
+    setTimeout(hideModal, 1000);
+});
+
+function hideModal() {
+    $('.mini-cart-modal').addClass('display-none');
+    $('body').removeClass('overflow-hidden');
+}
+
+// Adds or Subtracts 1 from Item Quantity on Cart page when user clicks on '+' or '-'. Minimum quantity is '1'
+$('.mini-cart').on('click', '.line-item__qty-btn', function(){
+    let itemQuantityInput = $(this).closest('.line-item__info--secondary').find('.line-item__itemQuantityInput');
+    let variantId = $(this).closest('.line-item__info').find('.variant-id').val();
+    let totalPrice = $(this).closest('.line-item__info').find('.line-item__price');
+    let currentQuantityInt = parseInt(itemQuantityInput.val());
+    let $this = $(this)
+    // Display loader when item quantity is changed on cart page
+    $(this).closest('.line-item__info--secondary').find('.mini-cartload').show();
+    $(this).closest('.line-item__info--secondary').find('.line-item__price').hide();
+
+    function removeCartLoader() {
+        $this.closest('.line-item__info--secondary').find('.line-item__price').show();
+        $this.closest('.line-item__info--secondary').find('.mini-cartload').hide(); //Hides loader
+    }
+
+    if ($(this).hasClass('add')) {
+        if (currentQuantityInt >= 99) {
+            currentQuantityInt = 99;
+        } else {
+            currentQuantityInt++
+        }
+    } else if (currentQuantityInt <= 1) {
+        currentQuantityInt = 1;
+    } else {
+        currentQuantityInt--
+    }
+    itemQuantityInput.val(currentQuantityInt);
+
+    let data = {
+        quantity: currentQuantityInt,
+        id: variantId
+    }
+
+    $.ajax({
+        url: '/cart/change.js',
+        type: 'POST',
+        dataType: 'json',
+        data: data,
+        success: function(cartData) {
+            for (i = 0; i < cartData.items.length; i++) {
+                if (cartData.items[i].id == variantId) {
+                    let dataPrice = cartData.items[i].final_line_price.toString(); //Converts line item price integer to string
+                    let dataPriceFormat = dataPrice.substring(0,dataPrice.length-2)+"."+dataPrice.substring(dataPrice.length-2); //Formats line item string to account for cents
+                    let totalLinePrice = currency.format(dataPriceFormat); //Formats line item string to currency
+                    totalPrice.html(totalLinePrice);
+                    $('.mini-cart__cart-quantity').html(cartData.item_count);
+                    let dataTotalPrice = cartData.items_subtotal_price.toString(); //Converts total order price integer to string
+                    let dataTotalPriceFormat = dataTotalPrice.substring(0,dataTotalPrice.length-2)+"."+dataTotalPrice.substring(dataTotalPrice.length-2); //Formats total order string to account for cents
+                    let totalOrderPrice = currency.format(dataTotalPriceFormat); //Formats total order string to currency
+                    $('.mini-cart__subtotal').html(totalOrderPrice);
+                }
+            }
+            removeCartLoader();
+        },
+        error: function(error) {
+            console.log('error', error);
+        }
+    })
+});
+
+//Removes item from cart when 'Remove' is clicked
+$('.mini-cart').on('click', '.mini-cart__remove-item', function(){
+    let variantId = $(this).closest('.line-item__info').find('.variant-id').val();
+    let itemRow = $(this).closest('.mini-cart__list-item');
+    let data = {
+        quantity: 0,
+        id: variantId
+    }
+    console.log('data', data);
+    $.ajax({
+        url: '/cart/change.js',
+        type: 'POST',
+        dataType: 'json',
+        data: data,
+        success: function(cartData) {
+            itemRow.remove();
+            $('.mini-cart__cart-quantity').html(cartData.item_count);
+            let dataTotalPrice = cartData.items_subtotal_price.toString(); //Converts total order price integer to string
+            let dataTotalPriceFormat = dataTotalPrice.substring(0,dataTotalPrice.length-2)+"."+dataTotalPrice.substring(dataTotalPrice.length-2); //Formats total order string to account for cents
+            let totalOrderPrice = currency.format(dataTotalPriceFormat); //Formats total order string to currency
+            $('.mini-cart__subtotal').html(totalOrderPrice);
+            updateCart();
+            //If cart is empty: display 'Your cart is empty!'
+            setTimeout(function(){
+                if (cartData.item_count == 0) {
+                    $('.mini-cart__list').append('<p class="mini-cart__empty">Your cart is empty.</p>');
+                }
+            }, 500)
+            console.log('remove item');
+        },
+        error: function(error) {
+            console.log('error', error);
+        }
+    })
+});

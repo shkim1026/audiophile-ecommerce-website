@@ -26,6 +26,19 @@ li {
 .display-none {
     display: none !important;
 }
+.overflow-hidden{
+    overflow: hidden;
+}
+
+/* Removes arrows from Input Number */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+  }
 
 /* LOADER */
 .buttonload {
@@ -472,12 +485,200 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     margin-top: 1rem;
 }
 
+
+/* MINI CART */
+@keyframes slide-out {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0%);
+    }
+}
+@keyframes slide-in {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+.mini-cart-modal {
+    position: fixed;
+    background-color: #000;
+    background-color: rgba(0,0,0,0.4);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+}
+.mini-cart {
+    width: 430px;
+    position: fixed;
+    background-color: #222222;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0 2rem;
+    height: 100vh;
+}
+.slide-out {
+    animation: slide-out 1000ms;
+}
+.slide-in {
+    animation: slide-in 1000ms;
+}
+.mini-cart__header {
+    display: flex;
+    place-content: space-between;
+}
+.mini-cart__heading {
+    font-size: 2rem;
+}
+.mini-cart__close {
+    align-self: center;
+}
+.mini-cart__empty {
+    margin: 0;
+}
+.mini-cart__view-cart-btn,
+.mini-cart__checkout-btn {
+    padding: 1rem 2rem;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 0.5rem 0;
+    width: 100%;
+}
+.mini-cart__list {
+    padding-left: 0;
+    margin: 0;
+}
+.mini-cart__list-item {
+    display: flex;
+    margin: 1rem 0;
+}
+.line-item__header {
+    display: flex;
+    place-items: center;
+    width: 100%;
+    place-content: space-between;
+    margin-top: 1rem;
+}
+.line-item__info {
+    width: 100%;
+    position: relative;
+}
+.line-item__heading {
+    padding-left: 1rem;
+    font-size: 1.5rem;
+    margin: 0;
+}
+.line-item__image {
+    align-self: center;
+}
+.mini-cart__close,
+.line-item__image,
+.line-item__heading,
+.line-item__qty-btn,
+.mini-cart__remove-item,
+.mini-cart__view-cart-btn,
+.mini-cart__checkout-btn {
+    cursor: pointer;
+}
+.mini-cart__remove-item {
+    width: 2rem;
+    height: 2rem;
+}
+.mini-cart__close:hover,
+.line-item__heading:hover,
+.mini-cart__remove-item:hover {
+    color: #D87D4A;
+}
+.line-item__qty-btn:hover,
+.mini-cart__view-cart-btn:hover,
+.mini-cart__checkout-btn:hover {
+    background-color: #D87D4A;
+    color: white;
+}
+.line-item__info--secondary {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+.line-item__quantity {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+}
+.line-item__qty-btn {
+    height: 3rem;
+    width: 3rem;
+    border: none;
+}
+.line-item__qty-btn p {
+    margin: 0;
+}
+.qty-btn-subtract,
+.qty-btn-add {
+    z-index: 1;
+}
+.line-item__itemQuantityInput {
+    height: 3rem;
+    border: none;
+    text-align: center;
+    z-index: 2;
+}
+.line-item__price {
+    margin: 0;
+    align-self: center;
+}
+.mini-cart__subtotal-div,
+.mini-cart__cart-quantity-div {
+    display: flex;
+    place-content: space-between;
+}
+.mini-cart__cart-quantity-label,
+.mini-cart__cart-quantity,
+.mini-cart__subtotal-label,
+.mini-cart__subtotal {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.mini-cart__cart-quantity-label,
+.mini-cart__cart-quantity {
+    margin-bottom: 0;
+}
+.mini-cart__subtotal-label,
+.mini-cart__subtotal {
+    margin-top: 0;
+}
+.mini-cart__cart-buttons {
+    bottom: 2rem;
+    right: 0;
+    left: 0;
+    position: absolute;
+    width: 90%;
+    margin: 0 auto;
+}
+.mini-cartload {
+    display: none;
+}
+
+
+
 /* =============================================================== */
 /* LRG TABLETS (iPadPro) */
 /* =============================================================== */
 @media only screen and (max-width: 1070px) {
     .about__text-content {
         width: 100%;
+    }
+    .mini-cart__list {
+        overflow-y: scroll;
+        height: 55vh;
     }
 }
 /* =============================================================== */
@@ -658,5 +859,11 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     }
     #predictive-search {
         width: 25rem;
+    }
+
+
+    /* MINI CART */
+    .mini-cart {
+        width: 100vw;
     }
 }
