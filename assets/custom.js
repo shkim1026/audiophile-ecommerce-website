@@ -398,7 +398,7 @@ function openModal() {
 }
 
 //Closes modal when user clicks on 'X' or outside of modal content
-$('.close-modal', '.modal').click(function(){
+$('.close-modal').click(function(){
     console.log('this', $(this))
     $('.modal').hide();
     sessionStorage.setItem('dismiss', 'dismiss');
@@ -412,7 +412,11 @@ $('.modal').click(function() {
 });
 
 //Disables bubbling to modal content's parent elements
-$('.modal-content', '.mini-cart').click(function(e) {
+$('.modal-content').click(function(e) {
+    e.stopPropagation();
+});
+//Disables bubbling to mini-cart modal's content's parent elements
+$('.mini-cart').click(function(e) {
     e.stopPropagation();
 });
 
