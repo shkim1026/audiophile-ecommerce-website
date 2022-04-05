@@ -12,6 +12,9 @@
                         {% endif %}
                     {% endfor %}
                     <h4 class="product-grid__title">{{ product.title }}</h4>
+                    <div class="yotpo bottomLine yotpo__collections-page"
+                        data-product-id="{{ product.id }}">
+                    </div>
                     <h5 class="product-grid__vendor">{{ product.vendor }}</h5>
                     <h6 class="product-grid__price">{{ product.price | money }}</h6>
                 </li>
@@ -21,6 +24,12 @@
 </div>
 
 <style>
+    .yotpo__collections-page {
+        padding: 0.5rem 0;
+    }
+    .yotpo .text-m {
+        padding-left: 1rem;
+    }
     .product-grid__title {
         color: {{ section.settings.color-title }};
         font-size: {{ section.settings.font-size }}rem;
