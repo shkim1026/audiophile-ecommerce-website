@@ -34,6 +34,9 @@
             <p class="product__subtext">New Product</p>
             {% endif %}
             <h1 class="product__title">{{ product.title }}</h1>
+            <div class="yotpo bottomLine"
+                data-product-id="{{ product.id }}">
+            </div>
             <p class="product__description">{{ product.description }}</p>
             <p class="product__price">{{ product.price | money }}</p>
             <form class="product-form">
@@ -74,7 +77,18 @@
     </div>
 </div>
 
+<div class="yotpo yotpo-main-widget" 
+    data-product-id="{{ product.id }}" 
+    data-name="{{ product.title | escape }}" 
+    data-url="{{ shop.url }}{{ product.url }}" 
+    data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}" 
+    data-description="{{ product.description | escape }}">
+</div>
+
 <style>
+    .yotpo-main-widget {
+        max-width: 1500px;
+    }
     .gallery__cell {
         text-align: center;
         width: 101%;
@@ -174,6 +188,7 @@
     }
 
     .product__description {
+        margin-top: 3rem;
         margin-bottom: 6rem;
     }
     .product__price {
