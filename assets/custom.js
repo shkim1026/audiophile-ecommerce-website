@@ -634,20 +634,20 @@ $('.mini-cart').on('click', '.mini-cart__remove-item', function(){
 //https://shketchbook.myshopify.com/collections/headphones?filter.v.availability=1&sort_by=created-descending
 //https://shketchbook.myshopify.com/collections/headphones?filter.v.availability=1&sort_by=manual
 
-$('#sortBy').change(function() {
-    let value = $(this).val();
-    sessionStorage.setItem('sortByOption', value);
-    let url = 'https://shketchbook.myshopify.com/collections/'
-    let collection = $('.collectionsBanner__heading').html();
-    let sortBy = "?&sort_by=";
-    let newUrl = url + collection + sortBy + value;
-    window.location.href = newUrl;
-});
+// $('#sortBy').change(function() {
+//     let value = $(this).val();
+//     sessionStorage.setItem('sortByOption', value);
+//     let url = 'https://shketchbook.myshopify.com/collections/'
+//     let collection = $('.collectionsBanner__heading').html();
+//     let sortBy = "?&sort_by=";
+//     let newUrl = url + collection + sortBy + value;
+//     window.location.href = newUrl;
+// });
 
-$('#sortBy option').each(function() {
-    if ($(this).val() == sessionStorage.getItem('sortByOption')) {
-        console.log($(this).val(), '$(this).val()');
-        $(this).prop('selected', true);
-        console.log($(this), 'this');
-    }
-});
+// $('#sortBy option').each(function() {
+//     if ($(this).val() == sessionStorage.getItem('sortByOption')) {
+//         console.log($(this).val(), '$(this).val()');
+//         $(this).prop('selected', true);
+//         console.log($(this), 'this');
+//     }
+// });

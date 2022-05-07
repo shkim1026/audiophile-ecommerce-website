@@ -33,14 +33,14 @@ class FacetFiltersForm extends HTMLElement {
     const sections = FacetFiltersForm.getSections();
     const countContainer = document.getElementById('ProductCount');
     const countContainerDesktop = document.getElementById('ProductCountDesktop');
-    document.getElementById('ProductGridContainer').querySelector('.collection').classList.add('loading');
+    // document.getElementById('ProductGridContainer').querySelector('.collection').classList.add('loading');
     if (countContainer){
       countContainer.classList.add('loading');
     }
     if (countContainerDesktop){
       countContainerDesktop.classList.add('loading');
     }
-
+    console.log('renderPage')
     sections.forEach((section) => {
       const url = `${window.location.pathname}?section_id=${section.section}&${searchParams}`;
       const filterDataUrl = element => element.url === url;
