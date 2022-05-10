@@ -44,7 +44,7 @@ class FacetFiltersForm extends HTMLElement {
     sections.forEach((section) => {
       const url = `${window.location.pathname}?section_id=${section.section}&${searchParams}`;
       const filterDataUrl = element => element.url === url;
-
+      console.log('url', url);
       FacetFiltersForm.filterData.some(filterDataUrl) ?
         FacetFiltersForm.renderSectionFromCache(filterDataUrl, event) :
         FacetFiltersForm.renderSectionFromFetch(url, event);
@@ -62,6 +62,8 @@ class FacetFiltersForm extends HTMLElement {
         FacetFiltersForm.renderFilters(html, event);
         FacetFiltersForm.renderProductGridContainer(html);
         FacetFiltersForm.renderProductCount(html);
+        var api = new Yotpo.API(yotpo);
+        api.refreshWidgets();
       });
   }
 
@@ -70,6 +72,8 @@ class FacetFiltersForm extends HTMLElement {
     FacetFiltersForm.renderFilters(html, event);
     FacetFiltersForm.renderProductGridContainer(html);
     FacetFiltersForm.renderProductCount(html);
+    var api = new Yotpo.API(yotpo);
+    api.refreshWidgets();
   }
 
   static renderProductGridContainer(html) {
